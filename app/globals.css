@@ -3,25 +3,100 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --canvas: #eef1f0;
+  --ink: #0a0a0a;
+  --ink-mid: #2a2a2a;
+  --ink-soft: #b8b5ae;
+  --accent: #27b7a5;
+  --accent-soft: rgba(39, 183, 165, 0.12);
+  --dark: #0b0b0d;
+  --dark-mid: #1a1a1e;
+  --line: rgba(10, 10, 10, 0.08);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  max-width: 100%;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  max-width: 100%;
+  background: var(--canvas);
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  line-height: 1.5;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .page-gutter {
+    @apply w-full px-8 sm:px-12 lg:px-20 xl:px-28 2xl:px-36;
+  }
+
+  /* Responsive display titles */
+  .text-title-section {
+    @apply font-display font-bold leading-[1] tracking-[-0.025em];
+    font-size: clamp(2.25rem, 3.5vw + 1rem, 3.75rem);
+  }
+
+  .text-title-cta {
+    @apply font-display font-bold leading-[0.88] tracking-[-0.03em];
+    font-size: clamp(3.25rem, 10vw + 0.75rem, 8.75rem);
+  }
+
+  .text-title-hero-sub {
+    @apply font-display font-bold leading-[1] tracking-[-0.025em];
+    font-size: clamp(1.5rem, 2.5vw + 0.75rem, 3rem);
+  }
+
+  .text-title-stack {
+    @apply font-display font-bold leading-[0.92] tracking-[-0.025em];
+    font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  }
+
+  .text-title-capability {
+    @apply font-display font-bold leading-[0.88] tracking-[-0.025em];
+    font-size: clamp(3rem, 7vw + 0.5rem, 5.5rem);
+  }
+
+  @keyframes capability-shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    20% {
+      transform: translateX(-3px) rotate(-1deg);
+    }
+    40% {
+      transform: translateX(3px) rotate(1deg);
+    }
+    60% {
+      transform: translateX(-2px) rotate(-0.5deg);
+    }
+    80% {
+      transform: translateX(2px) rotate(0.5deg);
+    }
+  }
+
+  .hover-shake:hover {
+    animation: capability-shake 0.45s ease-in-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hover-shake:hover {
+      animation: none;
+    }
+  }
+
+  .text-title-menu {
+    @apply font-display font-bold leading-[0.92] tracking-[-0.025em];
+    font-size: clamp(2.5rem, 7vw + 0.5rem, 6rem);
+  }
+
+  .text-title-footer {
+    @apply font-display font-bold leading-[0.82] tracking-[-0.03em];
+    font-size: clamp(5rem, 18vw + 1rem, 25rem);
   }
 }
