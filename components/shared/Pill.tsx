@@ -37,14 +37,22 @@ export default function Pill({
 
   if (href) {
     return (
-      <Link href={href} className={clsx(base, variants[variant], className)}>
+      <Link
+        href={href}
+        onClick={onClick}
+        className={clsx(base, variants[variant], className)}
+      >
         {content}
       </Link>
     )
   }
 
   return (
-    <button type="button" onClick={onClick} className={clsx(base, variants[variant], className)}>
+    <button
+      type="button"
+      onClick={() => onClick?.()}
+      className={clsx(base, variants[variant], className)}
+    >
       {content}
     </button>
   )

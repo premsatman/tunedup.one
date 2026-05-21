@@ -17,7 +17,7 @@ type Mission = {
 
 export default function MissionArchivePreview({ missions }: { missions: Mission[] }) {
   return (
-    <ContainerSection>
+    <ContainerSection id="mission-archive">
       <MonoLabel className="mb-3 block">/ Mission Archive</MonoLabel>
       <h2 className="text-title-section w-full">
         We are a <HighlightWord>diligent</HighlightWord> crew, obsessed with turning ideas into

@@ -1,27 +1,65 @@
 'use client'
 
-import { useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import Pill from '@/components/shared/Pill'
 import MenuOverlay from './MenuOverlay'
+import { playClickSound } from '@/lib/playClickSound'
 import { MessageCircle, Menu as MenuIcon } from 'lucide-react'
+
+const MISSION_ARCHIVE_ID = 'mission-archive'
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const missionArchiveRef = useRef<HTMLElement | null>(null)
+  const shouldReduceMotion = useReducedMotion()
 
-  const handleOpenMenu = () => setMenuOpen(true)
+  useLayoutEffect(() => {
+    missionArchiveRef.current = document.getElementById(MISSION_ARCHIVE_ID)
+  }, [])
+
+  const { scrollYProgress: archiveReach } = useScroll({
+    target: missionArchiveRef,
+    offset: ['start end', 'start 0.14'],
+  })
+
+  const logoOpacity = useTransform(archiveReach, [0.55, 0.95], [1, 0])
+  const logoY = useTransform(archiveReach, [0.55, 0.95], [0, -10])
+
+  const handleNavClick = () => playClickSound()
+
+  const handleOpenMenu = () => {
+    playClickSound()
+    setMenuOpen(true)
+  }
+
   const handleCloseMenu = () => setMenuOpen(false)
 
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 pt-6">
         <div className="page-gutter flex items-center justify-between">
-          <Link href="/" className="font-display text-xl font-bold tracking-tight">
-            tunedup
-          </Link>
+          <motion.div
+            style={
+              shouldReduceMotion
+                ? undefined
+                : { opacity: logoOpacity, y: logoY }
+            }
+            className="will-change-transform"
+          >
+            <Link
+              href="/"
+              onClick={handleNavClick}
+              className="font-display text-2xl font-bold tracking-tight sm:text-3xl"
+              aria-label="TunedUp home"
+            >
+              tunedup
+            </Link>
+          </motion.div>
 
           <div className="flex items-center gap-3">
-            <Pill variant="outline" href="/contact" className="gap-2">
+            <Pill variant="outline" href="/contact" onClick={handleNavClick} className="gap-2">
               <MessageCircle size={14} aria-hidden />
               <span className="hidden sm:inline">Open Channel</span>
             </Pill>
