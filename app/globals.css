@@ -46,9 +46,39 @@ body {
     font-size: clamp(3.25rem, 10vw + 0.75rem, 8.75rem);
   }
 
+  @media (min-width: 1024px) {
+    .text-title-cta {
+      font-size: clamp(6rem, 7vw + 1.25rem, 12rem);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .text-title-cta {
+      font-size: clamp(6.75rem, 8vw + 1.5rem, 13.5rem);
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .text-title-cta {
+      font-size: clamp(7.25rem, 8.5vw + 1.5rem, 14.5rem);
+    }
+  }
+
   .text-title-hero-sub {
     @apply font-display font-bold leading-[1] tracking-[-0.025em];
     font-size: clamp(1.5rem, 2.5vw + 0.75rem, 3rem);
+  }
+
+  .text-title-hero-intro {
+    @apply font-display font-bold leading-[0.88] tracking-[-0.045em];
+    font-size: clamp(1.75rem, 2.8vw + 0.5rem, 3rem);
+  }
+
+  @media (min-width: 1280px) {
+    .text-title-hero-intro {
+      font-size: clamp(2.25rem, 4.5vw + 0.5rem, 4.25rem);
+      letter-spacing: -0.05em;
+    }
   }
 
   .text-title-stack {
@@ -59,6 +89,18 @@ body {
   .text-title-capability {
     @apply font-display font-bold leading-[0.88] tracking-[-0.025em];
     font-size: clamp(3rem, 7vw + 0.5rem, 5.5rem);
+  }
+
+  .text-title-capabilities-intro {
+    @apply font-display font-bold leading-[0.88] tracking-[-0.045em];
+    font-size: clamp(2.25rem, 3.5vw + 1rem, 3.75rem);
+  }
+
+  @media (min-width: 1280px) {
+    .text-title-capabilities-intro {
+      font-size: clamp(3rem, 7vw + 0.5rem, 5.5rem);
+      letter-spacing: -0.055em;
+    }
   }
 
   @keyframes capability-shake {

@@ -16,15 +16,15 @@ export default function OpenChannelCTA() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <ContainerSection className="!pt-8 !pb-24 lg:!pt-12 lg:!pb-32">
-      <div className="relative mx-auto flex w-full max-w-5xl flex-col items-center gap-10 sm:max-w-6xl lg:max-w-7xl lg:flex-row lg:items-center lg:justify-center lg:gap-12 xl:max-w-[76rem] xl:gap-16">
-        <div className="relative z-10 w-full min-w-0 shrink-0 text-center sm:max-w-xl lg:max-w-lg lg:text-left xl:max-w-xl">
+    <ContainerSection className="relative overflow-hidden !pt-8 !pb-20 sm:!pb-24 lg:!py-24">
+      <div className="relative mx-auto flex w-full min-h-[min(64vh,680px)] items-center sm:min-h-[min(70vh,760px)] lg:min-h-[min(78vh,920px)] xl:min-h-[min(82vh,1000px)]">
+        <div className="relative z-10 w-full min-w-0 max-w-xl shrink-0 text-left lg:max-w-2xl lg:pl-16 xl:max-w-3xl xl:pl-24 2xl:pl-32">
           <h2 className="text-title-cta">
             <span className="block whitespace-nowrap">Let&apos;s</span>
             <span className="block whitespace-nowrap">tune in.</span>
           </h2>
 
-          <div className="mt-10 flex flex-wrap justify-center gap-3 sm:flex-nowrap lg:justify-start">
+          <div className="relative z-10 mt-24 flex flex-col items-start gap-4 sm:mt-10 sm:flex-row sm:flex-nowrap sm:gap-3">
             <Pill variant="primary" href="/contact">
               Open Channel
             </Pill>
@@ -34,21 +34,25 @@ export default function OpenChannelCTA() {
           </div>
         </div>
 
-        <div className="pointer-events-none relative mx-auto aspect-[4/5] w-full max-w-[280px] shrink-0 sm:max-w-[300px] lg:mx-0 lg:aspect-auto lg:h-[min(480px,52vh)] lg:w-[min(360px,36vw)] lg:max-w-[380px]">
+        <div
+          className="pointer-events-none absolute right-[-50%] top-1/2 z-40 aspect-[2066/1373] sm:right-[-10%] lg:right-[-20%] h-[min(44vh,400px)] w-[min(92vw,500px)] max-w-none -translate-y-1/2 sm:h-[min(50vh,460px)] sm:w-[min(88vw,560px)] md:h-[min(56vh,520px)] md:w-[min(82vw,640px)] lg:h-[min(82vh,1240px)] lg:w-[min(64vw,1040px)] xl:h-[min(86vh,1340px)] xl:w-[min(68vw,1120px)] 2xl:h-[min(90vh,1460px)] 2xl:w-[min(72vw,1240px)]"
+          aria-hidden
+        >
           <motion.div
             className="relative h-full w-full"
-            initial={{ opacity: 0, scale: 0.92 }}
+            initial={false}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: 'easeOut' }}
           >
             <motion.div
               className="relative h-full w-full"
-              animate={shouldReduceMotion ? undefined : { y: [0, -10, 0] }}
+              animate={shouldReduceMotion ? undefined : { y: [0, -6, 0] }}
               transition={shouldReduceMotion ? undefined : BREATH_TRANSITION}
             >
               <PropImage
-                src="/props/prop-helmet.png"
-                alt="TunedUp Mission Control helmet — HELM-03"
+                src="/props/prop-robot.png"
+                alt="TunedUp Mission Control robot at the tuning station"
+                imageClassName="object-contain object-right"
               />
             </motion.div>
           </motion.div>

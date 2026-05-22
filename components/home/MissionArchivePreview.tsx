@@ -19,7 +19,7 @@ export default function MissionArchivePreview({ missions }: { missions: Mission[
   return (
     <ContainerSection id="mission-archive">
       <MonoLabel className="mb-3 block">/ Mission Archive</MonoLabel>
-      <h2 className="text-title-section w-full">
+      <h2 className="text-title-capabilities-intro w-full">
         We are a <HighlightWord>diligent</HighlightWord> crew, obsessed with turning ideas into
         measurable trajectory.
       </h2>

@@ -12,7 +12,7 @@ export default function HomeTrustStrip({ logos }: { logos: TrustLogo[] }) {
   if (!logos?.length) return null
 
   return (
-    <section className="border-y border-[var(--line)] pb-16 pt-8 md:py-16">
+    <section className="border-y border-[var(--line)] pb-16 pt-4 sm:pt-8 md:py-16">
       <div className="page-gutter flex flex-col gap-8 md:flex-row md:items-center">
         <MonoLabel>Trusted by crew across</MonoLabel>
         <div className="flex flex-wrap items-center gap-8 lg:gap-12 opacity-70">
