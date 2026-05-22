@@ -139,6 +139,12 @@ body {
 
   .text-title-footer {
     @apply font-display font-bold leading-[0.82] tracking-[-0.03em];
-    font-size: clamp(5rem, 18vw + 1rem, 25rem);
+    font-size: clamp(3.75rem, 14vw + 0.5rem, 25rem);
+  }
+
+  @media (min-width: 640px) {
+    .text-title-footer {
+      font-size: clamp(5rem, 18vw + 1rem, 25rem);
+    }
   }
 }

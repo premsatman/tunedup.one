@@ -28,7 +28,7 @@ export default function Footer() {
 
         <div className="relative z-10 px-4 sm:px-6 md:px-8">
           <p className="text-center font-display text-2xl md:text-3xl">
-            <span className="text-[var(--ink-soft)]">©</span> TunedUp Digital
+            <span className="text-[var(--ink-soft)]">©</span>TunedUpDigital
             <br />
             <span className="mt-3 inline-block font-mono text-sm uppercase tracking-wide text-[var(--ink-soft)]">
               Mission Control · STN-A440 · Fine Tuning Since 2024
