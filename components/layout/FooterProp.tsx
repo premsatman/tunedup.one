@@ -26,7 +26,7 @@ export default function FooterProp() {
         >
           <motion.div
             className="relative h-full w-full"
-            animate={shouldReduceMotion ? undefined : { y: [0, -10, 0] }}
+            animate={shouldReduceMotion ? undefined : { y: [0, -18, 0] }}
             transition={shouldReduceMotion ? undefined : BREATH_TRANSITION}
           >
             <Image

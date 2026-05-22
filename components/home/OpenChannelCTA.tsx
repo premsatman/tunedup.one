@@ -42,10 +42,10 @@ export default function OpenChannelCTA() {
 
           <div className="relative z-10 mt-24 flex flex-col items-start gap-4 sm:mt-10 xl:flex-row xl:flex-nowrap xl:gap-3">
             <Pill variant="primary" href="/contact">
-            Get in Touch
+              Start a Project
             </Pill>
             <Pill variant="outline" href="/contact">
-            Book a Call
+              Book a Call
             </Pill>
           </div>
         </div>
@@ -63,7 +63,7 @@ export default function OpenChannelCTA() {
           >
             <motion.div
               className="relative h-full w-full"
-              animate={shouldReduceMotion ? undefined : { y: [0, -6, 0] }}
+              animate={shouldReduceMotion ? undefined : { y: [0, -14, 0] }}
               transition={shouldReduceMotion ? undefined : BREATH_TRANSITION}
             >
               <PropImage

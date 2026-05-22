@@ -128,7 +128,7 @@ export default function BrokenWordHero({
     >
       <motion.div
         className="relative h-full w-full"
-        animate={shouldReduceMotion ? undefined : { y: [0, -10, 0] }}
+        animate={shouldReduceMotion ? undefined : { y: [0, -18, 0] }}
         transition={
           shouldReduceMotion
             ? undefined
@@ -151,11 +151,11 @@ export default function BrokenWordHero({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.4 }}
       className={
-        isHomeLayout && wordmarkSrc
-          ? 'text-title-hero-intro relative z-0 m-0 mt-0 max-w-3xl leading-none text-[var(--ink)]'
-          : isHomeLayout
-            ? 'text-title-hero-sub relative z-0 mt-4 max-w-3xl text-[var(--ink)] md:mt-5'
-            : 'text-title-hero-sub relative z-0 mt-4 max-w-3xl text-[var(--ink)] md:mt-5'
+        isHomeLayout
+          ? wordmarkSrc
+            ? 'text-title-hero-intro relative z-0 m-0 mt-0 max-w-3xl leading-none text-[var(--ink)]'
+            : 'text-title-hero-intro relative z-0 m-0 mt-4 max-w-3xl text-[var(--ink)] md:mt-5'
+          : 'text-title-hero-sub relative z-0 mt-4 max-w-3xl text-[var(--ink)] md:mt-5'
       }
     >
       {subline}

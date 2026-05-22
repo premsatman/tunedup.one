@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import Pill from '@/components/shared/Pill'
 import MenuOverlay from './MenuOverlay'
+import SoundToggle from './SoundToggle'
 import { playClickSound } from '@/lib/playClickSound'
 import { MessageCircle, Menu as MenuIcon } from 'lucide-react'
 
@@ -59,10 +60,11 @@ export default function Navbar() {
             </Link>
           </motion.div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <SoundToggle />
             <Pill variant="outline" href="/contact" onClick={handleNavClick} className="gap-2">
               <MessageCircle size={14} aria-hidden />
-              <span className="hidden sm:inline">Open Channel</span>
+              <span className="hidden sm:inline">Get in Touch</span>
             </Pill>
             <Pill variant="primary" onClick={handleOpenMenu} className="gap-2">
               <span>Menu</span>

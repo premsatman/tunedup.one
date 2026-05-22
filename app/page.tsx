@@ -1,4 +1,5 @@
 import { client, urlFor } from '@/lib/sanity/client'
+import { FEATURED_WORK } from '@/lib/featuredWork'
 import { featuredMissionsQuery, trustLogosQuery } from '@/lib/sanity/queries'
 import HomeHero from '@/components/home/HomeHero'
 import HomeTrustStrip from '@/components/home/HomeTrustStrip'
@@ -39,7 +40,7 @@ export default async function Home() {
     <>
       <HomeHero />
       <HomeTrustStrip logos={trustLogos} />
-      <MissionArchivePreview missions={missions} />
+      <MissionArchivePreview missions={missions} featuredWork={FEATURED_WORK} />
       <CapabilitiesStack />
       <OpenChannelCTA />
     </>

@@ -1,20 +1,21 @@
 import BrokenWordHero from '@/components/shared/BrokenWordHero'
 import HighlightWord from '@/components/shared/HighlightWord'
 
-export default function HomeHero() {
+export default function ContactHero() {
   return (
     <BrokenWordHero
-      word="tunedup"
-      wordmarkSrc="/props/herotext.svg"
+      word="contact"
       layout="home"
       propSrc="/props/prop-hero.png"
-      propAlt="TunedUp handheld transmitter — STN-A440"
+      propAlt="TunedUp Comms Handset"
       subline={
         <>
-          Your work powers <HighlightWord>ours.</HighlightWord>
+          Start a conversation about{' '}
+          <HighlightWord>new work,</HighlightWord>
+          <br />
+          careers, or anything else.
         </>
       }
-      propPosition="center"
     />
   )
 }

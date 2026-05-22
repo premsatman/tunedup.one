@@ -219,8 +219,7 @@ export default function CapabilitiesStack() {
       <PageGutter>
         <MonoLabel className="mb-3 block">/ What We Do</MonoLabel>
         <h2 className="text-title-section w-full">
-          We&apos;re a <HighlightWord>digital workshop.</HighlightWord> We design, build, and tune the
-          things your work needs to be seen, heard, and chosen.
+        We&apos;re an unusual <HighlightWord>digital workshop,</HighlightWord> focused on turning your vision into work that gets seen, heard, and chosen.
         </h2>
 
         <section

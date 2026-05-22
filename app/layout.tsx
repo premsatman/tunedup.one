@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Space_Grotesk, DM_Sans, JetBrains_Mono } from 'next/font/google'
 import { MenuOpenProvider } from '@/components/layout/MenuOpenContext'
+import { SoundEnabledProvider } from '@/components/layout/SoundEnabledContext'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import ScrollSmootherInit from '@/components/layout/ScrollSmootherInit'
@@ -48,16 +49,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className={`${display.variable} ${body.variable} ${mono.variable} font-body bg-[var(--canvas)] text-[var(--ink)] antialiased`}
       >
         {/* TEMP: re-enable ViewportDebugBar + RobotDebugProvider in layout when debugging */}
-        <MenuOpenProvider>
-          <ScrollSmootherInit />
-          <Navbar />
+        <SoundEnabledProvider>
+          <MenuOpenProvider>
+            <ScrollSmootherInit />
+            <Navbar />
           <div id="smooth-wrapper">
             <div id="smooth-content">
               {children}
               <Footer />
             </div>
           </div>
-        </MenuOpenProvider>
+          </MenuOpenProvider>
+        </SoundEnabledProvider>
       </body>
     </html>
   )

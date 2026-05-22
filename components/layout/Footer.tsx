@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { Linkedin, Twitter, Instagram, Youtube } from 'lucide-react'
+import Pill from '@/components/shared/Pill'
 import FooterScrollButton from './FooterScrollButton'
 import FooterProp from './FooterProp'
 import FooterShowcase from './FooterShowcase'
@@ -13,7 +13,7 @@ const socialLinks = [
 
 const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'Studio', href: '/studio' },
+  { label: 'The Workshop', href: '/workshop' },
   { label: 'Work', href: '/work' },
   { label: 'Contact', href: '/contact' },
 ]
@@ -57,13 +57,9 @@ export default function Footer() {
 
             <div className="mt-12 flex flex-wrap justify-center gap-3">
               {navLinks.map(({ label, href }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="inline-flex items-center gap-2 rounded-full bg-[var(--canvas)] px-5 py-2.5 font-mono text-xs uppercase tracking-wide text-[var(--ink)] transition-transform hover:scale-105"
-                >
+                <Pill key={href} variant="outline" href={href}>
                   {label} →
-                </Link>
+                </Pill>
               ))}
               <FooterScrollButton />
             </div>

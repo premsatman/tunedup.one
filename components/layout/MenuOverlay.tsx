@@ -6,9 +6,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const menuItems = [
   { label: 'Home', href: '/', code: '/01' },
-  { label: 'The Station', href: '/studio', code: '/02' },
-  { label: 'Mission Archive', href: '/work', code: '/03' },
-  { label: 'Open Channel', href: '/contact', code: '/04' },
+  { label: 'The Workshop', href: '/workshop', code: '/02' },
+  { label: 'Our Work', href: '/work', code: '/03' },
+  { label: 'Get in Touch', href: '/contact', code: '/04' },
 ]
 
 type MenuOverlayProps = {
