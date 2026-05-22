@@ -45,6 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${display.variable} ${body.variable} ${mono.variable} font-body bg-[var(--canvas)] text-[var(--ink)] antialiased`}
       >
+        {/* TEMP: re-enable ViewportDebugBar + RobotDebugProvider in layout when debugging */}
         <Navbar />
         {children}
         <Footer />

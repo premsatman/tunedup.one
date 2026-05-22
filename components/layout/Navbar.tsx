@@ -38,7 +38,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 pt-6">
+      <header className="fixed left-0 right-0 top-0 z-50 pt-6">
         <div className="page-gutter flex items-center justify-between">
           <motion.div
             style={

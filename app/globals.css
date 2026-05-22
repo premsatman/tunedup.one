@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 :root {
+  --viewport-debug-offset: 0rem;
+  --footer-wordmark-overlap: 1.75rem;
   --canvas: #eef1f0;
   --ink: #0a0a0a;
   --ink-mid: #2a2a2a;

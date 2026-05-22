@@ -1,69 +1,45 @@
 'use client'
 
+import Image from 'next/image'
 import { useRef } from 'react'
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from 'framer-motion'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 
-const WORD = 'tunedup'
-
-type FooterCharProps = {
-  char: string
-  index: number
-  total: number
-  progress: MotionValue<number>
-}
-
-const FooterChar = ({ char, index, total, progress }: FooterCharProps) => {
-  const start = index / total * 0.5
-  const end = Math.min(start + 0.14, 1)
-  const y = useTransform(progress, [start, end], [56, 0])
-  const opacity = useTransform(progress, [start, end], [0, 1])
-
-  return (
-    <span className="inline-block overflow-hidden align-bottom">
-      <motion.span className="inline-block will-change-transform" style={{ y, opacity }}>
-        {char}
-      </motion.span>
-    </span>
-  )
-}
+const WORDMARK_SRC = '/props/herotext.svg'
+const WORDMARK_ALT = 'tunedup'
 
 export default function FooterShowcase() {
-  const sectionRef = useRef<HTMLElement>(null)
+  const sectionRef = useRef<HTMLDivElement>(null)
   const shouldReduceMotion = useReducedMotion()
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end 0.55'],
   })
 
+  const y = useTransform(scrollYProgress, [0.2, 0.75], [48, 0])
+  const opacity = useTransform(scrollYProgress, [0.2, 0.75], [0, 1])
+
+  const wordmarkImage = (
+    <Image
+      src={WORDMARK_SRC}
+      alt={WORDMARK_ALT}
+      width={1810}
+      height={450}
+      unoptimized
+      className="block h-auto w-full max-w-none"
+    />
+  )
+
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-visible bg-[var(--canvas)] pb-0 pt-12 md:pt-20"
-    >
-      <div className="relative z-0">
-        <h2
-          className="text-title-footer m-0 -mb-[0.035em] pb-0 text-center leading-[0.82] text-[var(--ink)]"
-          aria-label={WORD}
-        >
-          {shouldReduceMotion
-            ? WORD
-            : WORD.split('').map((char, index) => (
-                <FooterChar
-                  key={`${char}-${index}`}
-                  char={char}
-                  index={index}
-                  total={WORD.length}
-                  progress={scrollYProgress}
-                />
-              ))}
-        </h2>
-      </div>
-    </section>
+    <div ref={sectionRef} className="w-full leading-none">
+      <h2 className="m-0 w-full" aria-label={WORDMARK_ALT}>
+        {shouldReduceMotion ? (
+          wordmarkImage
+        ) : (
+          <motion.div className="w-full will-change-transform" style={{ y, opacity }}>
+            {wordmarkImage}
+          </motion.div>
+        )}
+      </h2>
+    </div>
   )
 }
