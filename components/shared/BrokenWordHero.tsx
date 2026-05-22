@@ -1,7 +1,10 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import Image from 'next/image'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { useMenuOpenOptional } from '@/components/layout/MenuOpenContext'
 import PropImage from './PropImage'
 import ScrollCue from './ScrollCue'
 import PageGutter from './PageGutter'
@@ -29,6 +32,33 @@ const HOME_PROP_CLASSES =
   'xl:w-[clamp(340px,36vw,720px)] xl:max-w-[min(56vw,740px)] ' +
   '2xl:bottom-28 2xl:w-[clamp(390px,34vw,820px)] 2xl:max-w-[min(52vw,840px)]'
 
+const SCROLL_CUE_FADE = [0, 72, 200] as const
+const SCROLL_CUE_OPACITY = [0.55, 0.2, 0] as const
+
+const HeroScrollCue = () => {
+  const [mounted, setMounted] = useState(false)
+  const shouldReduceMotion = useReducedMotion()
+  const { scrollY } = useScroll()
+  const scrollOpacity = useTransform(scrollY, [...SCROLL_CUE_FADE], [...SCROLL_CUE_OPACITY])
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
+
+  return createPortal(
+    <motion.div
+      className="pointer-events-none fixed bottom-6 left-1/2 z-[120] flex -translate-x-1/2 justify-center sm:bottom-8"
+      style={{ opacity: shouldReduceMotion ? 0.55 : scrollOpacity }}
+      aria-hidden
+    >
+      <ScrollCue />
+    </motion.div>,
+    document.body
+  )
+}
+
 export default function BrokenWordHero({
   word,
   wordmarkSrc,
@@ -41,7 +71,10 @@ export default function BrokenWordHero({
   showScrollCue = true,
 }: BrokenWordHeroProps) {
   const shouldReduceMotion = useReducedMotion()
+  const menuOpen = useMenuOpenOptional()?.menuOpen ?? false
   const isHomeLayout = layout === 'home'
+  const isHomeHeroProp = propSrc.includes('prop-hero')
+  const hidePropForMenu = menuOpen && isHomeHeroProp
 
   const propPositionClasses = {
     center: 'left-1/2 -translate-x-1/2',
@@ -135,7 +168,7 @@ export default function BrokenWordHero({
         <div className="relative pl-10 sm:pl-14 lg:pl-20">
           {isHomeLayout ? (
             <div className="relative mt-4 min-h-0 overflow-visible pb-2 sm:mt-0 sm:flex sm:min-h-[min(78vh,780px)] sm:flex-col sm:justify-end sm:pb-14 lg:min-h-[min(82vh,840px)] lg:pb-16 xl:mt-0 xl:flex xl:min-h-[min(88vh,920px)] xl:flex-col xl:justify-end xl:overflow-visible xl:pb-16">
-              {propMotion}
+              {!hidePropForMenu && propMotion}
 
               <div
                 className={`relative z-10 flex w-full origin-bottom-left flex-col items-start gap-0 text-left ml-8 sm:mt-auto sm:translate-y-5 sm:pb-4 sm:ml-22 md:ml-24 md:translate-y-6 md:pb-5 lg:ml-28 lg:translate-y-7 lg:pb-6 xl:ml-28 xl:translate-y-7 xl:pb-6 2xl:ml-28 2xl:translate-y-7 2xl:pb-6 ${wordmarkSrc ? 'pt-0' : 'max-w-3xl'}`}
@@ -144,15 +177,12 @@ export default function BrokenWordHero({
                 {sublineEl}
               </div>
 
-              {showScrollCue && (
-                <ScrollCue className="relative z-20 mt-8 opacity-50 sm:mt-10 sm:shrink-0 lg:mt-12 xl:mt-12" />
-              )}
             </div>
           ) : (
             <>
               <div className="relative z-[100]">
                 {wordmarkEl}
-                {propMotion}
+                {!hidePropForMenu && propMotion}
               </div>
               {sublineEl}
               {showScrollCue && (
@@ -162,6 +192,8 @@ export default function BrokenWordHero({
           )}
         </div>
       </PageGutter>
+
+      {showScrollCue && isHomeLayout && <HeroScrollCue />}
 
       {showScrollCue && !isHomeLayout && (
         <PageGutter className="pointer-events-none absolute bottom-6 left-0 right-0 z-0 hidden md:block lg:bottom-8">

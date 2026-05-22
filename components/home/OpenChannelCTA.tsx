@@ -42,10 +42,10 @@ export default function OpenChannelCTA() {
 
           <div className="relative z-10 mt-24 flex flex-col items-start gap-4 sm:mt-10 xl:flex-row xl:flex-nowrap xl:gap-3">
             <Pill variant="primary" href="/contact">
-              Open Channel
+            Get in Touch
             </Pill>
             <Pill variant="outline" href="/contact">
-              Sync with Mission Control
+            Book a Call
             </Pill>
           </div>
         </div>

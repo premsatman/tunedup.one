@@ -1,6 +1,7 @@
 'use client'
 
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef } from 'react'
+import { useMenuOpen } from '@/components/layout/MenuOpenContext'
 import Link from 'next/link'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import Pill from '@/components/shared/Pill'
@@ -11,7 +12,7 @@ import { MessageCircle, Menu as MenuIcon } from 'lucide-react'
 const MISSION_ARCHIVE_ID = 'mission-archive'
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false)
+  const { menuOpen, setMenuOpen } = useMenuOpen()
   const missionArchiveRef = useRef<HTMLElement | null>(null)
   const shouldReduceMotion = useReducedMotion()
 
