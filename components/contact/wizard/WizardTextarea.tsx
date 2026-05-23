@@ -9,7 +9,6 @@ type WizardTextareaProps = {
   onChange: (val: string) => void
   rows?: number
   required?: boolean
-  hint?: string
 }
 
 export default function WizardTextarea({
@@ -19,14 +18,12 @@ export default function WizardTextarea({
   onChange,
   rows = 5,
   required = false,
-  hint,
 }: WizardTextareaProps) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="font-mono text-xs uppercase tracking-widest text-[var(--ink-soft)]">
+      <label className="font-body text-sm font-medium leading-snug text-[var(--ink)]">
         {label}
       </label>
-      {hint && <p className="-mt-1 font-body text-sm text-[var(--ink-soft)]">{hint}</p>}
       <textarea
         placeholder={placeholder}
         value={value}

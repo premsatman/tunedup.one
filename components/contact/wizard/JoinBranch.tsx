@@ -7,10 +7,11 @@ import WizardInput from './WizardInput'
 import WizardTextarea from './WizardTextarea'
 import WizardNavigation from './WizardNavigation'
 import { wizardStepTitleClass } from './wizardStepTitle'
+import WizardBranchLabel from './WizardBranchLabel'
 import {
   centeredFormWrapClass,
-  centeredPillsClass,
   centeredStepBodyClass,
+  wizardPillsClass,
 } from './wizardStepLayout'
 
 export type JoinData = {
@@ -91,11 +92,12 @@ export default function JoinBranch({
   }
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex min-h-0 flex-1 flex-col">
       <AnimatePresence mode="wait">
         {step === 0 && (
           <motion.div key={0} {...stepMotion} className="flex flex-1 flex-col">
             <div className={centeredStepBodyClass}>
+              <WizardBranchLabel>Join Us</WizardBranchLabel>
               <h3
                 ref={headlineRef}
                 tabIndex={-1}
@@ -106,7 +108,7 @@ export default function JoinBranch({
               <div
                 role="radiogroup"
                 aria-label="What kind of work do you do best?"
-                className={centeredPillsClass}
+                className={wizardPillsClass}
               >
                 {ROLE_OPTIONS.map((label) => (
                   <WizardPill
@@ -115,6 +117,7 @@ export default function JoinBranch({
                     mode="radio"
                     selected={data.role === label}
                     onClick={() => onChange({ role: label })}
+                    className="w-full"
                   />
                 ))}
               </div>
@@ -132,6 +135,7 @@ export default function JoinBranch({
         {step === 1 && (
           <motion.div key={1} {...stepMotion} className="flex flex-1 flex-col">
             <div className={centeredStepBodyClass}>
+              <WizardBranchLabel>Join Us</WizardBranchLabel>
               <h3
                 ref={headlineRef}
                 tabIndex={-1}
@@ -140,7 +144,7 @@ export default function JoinBranch({
                 Tell us about yourself.
               </h3>
               <div className={centeredFormWrapClass}>
-                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                <div className="grid grid-cols-2 gap-5">
                   <WizardInput
                     label="Full Name"
                     value={data.name}
@@ -171,7 +175,7 @@ export default function JoinBranch({
                     onChange={(portfolio) => onChange({ portfolio })}
                     optional
                   />
-                  <div className="md:col-span-2">
+                  <div className="col-span-2">
                     <WizardTextarea
                       label="What kind of work lights you up?"
                       placeholder="Tell us what you're best at, what you've built, and why you'd want to work with a team like ours."

@@ -1,11 +1,17 @@
 import Link from 'next/link'
 import { CheckCircle2 } from 'lucide-react'
 import { wizardStepTitleClass } from './wizardStepTitle'
+import WizardBranchLabel from './WizardBranchLabel'
 
 type WizardConfirmationProps = {
   branch: 'project' | 'join'
   onReset: () => void
 }
+
+const branchLabels = {
+  project: 'Start a Project',
+  join: 'Join Us',
+} as const
 
 const content = {
   project: {
@@ -31,6 +37,8 @@ export default function WizardConfirmation({ branch, onReset }: WizardConfirmati
       aria-live="polite"
       className="flex flex-col items-center justify-center gap-6 py-16 text-center"
     >
+      <WizardBranchLabel>{branchLabels[branch]}</WizardBranchLabel>
+
       <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--accent-soft)]">
         <CheckCircle2 size={32} className="text-[var(--accent)]" />
       </div>

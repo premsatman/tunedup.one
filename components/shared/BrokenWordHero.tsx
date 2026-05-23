@@ -19,6 +19,7 @@ type BrokenWordHeroProps = {
   propContainerClassName?: string
   layout?: 'default' | 'home'
   showScrollCue?: boolean
+  sublineClassName?: string
 }
 
 /* Mobile: prop offset right. Tablet+ (sm+): centered overlay, scales by breakpoint. */
@@ -69,6 +70,7 @@ export default function BrokenWordHero({
   propContainerClassName = 'top-[-10%] h-[120%] w-[40%]',
   layout = 'default',
   showScrollCue = true,
+  sublineClassName,
 }: BrokenWordHeroProps) {
   const shouldReduceMotion = useReducedMotion()
   const menuOpen = useMenuOpenOptional()?.menuOpen ?? false
@@ -151,11 +153,12 @@ export default function BrokenWordHero({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.4 }}
       className={
-        isHomeLayout
+        sublineClassName ??
+        (isHomeLayout
           ? wordmarkSrc
             ? 'text-title-hero-intro relative z-0 m-0 mt-0 max-w-3xl leading-none text-[var(--ink)]'
             : 'text-title-hero-intro relative z-0 m-0 mt-4 max-w-3xl text-[var(--ink)] md:mt-5'
-          : 'text-title-hero-sub relative z-0 mt-4 max-w-3xl text-[var(--ink)] md:mt-5'
+          : 'text-title-hero-sub relative z-0 mt-4 max-w-3xl text-[var(--ink)] md:mt-5')
       }
     >
       {subline}

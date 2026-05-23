@@ -8,10 +8,11 @@ import WizardInput from './WizardInput'
 import WizardTextarea from './WizardTextarea'
 import WizardNavigation from './WizardNavigation'
 import { wizardStepTitleClass } from './wizardStepTitle'
+import WizardBranchLabel from './WizardBranchLabel'
 import {
   centeredFormWrapClass,
-  centeredPillsClass,
   centeredStepBodyClass,
+  wizardPillsClass,
 } from './wizardStepLayout'
 
 export type BudgetCurrency = 'USD' | 'INR'
@@ -186,11 +187,12 @@ export default function ProjectBranch({
     data.budgetCurrency === 'INR' ? BUDGET_OPTIONS_INR : BUDGET_OPTIONS_USD
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex min-h-0 flex-1 flex-col">
       <AnimatePresence mode="wait">
         {step === 0 && (
           <motion.div key={0} {...stepMotion} className="flex flex-1 flex-col">
-            <div className="flex flex-1 flex-col items-center justify-center py-8 text-center">
+            <div className={centeredStepBodyClass}>
+              <WizardBranchLabel>Start a Project</WizardBranchLabel>
               <h3
                 ref={headlineRef}
                 tabIndex={-1}
@@ -201,7 +203,7 @@ export default function ProjectBranch({
               <div
                 role="group"
                 aria-label="What do you need?"
-                className="mt-10 flex max-w-4xl flex-wrap justify-center gap-3"
+                className={wizardPillsClass}
               >
                 {SERVICE_OPTIONS.map(({ label }) => (
                   <WizardPill
@@ -210,6 +212,7 @@ export default function ProjectBranch({
                     mode="checkbox"
                     selected={data.services.includes(label)}
                     onClick={() => handleServiceToggle(label)}
+                    className="w-full"
                   />
                 ))}
               </div>
@@ -227,6 +230,7 @@ export default function ProjectBranch({
         {step === 1 && (
           <motion.div key={1} {...stepMotion} className="flex flex-1 flex-col">
             <div className={centeredStepBodyClass}>
+              <WizardBranchLabel>Start a Project</WizardBranchLabel>
               <h3
                 ref={headlineRef}
                 tabIndex={-1}
@@ -237,7 +241,7 @@ export default function ProjectBranch({
               <div
                 role="radiogroup"
                 aria-label="Who are you?"
-                className={centeredPillsClass}
+                className={wizardPillsClass}
               >
                 {AUDIENCE_OPTIONS.map((label) => (
                   <WizardPill
@@ -246,6 +250,7 @@ export default function ProjectBranch({
                     mode="radio"
                     selected={data.audience === label}
                     onClick={() => onChange({ audience: label })}
+                    className="w-full"
                   />
                 ))}
               </div>
@@ -267,6 +272,7 @@ export default function ProjectBranch({
                 currency={data.budgetCurrency}
                 onChange={handleCurrencyChange}
               />
+              <WizardBranchLabel>Start a Project</WizardBranchLabel>
               <h3
                 ref={headlineRef}
                 tabIndex={-1}
@@ -277,7 +283,7 @@ export default function ProjectBranch({
               <div
                 role="radiogroup"
                 aria-label={`What's your budget for this project in ${data.budgetCurrency}?`}
-                className={centeredPillsClass}
+                className={wizardPillsClass}
               >
                 {budgetOptions.map(({ label }) => (
                   <WizardPill
@@ -286,6 +292,7 @@ export default function ProjectBranch({
                     mode="radio"
                     selected={data.budget === label}
                     onClick={() => onChange({ budget: label })}
+                    className="w-full"
                   />
                 ))}
               </div>
@@ -303,15 +310,16 @@ export default function ProjectBranch({
         {step === 3 && (
           <motion.div key={3} {...stepMotion} className="flex flex-1 flex-col">
             <div className={centeredStepBodyClass}>
+              <WizardBranchLabel>Start a Project</WizardBranchLabel>
               <h3
                 ref={headlineRef}
                 tabIndex={-1}
                 className={`${wizardStepTitleClass} text-center`}
               >
-                Last step. Tell us the rest.
+                Last step.
               </h3>
               <div className={centeredFormWrapClass}>
-                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                <div className="grid grid-cols-2 gap-5">
                   <WizardInput
                     label="Full Name"
                     value={data.name}
@@ -342,10 +350,9 @@ export default function ProjectBranch({
                     optional
                     autoComplete="tel"
                   />
-                  <div className="md:col-span-2">
+                  <div className="col-span-2">
                     <WizardTextarea
-                      label="Tell us about the project"
-                      hint="What are you building, who's it for, and what does success look like in 6 months?"
+                      label="What are you building, who's it for, and what does success look like in 6 months?"
                       placeholder="We run weekly services for 2,000 people and need a website that actually helps newcomers find us..."
                       value={data.description}
                       onChange={(description) => onChange({ description })}

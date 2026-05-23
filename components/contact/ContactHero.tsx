@@ -8,9 +8,10 @@ export default function ContactHero() {
       layout="home"
       propSrc="/props/prop-hero.png"
       propAlt="TunedUp Comms Handset"
+      sublineClassName="text-title-hero-contact relative z-0 m-0 mt-4 max-w-3xl text-[var(--ink)] md:mt-5"
       subline={
         <>
-          Start a conversation about{' '}
+          Start a conversation <br /> about{' '}
           <HighlightWord>new work,</HighlightWord>
           <br />
           careers, or anything else.

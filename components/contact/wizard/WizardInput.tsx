@@ -25,12 +25,10 @@ export default function WizardInput({
 }: WizardInputProps) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="font-mono text-xs uppercase tracking-widest text-[var(--ink-soft)]">
+      <label className="font-body text-sm font-medium text-[var(--ink)]">
         {label}
         {optional && (
-          <span className="ml-2 normal-case tracking-normal text-[var(--ink-soft)] opacity-60">
-            optional
-          </span>
+          <span className="ml-2 font-normal text-[var(--ink-soft)]">optional</span>
         )}
       </label>
       <input

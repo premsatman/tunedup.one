@@ -1,12 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import clsx from 'clsx'
 import MonoLabel from '@/components/shared/MonoLabel'
 import HighlightWord from '@/components/shared/HighlightWord'
 import PageGutter from '@/components/shared/PageGutter'
 import Pill from '@/components/shared/Pill'
 import CalendlyPopup from '@/components/contact/CalendlyPopup'
 import { getCalendlyUrl } from '@/lib/getCalendlyUrl'
+import { scrollToContactWizard } from '@/lib/scrollToContactWizard'
 import { wizardStepTitleClass } from '@/components/contact/wizard/wizardStepTitle'
 import ProjectBranch, {
   emptyProjectData,
@@ -64,6 +66,7 @@ const BranchTab = ({
 )
 
 export default function ContactWizard() {
+  const wizardPanelRef = useRef<HTMLDivElement>(null)
   const [branch, setBranch] = useState<Branch>(null)
   const [projectStep, setProjectStep] = useState(0)
   const [joinStep, setJoinStep] = useState(0)
@@ -145,8 +148,16 @@ export default function ContactWizard() {
     email: projectData.email || undefined,
   }
 
+  const needsInnerScroll =
+    (branch === 'project' && projectStep === 3) || (branch === 'join' && joinStep === 1)
+
+  useEffect(() => {
+    if (branch === null && submitStatus !== 'success') return
+    scrollToContactWizard(wizardPanelRef.current)
+  }, [branch, submitStatus])
+
   const branchSelector = (
-    <div className="flex flex-wrap justify-center gap-3 lg:justify-start">
+    <div className="flex flex-wrap justify-center gap-3">
       <BranchTab
         label="Start a Project"
         selected={branch === 'project'}
@@ -162,7 +173,7 @@ export default function ContactWizard() {
   )
 
   return (
-    <section className="py-20 lg:py-28">
+    <section id="contact-wizard" className="py-20 lg:py-28">
       <PageGutter>
         <MonoLabel className="mb-4 block">/ Get in Touch</MonoLabel>
         <h2 className={`${wizardStepTitleClass} mb-16`}>
@@ -170,12 +181,16 @@ export default function ContactWizard() {
           <HighlightWord>or just want to say hello?</HighlightWord>
         </h2>
 
-        <div className="flex min-h-[560px] flex-col rounded-3xl bg-[var(--contact-form-bg)] p-8 lg:p-16">
-          {(branch === 'project' || branch === 'join') && submitStatus !== 'success' && (
-            <div className="mb-8">{branchSelector}</div>
-          )}
-
-          <div className="flex flex-1 flex-col">
+        <div
+          ref={wizardPanelRef}
+          className="mx-auto flex w-full max-w-5xl min-h-[720px] flex-col rounded-3xl bg-[var(--contact-form-bg)] p-6 lg:min-h-[760px] lg:p-12"
+        >
+          <div
+            className={clsx(
+              'flex min-h-0 flex-1 flex-col overflow-x-hidden overscroll-contain',
+              needsInnerScroll ? 'overflow-y-auto scrollbar-hide' : 'overflow-hidden'
+            )}
+          >
             {submitStatus === 'success' && branch && (
               <WizardConfirmation branch={branch} onReset={handleReset} />
             )}

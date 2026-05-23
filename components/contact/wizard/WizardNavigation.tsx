@@ -26,20 +26,25 @@ export default function WizardNavigation({
   return (
     <div
       className={clsx(
-        'flex w-full items-center justify-between pt-8',
-        className || 'mt-8'
+        'flex w-full shrink-0 items-center justify-between pt-6',
+        className || 'mt-6'
       )}
     >
-      <div>
+      <div className="overflow-visible">
         {showBack && onBack && (
-          <Pill theme="contact" variant="outline" onClick={onBack} className="normal-case tracking-normal gap-2">
+          <Pill
+            theme="contact"
+            variant="outline"
+            onClick={onBack}
+            className="normal-case tracking-normal gap-2"
+          >
             <ArrowLeft size={14} aria-hidden />
             Go Back
           </Pill>
         )}
       </div>
 
-      <div>
+      <div className="overflow-visible">
         {onContinue && (
           <Pill
             theme="contact"

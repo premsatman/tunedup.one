@@ -10,6 +10,7 @@ type WizardPillProps = {
   onClick: () => void
   mode?: 'radio' | 'checkbox'
   disabled?: boolean
+  className?: string
 }
 
 export default function WizardPill({
@@ -19,6 +20,7 @@ export default function WizardPill({
   onClick,
   mode = 'radio',
   disabled = false,
+  className = '',
 }: WizardPillProps) {
   return (
     <Pill
@@ -30,7 +32,8 @@ export default function WizardPill({
       aria-checked={selected}
       className={clsx(
         'h-auto min-h-0 normal-case tracking-normal',
-        subtext && '!items-center !gap-1 !py-3'
+        subtext && '!items-center !gap-1 !py-3',
+        className
       )}
     >
       <span className={clsx('inline-flex flex-col items-center gap-0.5', subtext && 'text-center')}>

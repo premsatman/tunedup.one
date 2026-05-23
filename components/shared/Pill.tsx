@@ -17,6 +17,7 @@ type PillProps = {
   className?: string
   disabled?: boolean
   soundOnHover?: boolean
+  animateOnHover?: boolean
   role?: React.AriaRole
   'aria-checked'?: boolean | 'true' | 'false'
   'aria-disabled'?: boolean
@@ -57,25 +58,32 @@ const sweepVariants: Record<PillTheme, Record<'primary' | 'outline' | 'footer', 
   },
 }
 
+const pillBaseStatic =
+  'group relative inline-flex items-center justify-center overflow-hidden rounded-full font-mono text-sm uppercase tracking-wide focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]'
+
 const PillContent = ({
   children,
   arrow,
   variant,
   theme,
+  animateOnHover,
 }: {
   children: React.ReactNode
   arrow: boolean
   variant: 'primary' | 'outline' | 'footer'
   theme: PillTheme
+  animateOnHover: boolean
 }) => (
   <>
-    <span
-      aria-hidden
-      className={clsx(
-        'pointer-events-none absolute inset-0 -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0',
-        sweepVariants[theme][variant]
-      )}
-    />
+    {animateOnHover && (
+      <span
+        aria-hidden
+        className={clsx(
+          'pointer-events-none absolute inset-0 -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0',
+          sweepVariants[theme][variant]
+        )}
+      />
+    )}
     <span className="relative z-10 inline-flex items-center gap-2">{children}</span>
     {arrow && (
       <ArrowRight size={15} className="relative z-10 shrink-0" aria-hidden />
@@ -93,15 +101,17 @@ export default function Pill({
   className = '',
   disabled = false,
   soundOnHover = true,
+  animateOnHover = true,
   role,
   'aria-checked': ariaChecked,
   'aria-disabled': ariaDisabled,
   title,
 }: PillProps) {
   const classes = clsx(
-    pillBase,
+    animateOnHover ? pillBase : pillBaseStatic,
     variantStyles[theme][variant],
     disabled && 'cursor-not-allowed opacity-40 hover:scale-100',
+    !animateOnHover && 'hover:scale-100',
     className
   )
 
@@ -118,7 +128,7 @@ export default function Pill({
         onMouseEnter={handleMouseEnter}
         className={classes}
       >
-        <PillContent arrow={arrow} variant={variant} theme={theme}>
+        <PillContent arrow={arrow} variant={variant} theme={theme} animateOnHover={animateOnHover}>
           {children}
         </PillContent>
       </Link>
@@ -137,7 +147,7 @@ export default function Pill({
       onMouseEnter={handleMouseEnter}
       className={classes}
     >
-      <PillContent arrow={arrow} variant={variant} theme={theme}>
+      <PillContent arrow={arrow} variant={variant} theme={theme} animateOnHover={animateOnHover}>
         {children}
       </PillContent>
     </button>
