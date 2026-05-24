@@ -26,7 +26,7 @@ export default function NextMissionNav({
                   alt=""
                   fill
                   sizes="50vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20" />
               </>

@@ -1,16 +1,12 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowDown, ArrowRight, X } from 'lucide-react'
 import { getWorkedOnCategoryLabel } from '@/lib/data/workedOnCategories'
 import type { WorkedOnItem } from '@/lib/types/mission'
 
 export const featuredContentWrap =
   'relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-12'
-
-const panelEase = [0.22, 1, 0.36, 1] as const
-const panelDuration = 0.75
 
 const WorkedOnKeyword = ({
   label,
@@ -20,7 +16,7 @@ const WorkedOnKeyword = ({
   compact?: boolean
 }) => (
   <span
-    className={`hover-shake inline-block bg-white/[0.1] font-mono uppercase tracking-wide text-[var(--canvas)] transition-colors hover:bg-white/[0.16] ${
+    className={`inline-block bg-white/[0.1] font-mono uppercase tracking-wide text-[var(--canvas)] ${
       compact
         ? 'rounded-2xl px-2.5 py-1.5 text-xs sm:text-sm'
         : 'rounded-2xl px-4 py-2.5 text-xs sm:text-sm'
@@ -55,7 +51,6 @@ type WorkedOnTabsProps = {
 
 export default function WorkedOnTabs({ workedOn }: WorkedOnTabsProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
-  const prefersReducedMotion = useReducedMotion()
   const isLargeScreen = useIsLargeScreen()
 
   const handleActivate = useCallback((index: number) => {
@@ -68,15 +63,6 @@ export default function WorkedOnTabs({ workedOn }: WorkedOnTabsProps) {
   const columnWidth = `${100 / columnCount}%`
   const isOpen = activeIndex !== null
   const isDesktopExpanded = isLargeScreen && isOpen
-
-  const transition = prefersReducedMotion
-    ? { duration: 0.01 }
-    : { duration: panelDuration, ease: panelEase }
-
-  const fadeTransition = prefersReducedMotion
-    ? { duration: 0.01 }
-    : { duration: 0.45, ease: panelEase }
-
   const activeTags = isOpen ? workedOn[activeIndex]?.tags ?? [] : []
 
   const renderTabButton = (item: WorkedOnItem, index: number, isActive: boolean, isCollapsed: boolean) => {
@@ -113,16 +99,8 @@ export default function WorkedOnTabs({ workedOn }: WorkedOnTabsProps) {
           <X size={16} className="shrink-0 text-white" aria-hidden />
         ) : (
           <>
-            <ArrowDown
-              size={16}
-              className="shrink-0 text-white/50 transition-transform duration-500 ease-out lg:hidden"
-              aria-hidden
-            />
-            <ArrowRight
-              size={16}
-              className="hidden shrink-0 text-white/50 transition-transform duration-500 ease-out lg:block"
-              aria-hidden
-            />
+            <ArrowDown size={16} className="shrink-0 text-white/50 lg:hidden" aria-hidden />
+            <ArrowRight size={16} className="hidden shrink-0 text-white/50 lg:block" aria-hidden />
           </>
         )}
       </button>
@@ -131,19 +109,14 @@ export default function WorkedOnTabs({ workedOn }: WorkedOnTabsProps) {
 
   return (
     <div className={`${featuredContentWrap} mt-4`}>
-      <motion.div
-        layout={!prefersReducedMotion}
+      <div
         className="flex flex-col overflow-hidden rounded-xl bg-[var(--ink)] lg:h-[5.75rem] lg:flex-row md:rounded-2xl"
         role="tablist"
         aria-label="We worked on"
       >
-        {/* Title columns */}
-        <motion.div
-          layout
+        <div
           className={`min-h-[4.75rem] min-w-0 sm:min-h-[5.25rem] ${
-            isDesktopExpanded
-              ? 'relative shrink-0'
-              : 'flex flex-1'
+            isDesktopExpanded ? 'relative shrink-0' : 'flex flex-1'
           }`}
           style={isDesktopExpanded ? { width: columnWidth } : undefined}
         >
@@ -153,15 +126,14 @@ export default function WorkedOnTabs({ workedOn }: WorkedOnTabsProps) {
                 const isActive = activeIndex === index
 
                 return (
-                  <motion.div
+                  <div
                     key={item.category ?? index}
-                    className="absolute inset-0 flex items-center overflow-hidden px-3 sm:px-5 lg:px-8"
-                    animate={{ opacity: isActive ? 1 : 0 }}
-                    transition={fadeTransition}
-                    style={{ pointerEvents: isActive ? 'auto' : 'none' }}
+                    className={`absolute inset-0 flex items-center overflow-hidden px-3 sm:px-5 lg:px-8 ${
+                      isActive ? 'opacity-100' : 'pointer-events-none opacity-0'
+                    }`}
                   >
                     {renderTabButton(item, index, isActive, !isActive)}
-                  </motion.div>
+                  </div>
                 )
               })}
             </div>
@@ -170,109 +142,52 @@ export default function WorkedOnTabs({ workedOn }: WorkedOnTabsProps) {
               const isActive = activeIndex === index
 
               return (
-                <motion.div
+                <div
                   key={item.category ?? index}
-                  layout={!prefersReducedMotion}
                   className="flex min-w-0 shrink-0 flex-1 items-center overflow-hidden px-3 sm:px-5 lg:px-8"
                   style={{ flexBasis: columnWidth }}
                 >
                   {renderTabButton(item, index, isActive, false)}
-                </motion.div>
+                </div>
               )
             })
           )}
-        </motion.div>
+        </div>
 
-        {/* Desktop — tags on the right */}
-        <motion.div
-          className="hidden items-center justify-end overflow-hidden lg:flex"
-          animate={{
-            flexBasis: isOpen ? `${100 - 100 / columnCount}%` : '0%',
-            flexGrow: isOpen ? 1 : 0,
-            opacity: isOpen ? 1 : 0,
-            paddingLeft: isOpen ? 16 : 0,
-            paddingRight: isOpen ? 16 : 0,
-          }}
-          transition={transition}
+        <div
+          className={`hidden items-center justify-end overflow-hidden lg:flex ${
+            isOpen ? 'min-w-0 flex-1 px-4' : 'w-0 p-0'
+          }`}
         >
-          <AnimatePresence mode="wait">
-            {isOpen && activeTags.length > 0 ? (
-              <motion.div
-                key={`desktop-tags-${activeIndex}`}
-                initial={prefersReducedMotion ? false : { opacity: 0, x: 16 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={prefersReducedMotion ? undefined : { opacity: 0, x: 12 }}
-                transition={{ duration: 0.4, ease: panelEase }}
-                className="flex max-h-full max-w-full flex-wrap content-center items-center justify-end gap-1.5 px-2 py-1 lg:px-3"
-                role="tabpanel"
-                id={`worked-on-panel-${activeIndex}`}
-                aria-labelledby={`worked-on-tab-${activeIndex}`}
-              >
-                {activeTags.map((tag, tagIndex) => (
-                  <motion.div
-                    key={tag}
-                    initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={prefersReducedMotion ? undefined : { opacity: 0, y: 4 }}
-                    transition={{
-                      duration: 0.35,
-                      ease: panelEase,
-                      delay: prefersReducedMotion ? 0 : tagIndex * 0.04,
-                    }}
-                  >
-                    <WorkedOnKeyword label={tag} compact />
-                  </motion.div>
-                ))}
-              </motion.div>
-            ) : null}
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Mobile — tags expand down */}
-        <AnimatePresence initial={false}>
-          {!isLargeScreen && isOpen && activeTags.length > 0 ? (
-            <motion.div
-              key={`mobile-tags-${activeIndex}`}
-              initial={prefersReducedMotion ? false : { height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={prefersReducedMotion ? undefined : { height: 0, opacity: 0 }}
-              transition={
-                prefersReducedMotion
-                  ? { duration: 0.01 }
-                  : { duration: 0.65, ease: panelEase, opacity: { duration: 0.45, delay: 0.08 } }
-              }
-              className="overflow-hidden lg:hidden"
+          {isOpen && activeTags.length > 0 ? (
+            <div
+              className="flex max-h-full max-w-full flex-wrap content-center items-center justify-end gap-1.5 px-2 py-1 lg:px-3"
               role="tabpanel"
               id={`worked-on-panel-${activeIndex}`}
               aria-labelledby={`worked-on-tab-${activeIndex}`}
             >
-              <motion.div
-                initial={prefersReducedMotion ? false : { y: -8 }}
-                animate={{ y: 0 }}
-                exit={prefersReducedMotion ? undefined : { y: -6 }}
-                transition={{ duration: 0.5, ease: panelEase }}
-                className="flex flex-wrap gap-2.5 px-4 py-4 sm:px-6 sm:py-5"
-              >
-                {activeTags.map((tag, tagIndex) => (
-                  <motion.div
-                    key={tag}
-                    initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={prefersReducedMotion ? undefined : { opacity: 0, y: 6 }}
-                    transition={{
-                      duration: 0.4,
-                      ease: panelEase,
-                      delay: prefersReducedMotion ? 0 : 0.12 + tagIndex * 0.05,
-                    }}
-                  >
-                    <WorkedOnKeyword label={tag} />
-                  </motion.div>
-                ))}
-              </motion.div>
-            </motion.div>
+              {activeTags.map((tag) => (
+                <WorkedOnKeyword key={tag} label={tag} compact />
+              ))}
+            </div>
           ) : null}
-        </AnimatePresence>
-      </motion.div>
+        </div>
+
+        {!isLargeScreen && isOpen && activeTags.length > 0 ? (
+          <div
+            className="overflow-hidden lg:hidden"
+            role="tabpanel"
+            id={`worked-on-panel-${activeIndex}`}
+            aria-labelledby={`worked-on-tab-${activeIndex}`}
+          >
+            <div className="flex flex-wrap gap-2.5 px-4 py-4 sm:px-6 sm:py-5">
+              {activeTags.map((tag) => (
+                <WorkedOnKeyword key={tag} label={tag} />
+              ))}
+            </div>
+          </div>
+        ) : null}
+      </div>
     </div>
   )
 }

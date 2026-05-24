@@ -2,13 +2,12 @@ import Image from 'next/image'
 import { urlFor } from '@/lib/sanity/client'
 import ContainerSection from '@/components/shared/ContainerSection'
 import MonoLabel from '@/components/shared/MonoLabel'
-import WorkDetailDescriptionReveal from '@/components/work-detail/WorkDetailDescriptionReveal'
 import type { WorkflowStep } from '@/lib/types/mission'
 
 const workflowDescriptionClassName =
-  'font-body text-base leading-relaxed max-w-3xl md:text-lg'
+  'font-body text-base leading-relaxed text-white/85 max-w-3xl md:text-lg'
 
-const workflowStepDescriptionClassName = 'font-body text-base leading-relaxed'
+const workflowStepDescriptionClassName = 'font-body text-base leading-relaxed text-white/75'
 
 export default function WorkflowScenario({
   description,
@@ -25,9 +24,7 @@ export default function WorkflowScenario({
       <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl leading-[1.05] tracking-[-0.02em] max-w-3xl mb-6">
         How it actually works.
       </h2>
-      <WorkDetailDescriptionReveal className="mb-16">
-        <p className={workflowDescriptionClassName}>{description}</p>
-      </WorkDetailDescriptionReveal>
+      <p className={`${workflowDescriptionClassName} mb-16`}>{description}</p>
 
       <div className="space-y-16 lg:space-y-24">
         {steps?.map((step, i) => {
@@ -46,9 +43,7 @@ export default function WorkflowScenario({
                 <h3 className="font-display font-bold text-2xl md:text-3xl mb-4">
                   {step.stepTitle}
                 </h3>
-                <WorkDetailDescriptionReveal tone="muted">
-                  <p className={workflowStepDescriptionClassName}>{step.stepDescription}</p>
-                </WorkDetailDescriptionReveal>
+                <p className={workflowStepDescriptionClassName}>{step.stepDescription}</p>
               </div>
 
               {step.screenshot && (
