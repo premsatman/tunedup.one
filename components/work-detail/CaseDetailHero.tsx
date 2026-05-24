@@ -91,7 +91,7 @@ export default function CaseDetailHero({ mission }: { mission: MissionDetail }) 
                 src={urlFor(mission.heroImage).width(1920).url()}
                 alt={mission.title}
                 fill
-                priority
+                loading="lazy"
                 sizes="(max-width: 1280px) calc(100vw - 3rem), min(1280px, calc(100vw - 6rem))"
                 className="relative z-10 h-full w-full object-cover object-center"
               />

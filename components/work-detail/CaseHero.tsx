@@ -52,7 +52,7 @@ export default function CaseHero({ mission }: { mission: MissionDetail }) {
             src={urlFor(mission.heroImage).width(2400).url()}
             alt={mission.title}
             fill
-            priority
+            loading="lazy"
             sizes="100vw"
             className="object-cover"
           />
