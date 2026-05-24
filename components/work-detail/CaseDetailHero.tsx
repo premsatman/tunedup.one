@@ -70,19 +70,31 @@ export default function CaseDetailHero({ mission }: { mission: MissionDetail }) 
 
       {mission.heroImage && (
         <div className={featuredHeroMediaWrap}>
-          <div className="relative isolate">
+          <div className="relative isolate [contain:paint]">
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-x-[4%] top-[72%] z-0 h-28 rounded-[100%] bg-[var(--accent)] opacity-50 blur-3xl sm:inset-x-[6%] sm:h-32 md:top-[74%] md:h-36"
+              className="pointer-events-none absolute inset-x-[6%] top-[72%] z-0 h-24 lg:hidden"
+              style={{
+                background:
+                  'radial-gradient(ellipse at center, var(--accent) 0%, transparent 72%)',
+                opacity: 0.5,
+              }}
             />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-x-[10%] top-[78%] z-0 h-20 rounded-[100%] bg-[var(--accent)] opacity-75 blur-2xl sm:top-[80%] sm:h-24"
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-x-[18%] top-[82%] z-0 h-12 rounded-[100%] bg-[#5eead4] opacity-85 blur-xl sm:top-[84%] sm:h-14"
-            />
+
+            <div className="hidden lg:contents">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-[4%] top-[72%] z-0 h-28 rounded-[100%] bg-[var(--accent)] opacity-50 blur-3xl sm:inset-x-[6%] sm:h-32 md:top-[74%] md:h-36"
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-[10%] top-[78%] z-0 h-20 rounded-[100%] bg-[var(--accent)] opacity-75 blur-2xl sm:top-[80%] sm:h-24"
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-[18%] top-[82%] z-0 h-12 rounded-[100%] bg-[#5eead4] opacity-85 blur-xl sm:top-[84%] sm:h-14"
+              />
+            </div>
 
             <div
               className={`relative z-10 w-full overflow-hidden rounded-[1.5rem] md:rounded-[2rem] lg:rounded-[2.25rem] ${FEATURED_MEDIA_ASPECT_CLASS}`}

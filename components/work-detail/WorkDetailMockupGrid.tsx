@@ -15,6 +15,7 @@ const PairMockup = ({ image, sizes }: { image: SanityImage; sizes: string }) => 
       src={urlFor(image).width(800).url()}
       alt=""
       fill
+      loading="lazy"
       sizes={sizes}
       className="object-cover"
     />
@@ -28,13 +29,14 @@ const SingleMockup = ({
   image: SanityImage
   glowColor?: string
 }) => (
-  <div className="relative isolate py-6 sm:py-8">
+  <div className="relative isolate py-6 sm:py-8 [contain:paint]">
     {glowColor ? <MockupMediaGlow color={glowColor} /> : null}
     <div className={`${mockupFrameClassName} relative z-10 aspect-[16/9]`}>
       <Image
-        src={urlFor(image).width(2400).url()}
+        src={urlFor(image).width(1400).url()}
         alt=""
         fill
+        loading="lazy"
         sizes="(max-width: 1024px) 100vw, 832px"
         className="object-cover"
       />
