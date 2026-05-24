@@ -11,7 +11,7 @@ type FooterShellProps = {
 export default function FooterShell({ children }: FooterShellProps) {
   const pathname = usePathname()
   const backgroundClass = isWorkDetailPage(pathname)
-    ? 'bg-[var(--page-bg)]'
+    ? 'bg-white'
     : 'bg-[var(--canvas)]'
 
   return (

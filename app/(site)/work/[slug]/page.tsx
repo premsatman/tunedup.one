@@ -4,9 +4,8 @@ import { client } from '@/lib/sanity/client'
 import {
   missionBySlugQuery,
   allMissionSlugsQuery,
-  autoRelatedMissionsQuery,
 } from '@/lib/sanity/queries'
-import type { MissionDetail, MissionSlugItem, RelatedMission } from '@/lib/types/mission'
+import type { MissionDetail, MissionSlugItem } from '@/lib/types/mission'
 
 import CaseDetailHero, { HeroTelemetry } from '@/components/work-detail/CaseDetailHero'
 import ColorPaletteStrip from '@/components/work-detail/ColorPaletteStrip'
@@ -17,8 +16,6 @@ import TheSystem from '@/components/work-detail/TheSystem'
 import OutcomesStrip from '@/components/work-detail/OutcomesStrip'
 import WorkflowScenario from '@/components/work-detail/WorkflowScenario'
 import ClientFeedback from '@/components/work-detail/ClientFeedback'
-import WhatsNext from '@/components/work-detail/WhatsNext'
-import RelatedMissions from '@/components/work-detail/RelatedMissions'
 import NextMissionNav from '@/components/work-detail/NextMissionNav'
 
 export async function generateStaticParams() {
@@ -70,18 +67,6 @@ export default async function MissionDetailPage({
 
   if (!mission) notFound()
 
-  let related: RelatedMission[] | undefined = mission.relatedMissions
-  if (!related || related.length < 2) {
-    try {
-      const auto = await client.fetch<RelatedMission[]>(autoRelatedMissionsQuery, {
-        currentSlug: params.slug,
-      })
-      related = auto
-    } catch {
-      related = mission.relatedMissions
-    }
-  }
-
   const currentIndex = allMissions.findIndex((item) => item.slug === params.slug)
   const prev = currentIndex > 0 ? allMissions[currentIndex - 1] : null
   const next =
@@ -122,9 +107,9 @@ export default async function MissionDetailPage({
         steps={mission.workflowSteps}
       />
       <ClientFeedback feedback={mission.clientFeedback} />
-      <WhatsNext text={mission.whatsNext} />
-      <RelatedMissions missions={related} />
-      <NextMissionNav prev={prev} next={next} />
+      <div className="bg-white text-[var(--ink)]">
+        <NextMissionNav prev={prev} next={next} />
+      </div>
     </div>
   )
 }

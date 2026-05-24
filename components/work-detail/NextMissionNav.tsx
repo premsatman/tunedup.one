@@ -12,12 +12,12 @@ export default function NextMissionNav({
   next: MissionSlugItem | null
 }) {
   return (
-    <section className="border-t border-[var(--line)] mt-8">
+    <section className="mt-8 border-t border-[var(--line)]">
       <div className="grid grid-cols-1 md:grid-cols-2">
         {prev ? (
           <Link
             href={`/work/${prev.slug}`}
-            className="group relative overflow-hidden aspect-[4/3] md:aspect-auto md:h-72 flex items-end p-8"
+            className="group relative flex aspect-[4/3] items-end overflow-hidden p-8 md:aspect-auto md:h-72"
           >
             {prev.heroImage && (
               <>
@@ -26,52 +26,43 @@ export default function NextMissionNav({
                   alt=""
                   fill
                   sizes="50vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20" />
               </>
             )}
             <div className="relative z-10">
-              <div className="flex items-center gap-2 mb-2">
+              <div className="mb-2 flex items-center gap-2">
                 <ArrowLeft size={14} className="text-white/70" />
                 <span className="font-mono text-xs uppercase tracking-widest text-white/70">
                   Previous Mission
                 </span>
               </div>
-              <div className="font-display font-bold text-2xl md:text-3xl text-white leading-tight">
+              <div className="font-display text-2xl font-bold leading-tight text-white md:text-3xl">
                 {prev.title}
               </div>
             </div>
           </Link>
         ) : (
-          <div className="bg-[var(--canvas)]" />
+          <div className="bg-white" />
         )}
 
         {next ? (
           <Link
             href={`/work/${next.slug}`}
-            className="group relative overflow-hidden aspect-[4/3] md:aspect-auto md:h-72 flex items-end p-8 md:border-l border-[var(--line)]"
+            className="group flex aspect-[4/3] flex-col justify-end bg-white p-8 transition-colors hover:bg-[var(--accent-soft)] md:aspect-auto md:h-72 md:border-l md:border-[var(--line)]"
           >
-            {next.heroImage && (
-              <>
-                <Image
-                  src={urlFor(next.heroImage).width(1200).url()}
-                  alt=""
-                  fill
-                  sizes="50vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20" />
-              </>
-            )}
-            <div className="relative z-10 md:text-right md:ml-auto">
-              <div className="flex items-center gap-2 mb-2 md:justify-end">
-                <span className="font-mono text-xs uppercase tracking-widest text-white/70">
+            <div className="md:ml-auto md:text-right">
+              <div className="mb-2 flex items-center gap-2 md:justify-end">
+                <span className="font-mono text-xs uppercase tracking-widest text-[var(--ink-soft)] transition-colors group-hover:text-[var(--ink-mid)]">
                   Next Mission
                 </span>
-                <ArrowRight size={14} className="text-white/70" />
+                <ArrowRight
+                  size={14}
+                  className="text-[var(--ink-soft)] transition-colors group-hover:text-[var(--ink)]"
+                />
               </div>
-              <div className="font-display font-bold text-2xl md:text-3xl text-white leading-tight">
+              <div className="font-display text-2xl font-bold leading-tight text-[var(--ink)] md:text-3xl">
                 {next.title}
               </div>
             </div>
@@ -79,9 +70,9 @@ export default function NextMissionNav({
         ) : (
           <Link
             href="/work"
-            className="group flex items-center justify-center h-72 md:border-l border-[var(--line)] bg-[var(--canvas)] hover:bg-[var(--accent-soft)] transition-colors"
+            className="group flex h-72 items-center justify-center border-[var(--line)] bg-white transition-colors hover:bg-[var(--accent-soft)] md:border-l"
           >
-            <span className="font-mono text-xs uppercase tracking-widest text-[var(--ink-soft)] group-hover:text-[var(--ink)] transition-colors">
+            <span className="font-mono text-xs uppercase tracking-widest text-[var(--ink-soft)] transition-colors group-hover:text-[var(--ink)]">
               View all missions →
             </span>
           </Link>
