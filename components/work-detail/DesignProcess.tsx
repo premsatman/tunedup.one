@@ -3,6 +3,7 @@ import { PortableText, type PortableTextComponents } from '@portabletext/react'
 import WorkDetailIntro, { workDetailIntroBodyClassName } from '@/components/work-detail/WorkDetailIntro'
 import type { TimelinePhase } from '@/lib/types/mission'
 import GanttTimeline from './GanttTimeline'
+import GanttTimelineSerpentine from './GanttTimelineSerpentine'
 
 const ptComponents: PortableTextComponents = {
   block: {
@@ -34,7 +35,10 @@ export default function DesignProcess({
 
       {hasTimeline && (
         <section className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-14 lg:px-12 lg:pb-20">
-          <GanttTimeline phases={timeline!} />
+          <div className="hidden lg:block">
+            <GanttTimeline phases={timeline!} />
+          </div>
+          <GanttTimelineSerpentine phases={timeline!} />
         </section>
       )}
     </>
