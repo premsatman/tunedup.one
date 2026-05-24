@@ -1,18 +1,23 @@
 import { hasSanityImage } from '@/lib/sanity/hasSanityImage'
-import WorkDetailIntro, { workDetailIntroBodyClassName } from '@/components/work-detail/WorkDetailIntro'
+import WorkDetailIntro, {
+  workDetailCardDescriptionClassName,
+  workDetailIntroBodyClassName,
+} from '@/components/work-detail/WorkDetailIntro'
 import WorkDetailMockupGrid from '@/components/work-detail/WorkDetailMockupGrid'
-import type { ProblemCard, SanityImage } from '@/lib/types/mission'
+import type { ColorSwatch, ProblemCard, SanityImage } from '@/lib/types/mission'
 
 export default function SolutionSection({
   description,
   cards,
   mockups,
   mockupSingle,
+  colorPalette,
 }: {
   description?: string
   cards?: ProblemCard[]
   mockups?: SanityImage[]
   mockupSingle?: SanityImage
+  colorPalette?: ColorSwatch[]
 }) {
   const hasCards = Boolean(cards && cards.length > 0)
   const hasMockups = Boolean(
@@ -41,16 +46,18 @@ export default function SolutionSection({
                   Solution {String(i + 1).padStart(2, '0')}
                 </div>
                 <h3 className="font-display text-xl font-bold text-white">{card.title}</h3>
-                <p className="font-body text-sm leading-relaxed text-white/75">
-                  {card.description}
-                </p>
+                <p className={workDetailCardDescriptionClassName}>{card.description}</p>
               </div>
             ))}
           </div>
         </section>
       )}
 
-      <WorkDetailMockupGrid mockups={mockups} mockupSingle={mockupSingle} />
+      <WorkDetailMockupGrid
+        mockups={mockups}
+        mockupSingle={mockupSingle}
+        singleGlowColor={colorPalette?.[0]?.hex}
+      />
     </>
   )
 }

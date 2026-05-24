@@ -41,6 +41,14 @@ export const missionBySlugQuery = groq`
     missionType,
     tagline,
     frequencyTuned,
+    frequencyTunedOperator-> {
+      _id,
+      name,
+      photo {
+        ...,
+        asset->
+      },
+    },
     heroImage,
     heroVideoPlaybackId,
     heroImage2,
@@ -79,13 +87,28 @@ export const missionBySlugQuery = groq`
       operators[]-> {
         _id,
         name,
-        photo,
+        photo {
+          ...,
+          asset->
+        },
       },
     },
-    styleGuideTypography,
-    styleGuideComponents,
-    mockupPair2,
-    wireframes,
+    styleGuideTypography {
+      ...,
+      asset->
+    },
+    styleGuideComponents {
+      ...,
+      asset->
+    },
+    mockupPair2[] {
+      ...,
+      asset->
+    },
+    wireframes[] {
+      ...,
+      asset->
+    },
     outcomes,
     workflowDescription,
     workflowSteps,

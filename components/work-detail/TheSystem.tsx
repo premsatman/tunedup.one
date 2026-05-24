@@ -1,8 +1,22 @@
 import Image from 'next/image'
 import { urlFor } from '@/lib/sanity/client'
+import { hasSanityImage } from '@/lib/sanity/hasSanityImage'
+import WorkDetailIntro, { workDetailIntroBodyClassName } from '@/components/work-detail/WorkDetailIntro'
 import ContainerSection from '@/components/shared/ContainerSection'
 import MonoLabel from '@/components/shared/MonoLabel'
 import type { SanityImage } from '@/lib/types/mission'
+
+const StyleGuideCard = ({ image }: { image: SanityImage }) => (
+  <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-white">
+    <Image
+      src={urlFor(image).width(1600).url()}
+      alt=""
+      fill
+      sizes="(max-width: 768px) 100vw, 50vw"
+      className="object-contain object-center"
+    />
+  </div>
+)
 
 export default function TheSystem({
   typographyImage,
@@ -15,63 +29,48 @@ export default function TheSystem({
   mockupPair?: SanityImage[]
   wireframes?: SanityImage[]
 }) {
-  if (!typographyImage) return null
+  const hasTypography = hasSanityImage(typographyImage)
+  const hasComponents = hasSanityImage(componentsImage)
+  const mockupImages = mockupPair?.filter((image) => hasSanityImage(image)) ?? []
+  const wireframeImages = wireframes?.filter((image) => hasSanityImage(image)) ?? []
+
+  const hasStyleGuide = hasTypography || hasComponents
+
+  if (!hasStyleGuide && mockupImages.length === 0 && wireframeImages.length === 0) {
+    return null
+  }
 
   return (
     <>
-      <ContainerSection>
-        <MonoLabel className="block mb-4">/ The System We Built</MonoLabel>
-        <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl leading-[1.05] tracking-[-0.02em] max-w-3xl mb-12">
-          Style guide, components, screens.
-        </h2>
+      <WorkDetailIntro title="The System We Built" className="pb-14 pt-8 sm:pb-16 sm:pt-10 lg:pb-20 lg:pt-12">
+        <p className={workDetailIntroBodyClassName}>Style guide, components, screens.</p>
+      </WorkDetailIntro>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div className="bg-white border border-[var(--line)] rounded-2xl overflow-hidden">
-            <div className="p-5 border-b border-[var(--line)]">
-              <div className="font-mono text-xs uppercase tracking-widest text-[var(--ink-soft)]">
-                /Typography
-              </div>
+      {hasStyleGuide && (
+        <section className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-14 lg:px-12 lg:pb-20">
+            <div
+              className={`mx-auto grid w-full gap-5 lg:max-w-4xl xl:max-w-[52rem] ${
+                hasTypography && hasComponents ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'
+              }`}
+            >
+              {hasTypography && typographyImage && <StyleGuideCard image={typographyImage} />}
+              {hasComponents && componentsImage && <StyleGuideCard image={componentsImage} />}
             </div>
-            <div className="relative aspect-[4/3]">
-              <Image
-                src={urlFor(typographyImage).width(1200).url()}
-                alt="Typography showcase"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-              />
-            </div>
-          </div>
+          </section>
+      )}
 
-          {componentsImage && (
-            <div className="bg-white border border-[var(--line)] rounded-2xl overflow-hidden">
-              <div className="p-5 border-b border-[var(--line)]">
-                <div className="font-mono text-xs uppercase tracking-widest text-[var(--ink-soft)]">
-                  /Components
-                </div>
-              </div>
-              <div className="relative aspect-[4/3]">
-                <Image
-                  src={urlFor(componentsImage).width(1200).url()}
-                  alt="Component showcase"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          )}
-        </div>
-      </ContainerSection>
-
-      {mockupPair?.length === 2 && (
+      {mockupImages.length > 0 && (
         <section className="pb-12">
-          <div className="max-w-7xl mx-auto px-6 lg:px-12">
-            <div className="grid grid-cols-2 gap-4">
-              {mockupPair.map((img, i) => (
+          <div className="mx-auto max-w-7xl px-6 lg:px-12">
+            <div
+              className={`mx-auto grid w-full gap-4 lg:max-w-4xl xl:max-w-[52rem] ${
+                mockupImages.length > 1 ? 'grid-cols-2' : 'grid-cols-1'
+              }`}
+            >
+              {mockupImages.map((img, i) => (
                 <div
                   key={i}
-                  className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-[var(--canvas)] border border-[var(--line)]"
+                  className="relative aspect-[9/16] overflow-hidden rounded-2xl bg-[var(--canvas)]"
                 >
                   <Image
                     src={urlFor(img).width(800).url()}
@@ -87,18 +86,24 @@ export default function TheSystem({
         </section>
       )}
 
-      {wireframes?.length === 3 && (
+      {wireframeImages.length > 0 && (
         <ContainerSection>
-          <MonoLabel className="block mb-4">/ Wireframe & UI Design</MonoLabel>
-          <h3 className="font-display font-bold text-2xl md:text-3xl mb-12">
-            From sketch to ship.
-          </h3>
+          <MonoLabel className="mb-4 block">/ Wireframe & UI Design</MonoLabel>
+          <h3 className="mb-12 font-display text-2xl font-bold md:text-3xl">From sketch to ship.</h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {wireframes.map((img, i) => (
+          <div
+            className={`grid gap-4 ${
+              wireframeImages.length === 3
+                ? 'grid-cols-1 md:grid-cols-3'
+                : wireframeImages.length === 2
+                  ? 'grid-cols-1 md:grid-cols-2'
+                  : 'grid-cols-1'
+            }`}
+          >
+            {wireframeImages.map((img, i) => (
               <div
                 key={i}
-                className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-[var(--canvas)] border border-[var(--line)]"
+                className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-[var(--canvas)]"
               >
                 <Image
                   src={urlFor(img).width(1000).url()}

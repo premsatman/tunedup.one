@@ -7,13 +7,12 @@ import {
 } from '@/lib/sanity/queries'
 import type { MissionDetail, MissionSlugItem } from '@/lib/types/mission'
 
-import CaseDetailHero, { HeroTelemetry } from '@/components/work-detail/CaseDetailHero'
+import CaseDetailHero from '@/components/work-detail/CaseDetailHero'
 import ColorPaletteStrip from '@/components/work-detail/ColorPaletteStrip'
 import ProblemSection from '@/components/work-detail/ProblemSection'
 import SolutionSection from '@/components/work-detail/SolutionSection'
 import DesignProcess from '@/components/work-detail/DesignProcess'
 import TheSystem from '@/components/work-detail/TheSystem'
-import OutcomesStrip from '@/components/work-detail/OutcomesStrip'
 import WorkflowScenario from '@/components/work-detail/WorkflowScenario'
 import ClientFeedback from '@/components/work-detail/ClientFeedback'
 import NextMissionNav from '@/components/work-detail/NextMissionNav'
@@ -82,14 +81,15 @@ export default async function MissionDetailPage({
         cards={mission.problemCards}
         mockups={mission.mockupPair1}
         mockupSingle={mission.mockupSingle1}
+        colorPalette={mission.colorPalette}
       />
-      <HeroTelemetry mission={mission} />
       <ColorPaletteStrip palette={mission.colorPalette} />
       <SolutionSection
         description={mission.solutionDescription}
         cards={mission.solutionCards}
         mockups={mission.mockupPairSolution}
         mockupSingle={mission.mockupSingleSolution}
+        colorPalette={mission.colorPalette}
       />
       <DesignProcess
         description={mission.designProcessDescription}
@@ -101,7 +101,6 @@ export default async function MissionDetailPage({
         mockupPair={mission.mockupPair2}
         wireframes={mission.wireframes}
       />
-      <OutcomesStrip outcomes={mission.outcomes} />
       <WorkflowScenario
         description={mission.workflowDescription}
         steps={mission.workflowSteps}

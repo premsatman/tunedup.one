@@ -70,6 +70,14 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'frequencyTunedOperator',
+      title: 'Frequency tuned operator',
+      type: 'reference',
+      to: [{ type: 'teamMember' }],
+      description:
+        'Operator photo shown on the work detail telemetry card. Falls back to a timeline operator if empty.',
+    }),
+    defineField({
       name: 'duration',
       title: 'Duration',
       type: 'string',

@@ -1,18 +1,23 @@
 import { hasSanityImage } from '@/lib/sanity/hasSanityImage'
-import WorkDetailIntro, { workDetailIntroBodyClassName } from '@/components/work-detail/WorkDetailIntro'
+import WorkDetailIntro, {
+  workDetailCardDescriptionClassName,
+  workDetailIntroBodyClassName,
+} from '@/components/work-detail/WorkDetailIntro'
 import WorkDetailMockupGrid from '@/components/work-detail/WorkDetailMockupGrid'
-import type { ProblemCard, SanityImage } from '@/lib/types/mission'
+import type { ColorSwatch, ProblemCard, SanityImage } from '@/lib/types/mission'
 
 export default function ProblemSection({
   description,
   cards,
   mockups,
   mockupSingle,
+  colorPalette,
 }: {
   description?: string
   cards?: ProblemCard[]
   mockups?: SanityImage[]
   mockupSingle?: SanityImage
+  colorPalette?: ColorSwatch[]
 }) {
   const hasCards = Boolean(cards && cards.length > 0)
   const hasMockups = Boolean(
@@ -35,22 +40,24 @@ export default function ProblemSection({
             {cards!.map((card, i) => (
               <div
                 key={i}
-                className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.06] p-6"
+                className="flex flex-col gap-3 rounded-2xl bg-white/[0.06] p-6"
               >
                 <div className="font-mono text-xs uppercase tracking-widest text-[var(--accent)]">
                   Problem {String(i + 1).padStart(2, '0')}
                 </div>
                 <h3 className="font-display text-xl font-bold text-white">{card.title}</h3>
-                <p className="font-body text-sm leading-relaxed text-white/75">
-                  {card.description}
-                </p>
+                <p className={workDetailCardDescriptionClassName}>{card.description}</p>
               </div>
             ))}
           </div>
         </section>
       )}
 
-      <WorkDetailMockupGrid mockups={mockups} mockupSingle={mockupSingle} />
+      <WorkDetailMockupGrid
+        mockups={mockups}
+        mockupSingle={mockupSingle}
+        singleGlowColor={colorPalette?.[1]?.hex ?? colorPalette?.[0]?.hex}
+      />
     </>
   )
 }

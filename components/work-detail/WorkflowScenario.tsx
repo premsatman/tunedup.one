@@ -2,7 +2,13 @@ import Image from 'next/image'
 import { urlFor } from '@/lib/sanity/client'
 import ContainerSection from '@/components/shared/ContainerSection'
 import MonoLabel from '@/components/shared/MonoLabel'
+import WorkDetailDescriptionReveal from '@/components/work-detail/WorkDetailDescriptionReveal'
 import type { WorkflowStep } from '@/lib/types/mission'
+
+const workflowDescriptionClassName =
+  'font-body text-base leading-relaxed max-w-3xl md:text-lg'
+
+const workflowStepDescriptionClassName = 'font-body text-base leading-relaxed'
 
 export default function WorkflowScenario({
   description,
@@ -19,9 +25,9 @@ export default function WorkflowScenario({
       <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl leading-[1.05] tracking-[-0.02em] max-w-3xl mb-6">
         How it actually works.
       </h2>
-      <p className="font-body text-base md:text-lg text-[var(--ink-mid)] leading-relaxed max-w-3xl mb-16">
-        {description}
-      </p>
+      <WorkDetailDescriptionReveal className="mb-16">
+        <p className={workflowDescriptionClassName}>{description}</p>
+      </WorkDetailDescriptionReveal>
 
       <div className="space-y-16 lg:space-y-24">
         {steps?.map((step, i) => {
@@ -40,14 +46,14 @@ export default function WorkflowScenario({
                 <h3 className="font-display font-bold text-2xl md:text-3xl mb-4">
                   {step.stepTitle}
                 </h3>
-                <p className="font-body text-base text-[var(--ink-mid)] leading-relaxed">
-                  {step.stepDescription}
-                </p>
+                <WorkDetailDescriptionReveal tone="muted">
+                  <p className={workflowStepDescriptionClassName}>{step.stepDescription}</p>
+                </WorkDetailDescriptionReveal>
               </div>
 
               {step.screenshot && (
                 <div
-                  className={`relative aspect-[9/16] max-h-[600px] rounded-2xl overflow-hidden bg-[var(--canvas)] border border-[var(--line)] ${
+                  className={`relative aspect-[9/16] max-h-[600px] rounded-2xl overflow-hidden bg-[var(--canvas)] ${
                     imageOnRight ? 'md:order-2' : 'md:order-1'
                   }`}
                 >

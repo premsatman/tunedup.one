@@ -1,5 +1,10 @@
+import WorkDetailDescriptionReveal from '@/components/work-detail/WorkDetailDescriptionReveal'
+
 export const workDetailIntroBodyClassName =
-  'mb-5 font-body text-base leading-relaxed text-white/85 last:mb-0 md:text-lg lg:text-xl'
+  'mb-5 font-body text-base leading-relaxed last:mb-0 md:text-lg lg:text-xl'
+
+export const workDetailCardDescriptionClassName =
+  'font-body text-sm leading-relaxed text-white/75'
 
 type WorkDetailIntroProps = {
   title: string
@@ -18,7 +23,9 @@ export default function WorkDetailIntro({
     >
       <h2 className="text-title-section text-balance text-white">{title}</h2>
       {children ? (
-        <div className="mx-auto mt-8 max-w-4xl lg:mt-10">{children}</div>
+        <div className="mx-auto mt-8 max-w-4xl lg:mt-10">
+          <WorkDetailDescriptionReveal>{children}</WorkDetailDescriptionReveal>
+        </div>
       ) : null}
     </div>
   )

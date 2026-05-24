@@ -22,53 +22,67 @@ export default function ClientFeedback({
       <section className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-14 lg:px-12 lg:pb-20">
         <div
           className={`mx-auto flex max-w-5xl overflow-hidden rounded-[1.75rem] bg-white sm:rounded-[2rem] lg:rounded-[2.25rem] ${
-            hasPhoto ? 'flex-col md:flex-row md:items-stretch' : 'flex-col'
+            hasPhoto ? 'flex-row items-stretch' : 'flex-col'
           }`}
         >
           {hasPhoto && feedback.authorPhoto && (
-            <div className="relative h-56 w-full shrink-0 sm:h-64 md:h-auto md:min-h-full md:w-[min(38%,260px)] lg:w-[min(34%,300px)] xl:w-[320px]">
-              <Image
-                src={urlFor(feedback.authorPhoto).width(800).url()}
-                alt={feedback.authorName ?? 'Client photo'}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 260px, 320px"
-                className="object-cover object-center"
-              />
-            </div>
+            <>
+              <div className="flex w-[5.75rem] shrink-0 items-center justify-center self-stretch px-3 py-5 sm:w-[7rem] sm:px-4 sm:py-6 md:w-[8.5rem] lg:hidden">
+                <div className="relative h-[4.5rem] w-[4.5rem] shrink-0 overflow-hidden rounded-full sm:h-20 sm:w-20 md:h-24 md:w-24">
+                  <Image
+                    src={urlFor(feedback.authorPhoto).width(400).url()}
+                    alt={feedback.authorName ?? 'Client photo'}
+                    fill
+                    sizes="(max-width: 640px) 72px, (max-width: 1024px) 96px"
+                    className="object-cover object-center"
+                  />
+                </div>
+              </div>
+
+              <div className="relative hidden shrink-0 lg:block lg:min-h-full lg:w-[min(34%,300px)] xl:w-[320px]">
+                <Image
+                  src={urlFor(feedback.authorPhoto).width(800).url()}
+                  alt={feedback.authorName ?? 'Client photo'}
+                  fill
+                  sizes="(max-width: 1280px) 300px, 320px"
+                  className="object-cover object-center"
+                />
+              </div>
+            </>
           )}
 
-          <div className="flex min-w-0 flex-1 flex-col justify-between gap-6 p-6 sm:gap-8 sm:p-8 lg:gap-10 lg:p-10">
+          <div className="flex min-w-0 flex-1 flex-col justify-between gap-5 py-5 pl-0 pr-4 sm:gap-6 sm:py-6 sm:pr-6 lg:gap-10 lg:p-10">
             <div>
               <svg
                 width={56}
                 height={56}
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className="mb-5 text-[var(--ink)] sm:mb-6"
+                className="mb-4 text-[var(--ink)] sm:mb-5 lg:mb-6"
                 aria-hidden
               >
                 <path d="M6 17h3l2-4V7H5v6h3z" />
               </svg>
-              <blockquote className="font-display text-xl leading-snug tracking-[-0.01em] text-[var(--ink)] md:text-2xl lg:text-3xl">
+              <blockquote className="font-display text-lg leading-snug tracking-[-0.01em] text-[var(--ink)] sm:text-xl md:text-2xl lg:text-3xl">
                 {feedback.quote}
               </blockquote>
             </div>
 
-            <div className="flex flex-row items-center justify-between gap-4 md:border-t md:border-[var(--line)] md:pt-6 lg:grid lg:grid-cols-2 lg:items-end lg:gap-8">
+            <div className="flex flex-row items-center justify-between gap-4 lg:border-t lg:border-[var(--line)] lg:pt-6 lg:grid lg:grid-cols-2 lg:items-end lg:gap-8">
               {hasAttribution && (
                 <div className="min-w-0 flex-1">
                   {feedback.authorName && (
-                    <div className="font-display text-base font-bold text-[var(--ink)] md:text-lg">
+                    <div className="font-display text-sm font-bold text-[var(--ink)] sm:text-base md:text-lg">
                       {feedback.authorName}
                     </div>
                   )}
                   {feedback.authorOrg && (
-                    <div className="mt-1 font-mono text-xs uppercase tracking-widest text-[var(--ink-soft)]">
+                    <div className="mt-1 font-mono text-[10px] uppercase tracking-widest text-[var(--ink-soft)] sm:text-xs">
                       {feedback.authorOrg}
                     </div>
                   )}
                   {feedback.authorRole && (
-                    <div className="mt-1 font-body text-sm text-[var(--ink-mid)]">
+                    <div className="mt-1 font-body text-xs text-[var(--ink-mid)] sm:text-sm">
                       {feedback.authorRole}
                     </div>
                   )}
@@ -76,12 +90,12 @@ export default function ClientFeedback({
               )}
 
               {hasLogo && feedback.clientLogo && (
-                <div className="relative h-10 w-28 shrink-0 sm:h-12 sm:w-36 md:ml-auto lg:w-44">
+                <div className="relative h-12 w-32 shrink-0 sm:h-14 sm:w-40 md:h-16 md:w-48 lg:ml-auto lg:h-[4.5rem] lg:w-56">
                   <Image
-                    src={urlFor(feedback.clientLogo).width(400).url()}
+                    src={urlFor(feedback.clientLogo).width(600).url()}
                     alt={feedback.authorOrg ?? 'Client company logo'}
                     fill
-                    sizes="(max-width: 640px) 112px, 176px"
+                    sizes="(max-width: 640px) 128px, (max-width: 1024px) 192px, 224px"
                     className="object-contain object-right"
                   />
                 </div>

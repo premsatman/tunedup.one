@@ -32,9 +32,9 @@ export default function GanttTimeline({ phases }: { phases: TimelinePhase[] }) {
   const hasAnyOperators = uniqueOperators.length > 0
 
   return (
-    <div className="overflow-x-auto rounded-2xl border border-[var(--line)] bg-white p-6 lg:p-8">
+    <div className="overflow-x-auto rounded-2xl bg-white p-6 lg:p-8">
       <div className="min-w-[700px]">
-        <div className="mb-3 flex items-center gap-0 border-b border-[var(--line)] pb-3 pl-32">
+        <div className="mb-3 flex items-center gap-0 pb-3 pl-32">
           {weekMarkers.map((week) => (
             <div
               key={week}
@@ -117,7 +117,7 @@ export default function GanttTimeline({ phases }: { phases: TimelinePhase[] }) {
         </div>
 
         {hasAnyOperators && (
-          <div className="mt-6 border-t border-[var(--line)] pt-6">
+          <div className="mt-6 pt-6">
             <div className="mb-3 font-mono text-[10px] uppercase tracking-widest text-[var(--ink-soft)]">
               / Operators
             </div>

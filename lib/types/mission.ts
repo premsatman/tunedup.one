@@ -87,6 +87,7 @@ export type RelatedMission = {
 
 export type MissionDetail = MissionListItem & {
   frequencyTuned?: string
+  frequencyTunedOperator?: TimelineOperator
   missionPatch?: SanityImage
   order?: number
   duration?: string

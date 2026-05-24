@@ -1,10 +1,11 @@
 import Image from 'next/image'
 import { urlFor } from '@/lib/sanity/client'
 import { hasSanityImage } from '@/lib/sanity/hasSanityImage'
+import MockupMediaGlow from '@/components/work-detail/MockupMediaGlow'
 import type { SanityImage } from '@/lib/types/mission'
 
 const mockupFrameClassName =
-  'relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]'
+  'relative overflow-hidden rounded-2xl bg-white/[0.04]'
 
 const mockupGridWrapClassName = 'mx-auto w-full lg:max-w-4xl xl:max-w-[52rem]'
 
@@ -20,26 +21,37 @@ const PairMockup = ({ image, sizes }: { image: SanityImage; sizes: string }) => 
   </div>
 )
 
-const SingleMockup = ({ image }: { image: SanityImage }) => (
-  <div className={`${mockupFrameClassName} aspect-[16/9]`}>
-    <Image
-      src={urlFor(image).width(2400).url()}
-      alt=""
-      fill
-      sizes="(max-width: 1024px) 100vw, 832px"
-      className="object-cover"
-    />
+const SingleMockup = ({
+  image,
+  glowColor,
+}: {
+  image: SanityImage
+  glowColor?: string
+}) => (
+  <div className="relative isolate py-6 sm:py-8">
+    {glowColor ? <MockupMediaGlow color={glowColor} /> : null}
+    <div className={`${mockupFrameClassName} relative z-10 aspect-[16/9]`}>
+      <Image
+        src={urlFor(image).width(2400).url()}
+        alt=""
+        fill
+        sizes="(max-width: 1024px) 100vw, 832px"
+        className="object-cover"
+      />
+    </div>
   </div>
 )
 
 type WorkDetailMockupGridProps = {
   mockups?: SanityImage[]
   mockupSingle?: SanityImage
+  singleGlowColor?: string
 }
 
 export default function WorkDetailMockupGrid({
   mockups,
   mockupSingle,
+  singleGlowColor,
 }: WorkDetailMockupGridProps) {
   const pairLeft = hasSanityImage(mockups?.[0]) ? mockups![0] : undefined
   const pairRight = hasSanityImage(mockups?.[1]) ? mockups![1] : undefined
@@ -75,7 +87,7 @@ export default function WorkDetailMockupGrid({
         <div className={mockupGridWrapClassName}>
           <div className="flex flex-col gap-4 lg:hidden">
             {pairLeft && <PairMockup image={pairLeft} sizes="100vw" />}
-            {single && <SingleMockup image={single} />}
+            {single && <SingleMockup image={single} glowColor={singleGlowColor} />}
             {pairRight && <PairMockup image={pairRight} sizes="100vw" />}
           </div>
 
@@ -94,7 +106,7 @@ export default function WorkDetailMockupGrid({
 
             {single && (
               <div className="col-span-2 lg:order-3">
-                <SingleMockup image={single} />
+                <SingleMockup image={single} glowColor={singleGlowColor} />
               </div>
             )}
           </div>

@@ -9,13 +9,7 @@ import CaseHeroBackgroundVideo, {
   DEFAULT_WORK_DETAIL_MUX_PLAYBACK_ID,
 } from '@/components/work-detail/CaseHeroBackgroundVideo'
 import WorkDetailHeroLogo from '@/components/work-detail/WorkDetailHeroLogo'
-
-const telemetryFields = [
-  { key: 'clientName' as const, label: '/Client' },
-  { key: 'sector' as const, label: '/Sector' },
-  { key: 'role' as const, label: '/Role' },
-  { key: 'frequencyTuned' as const, label: '/Frequency Tuned' },
-]
+import ProjectTelemetryPanel from '@/components/work-detail/ProjectTelemetryPanel'
 
 /** Hero video: 55vh mobile/tablet, 85vh lg+ */
 export const WORK_DETAIL_HERO_COVER_HEIGHT = 'h-[55vh] lg:h-[85vh]'
@@ -28,34 +22,6 @@ export const HERO_VIDEO_OVERLAP_RATIO = 0.25
 
 const featuredHeroMediaWrap =
   'relative z-10 mx-auto mt-8 w-full max-w-7xl px-6 sm:mt-10 lg:mt-0 lg:px-12 lg:-mt-[var(--featured-overlap)]'
-
-const heroTelemetryWrap =
-  'relative z-10 mx-auto w-full max-w-7xl px-6 pb-12 pt-8 lg:px-12 lg:pb-14 lg:pt-10'
-
-export const HeroTelemetry = ({ mission }: { mission: MissionDetail }) => {
-  const hasTelemetry = telemetryFields.some((field) => mission[field.key])
-  if (!hasTelemetry) return null
-
-  return (
-    <div className={heroTelemetryWrap}>
-      <div className="grid w-full grid-cols-2 gap-8 md:grid-cols-4 md:gap-6">
-        {telemetryFields.map(({ key, label }) => {
-          const value = mission[key]
-          if (!value) return null
-
-          return (
-            <div key={key} className="text-center md:text-left">
-              <div className="mb-2 font-mono text-[10px] uppercase tracking-widest text-white/50">
-                {label}
-              </div>
-              <div className="font-body text-sm text-white/90 md:text-base">{value}</div>
-            </div>
-          )
-        })}
-      </div>
-    </div>
-  )
-}
 
 export default function CaseDetailHero({ mission }: { mission: MissionDetail }) {
   if (!mission) return null
@@ -137,6 +103,8 @@ export default function CaseDetailHero({ mission }: { mission: MissionDetail }) 
       <WorkedOnTabs workedOn={mission.workedOn} />
 
       <ProjectDescriptionIntro description={mission.projectDescription} />
+
+      <ProjectTelemetryPanel mission={mission} />
 
       <HeroImage2 image={mission.heroImage2} />
     </section>

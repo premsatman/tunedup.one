@@ -142,7 +142,7 @@ export default function WorkedOnTabs({ workedOn }: WorkedOnTabsProps) {
           layout
           className={`min-h-[4.75rem] min-w-0 sm:min-h-[5.25rem] ${
             isDesktopExpanded
-              ? 'relative shrink-0 border-r border-white/10'
+              ? 'relative shrink-0'
               : 'flex flex-1'
           }`}
           style={isDesktopExpanded ? { width: columnWidth } : undefined}
@@ -168,15 +168,12 @@ export default function WorkedOnTabs({ workedOn }: WorkedOnTabsProps) {
           ) : (
             workedOn.map((item, index) => {
               const isActive = activeIndex === index
-              const showColumnDivider = index < columnCount - 1
 
               return (
                 <motion.div
                   key={item.category ?? index}
                   layout={!prefersReducedMotion}
-                  className={`flex min-w-0 shrink-0 flex-1 items-center overflow-hidden px-3 sm:px-5 lg:px-8 ${
-                    showColumnDivider ? 'border-r border-white/10' : ''
-                  }`}
+                  className="flex min-w-0 shrink-0 flex-1 items-center overflow-hidden px-3 sm:px-5 lg:px-8"
                   style={{ flexBasis: columnWidth }}
                 >
                   {renderTabButton(item, index, isActive, false)}
@@ -244,7 +241,7 @@ export default function WorkedOnTabs({ workedOn }: WorkedOnTabsProps) {
                   ? { duration: 0.01 }
                   : { duration: 0.65, ease: panelEase, opacity: { duration: 0.45, delay: 0.08 } }
               }
-              className="overflow-hidden border-t border-white/10 lg:hidden"
+              className="overflow-hidden lg:hidden"
               role="tabpanel"
               id={`worked-on-panel-${activeIndex}`}
               aria-labelledby={`worked-on-tab-${activeIndex}`}
