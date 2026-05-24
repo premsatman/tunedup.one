@@ -8,21 +8,31 @@ import { useMenuOpenOptional } from '@/components/layout/MenuOpenContext'
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
 
+const SCROLL_SMOOTHER_CLASS = 'scroll-smoother-active'
+
 const shouldUseScrollSmoother = () => {
   if (typeof window === 'undefined') return false
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const prefersCoarsePointer = window.matchMedia('(pointer: coarse)').matches
 
-  // Native scroll on touch devices — ScrollSmoother + blur layers cause jank on iOS/Android.
   return !prefersReducedMotion && !prefersCoarsePointer
+}
+
+const setScrollSmootherClass = (enabled: boolean) => {
+  document.documentElement.classList.toggle(SCROLL_SMOOTHER_CLASS, enabled)
 }
 
 export default function ScrollSmootherInit() {
   const menuOpen = useMenuOpenOptional()?.menuOpen ?? false
 
   useEffect(() => {
-    if (!shouldUseScrollSmoother()) return
+    if (!shouldUseScrollSmoother()) {
+      setScrollSmootherClass(false)
+      return
+    }
+
+    setScrollSmootherClass(true)
 
     const smoother = ScrollSmoother.create({
       wrapper: '#smooth-wrapper',
@@ -40,6 +50,7 @@ export default function ScrollSmootherInit() {
 
     return () => {
       smoother.kill()
+      setScrollSmootherClass(false)
     }
   }, [])
 

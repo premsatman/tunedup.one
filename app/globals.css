@@ -32,6 +32,17 @@ body {
 }
 
 #smooth-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+}
+
+#smooth-content {
+  overflow: visible;
+}
+
+/* ScrollSmoother owns scroll on pointer-fine desktops only */
+html.scroll-smoother-active #smooth-wrapper {
   position: fixed;
   inset: 0;
   overflow: hidden;
@@ -39,7 +50,7 @@ body {
   height: 100%;
 }
 
-#smooth-content {
+html.scroll-smoother-active #smooth-content {
   overflow: visible;
   will-change: transform;
 }
