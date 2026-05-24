@@ -12,6 +12,9 @@ import PageGutter from './PageGutter'
 type BrokenWordHeroProps = {
   word: string
   wordmarkSrc?: string
+  wordmarkWidth?: number
+  wordmarkHeight?: number
+  wordmarkClassName?: string
   propSrc: string
   propAlt: string
   subline: React.ReactNode
@@ -20,6 +23,7 @@ type BrokenWordHeroProps = {
   layout?: 'default' | 'home'
   showScrollCue?: boolean
   sublineClassName?: string
+  id?: string
 }
 
 /* Mobile: prop offset right. Tablet+ (sm+): centered overlay, scales by breakpoint. */
@@ -63,6 +67,9 @@ const HeroScrollCue = () => {
 export default function BrokenWordHero({
   word,
   wordmarkSrc,
+  wordmarkWidth = 1810,
+  wordmarkHeight = 450,
+  wordmarkClassName = 'block h-auto w-[min(96vw,460px)] max-w-none sm:w-[min(98vw,820px)] md:w-[min(98vw,1020px)] lg:w-[min(96vw,1120px)] xl:w-[min(98vw,1800px)] 2xl:w-[min(100vw,2400px)]',
   propSrc,
   propAlt,
   subline,
@@ -71,6 +78,7 @@ export default function BrokenWordHero({
   layout = 'default',
   showScrollCue = true,
   sublineClassName,
+  id,
 }: BrokenWordHeroProps) {
   const shouldReduceMotion = useReducedMotion()
   const menuOpen = useMenuOpenOptional()?.menuOpen ?? false
@@ -99,11 +107,11 @@ export default function BrokenWordHero({
       <Image
         src={wordmarkSrc}
         alt={word}
-        width={1810}
-        height={450}
+        width={wordmarkWidth}
+        height={wordmarkHeight}
         priority
         unoptimized
-        className="block h-auto w-[min(96vw,460px)] max-w-none sm:w-[min(98vw,820px)] md:w-[min(98vw,1020px)] lg:w-[min(96vw,1120px)] xl:w-[min(98vw,1800px)] 2xl:w-[min(100vw,2400px)]"
+        className={wordmarkClassName}
       />
     </motion.div>
   ) : (
@@ -166,7 +174,10 @@ export default function BrokenWordHero({
   )
 
   return (
-    <section className="relative flex min-h-0 flex-col overflow-hidden bg-[var(--canvas)] sm:min-h-[88svh] md:min-h-[90vh]">
+    <section
+      id={id}
+      className="relative flex min-h-0 flex-col overflow-hidden bg-[var(--canvas)] sm:min-h-[88svh] md:min-h-[90vh]"
+    >
       <PageGutter className="relative flex flex-1 flex-col justify-start pb-4 pt-28 sm:justify-center sm:pb-8 sm:pt-24 md:mt-auto md:flex-none md:justify-end md:pb-0 md:pt-28 lg:pt-32">
         <div className="relative pl-10 sm:pl-14 lg:pl-20">
           {isHomeLayout ? (

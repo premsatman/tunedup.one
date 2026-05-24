@@ -1,6 +1,6 @@
 'use client'
 
-import { useLayoutEffect, useRef } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useMenuOpen } from '@/components/layout/MenuOpenContext'
 import Link from 'next/link'
@@ -12,51 +12,77 @@ import { playClickSound } from '@/lib/playClickSound'
 import { MessageCircle, Menu as MenuIcon } from 'lucide-react'
 
 const LOGO_SCROLL_TARGETS: Partial<Record<string, string>> = {
-  '/': 'mission-archive',
-  '/contact': 'contact-wizard',
+  '/': 'home-hero',
+  '/contact': 'contact-hero',
+  '/work': 'work-hero',
+  '/crew': 'crew-hero',
 }
 
+const isWorkDetailPath = (pathname: string) =>
+  pathname.startsWith('/work/') && pathname !== '/work'
+
 type NavbarLogoProps = {
-  targetId: string | null
+  targetId: string
   onNavClick: () => void
+  linkClassName?: string
 }
 
 const StaticNavbarLogo = ({ onNavClick }: { onNavClick: () => void }) => (
   <Link
     href="/"
     onClick={onNavClick}
-    className="font-display text-2xl font-bold tracking-tight sm:text-3xl"
+    className="font-display text-2xl font-bold tracking-tight text-[var(--ink)] sm:text-3xl"
     aria-label="TunedUp home"
   >
     tunedup
   </Link>
 )
 
-const NavbarLogo = ({ targetId, onNavClick }: NavbarLogoProps) => {
-  const scrollTargetRef = useRef<HTMLElement | null>(null)
+const NavbarLogo = ({ targetId, onNavClick, linkClassName }: NavbarLogoProps) => {
+  const [scrollTarget, setScrollTarget] = useState<HTMLElement | null>(null)
+  const targetRef = useRef<HTMLElement | null>(null)
   const shouldReduceMotion = useReducedMotion()
 
   useLayoutEffect(() => {
-    scrollTargetRef.current = targetId ? document.getElementById(targetId) : null
+    const element = document.getElementById(targetId)
+    targetRef.current = element
+    setScrollTarget(element)
   }, [targetId])
 
   const { scrollYProgress } = useScroll({
-    target: scrollTargetRef,
-    offset: ['start end', 'start 0.14'],
+    target: targetRef,
+    offset: ['start start', 'end 0.12'],
   })
 
-  const logoOpacity = useTransform(scrollYProgress, [0.55, 0.95], [1, 0])
-  const logoY = useTransform(scrollYProgress, [0.55, 0.95], [0, -10])
+  const logoOpacity = useTransform(scrollYProgress, [0, 0.55, 0.9], [1, 1, 0])
+  const logoY = useTransform(scrollYProgress, [0.55, 0.9], [0, -10])
 
-  const motionStyle =
-    targetId && !shouldReduceMotion ? { opacity: logoOpacity, y: logoY } : undefined
+  const logoLinkClassName =
+    linkClassName ??
+    'font-display text-2xl font-bold tracking-tight text-[var(--ink)] sm:text-3xl'
 
-  return (
-    <motion.div style={motionStyle} className="will-change-transform">
+  if (!scrollTarget) {
+    return (
       <Link
         href="/"
         onClick={onNavClick}
-        className="font-display text-2xl font-bold tracking-tight sm:text-3xl"
+        className={logoLinkClassName}
+        aria-label="TunedUp home"
+      >
+        tunedup
+      </Link>
+    )
+  }
+
+  return (
+    <motion.div
+      style={shouldReduceMotion ? undefined : { opacity: logoOpacity, y: logoY }}
+      className="will-change-transform"
+    >
+      <Link
+        href="/"
+        onClick={onNavClick}
+        className={logoLinkClassName}
         aria-label="TunedUp home"
       >
         tunedup
@@ -68,7 +94,8 @@ const NavbarLogo = ({ targetId, onNavClick }: NavbarLogoProps) => {
 export default function Navbar() {
   const pathname = usePathname()
   const { menuOpen, setMenuOpen } = useMenuOpen()
-  const logoScrollTargetId = LOGO_SCROLL_TARGETS[pathname] ?? null
+  const isWorkDetail = isWorkDetailPath(pathname)
+  const logoScrollTargetId = isWorkDetail ? null : (LOGO_SCROLL_TARGETS[pathname] ?? null)
 
   const handleNavClick = () => playClickSound()
 
@@ -78,6 +105,10 @@ export default function Navbar() {
   }
 
   const handleCloseMenu = () => setMenuOpen(false)
+
+  if (isWorkDetail) {
+    return null
+  }
 
   return (
     <>
@@ -95,9 +126,14 @@ export default function Navbar() {
 
           <div className="flex items-center gap-2 sm:gap-3">
             <SoundToggle />
-            <Pill variant="outline" href="/contact" onClick={handleNavClick} className="gap-2">
+            <Pill
+              variant="outline"
+              href="/contact"
+              onClick={handleNavClick}
+              className="hidden gap-2 lg:inline-flex"
+            >
               <MessageCircle size={14} aria-hidden />
-              <span className="hidden sm:inline">Get in Touch</span>
+              Get in Touch
             </Pill>
             <Pill variant="primary" onClick={handleOpenMenu} className="gap-2">
               <span>Menu</span>

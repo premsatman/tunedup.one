@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react'
 import clsx from 'clsx'
 import { playBubbleSound } from '@/lib/playBubbleSound'
 
-export type PillTheme = 'default' | 'contact'
+export type PillTheme = 'default' | 'contact' | 'dark'
 
 type PillProps = {
   children: React.ReactNode
@@ -43,6 +43,11 @@ const variantStyles: Record<
     outline: 'bg-[var(--canvas)] text-[var(--ink)] px-7 py-3.5',
     footer: 'bg-[var(--canvas)] text-[var(--ink)] px-6 py-3 text-xs',
   },
+  dark: {
+    primary: 'bg-[#F5F1E8] text-[var(--dark)] px-7 py-3.5',
+    outline: 'border border-white/20 bg-transparent px-7 py-3.5 text-[#F5F1E8] hover:border-white/50',
+    footer: 'border border-white/20 bg-transparent px-6 py-3 text-xs text-[#F5F1E8]',
+  },
 }
 
 const sweepVariants: Record<PillTheme, Record<'primary' | 'outline' | 'footer', string>> = {
@@ -55,6 +60,11 @@ const sweepVariants: Record<PillTheme, Record<'primary' | 'outline' | 'footer', 
     primary: 'bg-white/14',
     outline: 'bg-black/10',
     footer: 'bg-black/10',
+  },
+  dark: {
+    primary: 'bg-black/10',
+    outline: 'bg-white/10',
+    footer: 'bg-white/10',
   },
 }
 

@@ -4,11 +4,15 @@ import HighlightWord from '@/components/shared/HighlightWord'
 export default function ContactHero() {
   return (
     <BrokenWordHero
-      word="contact"
+      id="contact-hero"
+      word="Contact"
+      wordmarkSrc="/props/contact.svg"
+      wordmarkWidth={1743}
+      wordmarkHeight={332}
       layout="home"
-      propSrc="/props/prop-hero.png"
-      propAlt="TunedUp Comms Handset"
-      sublineClassName="text-title-hero-contact relative z-0 m-0 mt-4 max-w-3xl text-[var(--ink)] md:mt-5"
+      propSrc="/props/prop-studio.png"
+      propAlt="TunedUp Mission Control Drone"
+      propPosition="center"
       subline={
         <>
           Start a conversation <br /> about{' '}

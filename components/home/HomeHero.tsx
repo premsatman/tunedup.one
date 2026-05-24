@@ -4,6 +4,7 @@ import HighlightWord from '@/components/shared/HighlightWord'
 export default function HomeHero() {
   return (
     <BrokenWordHero
+      id="home-hero"
       word="tunedup"
       wordmarkSrc="/props/herotext.svg"
       layout="home"

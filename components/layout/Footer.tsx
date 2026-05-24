@@ -3,6 +3,7 @@ import Pill from '@/components/shared/Pill'
 import FooterScrollButton from './FooterScrollButton'
 import FooterProp from './FooterProp'
 import FooterShowcase from './FooterShowcase'
+import FooterShell from './FooterShell'
 
 const socialLinks = [
   { icon: Linkedin, href: 'https://linkedin.com/company/tunedup', label: 'LinkedIn' },
@@ -13,14 +14,14 @@ const socialLinks = [
 
 const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'The Workshop', href: '/workshop' },
+  { label: 'Crew', href: '/crew' },
   { label: 'Work', href: '/work' },
   { label: 'Contact', href: '/contact' },
 ]
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-visible bg-[var(--canvas)] px-8 pb-8 sm:px-12 sm:pb-10 lg:px-20 xl:px-28 2xl:px-36">
+    <FooterShell>
       <div className="relative w-full pt-12">
         <div className="relative aspect-[180.9/45] w-full">
           <div className="absolute inset-x-0 bottom-0 z-0">
@@ -66,6 +67,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+    </FooterShell>
   )
 }

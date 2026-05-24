@@ -12,6 +12,7 @@ export const featuredMissionsQuery = groq`
     heroImage,
     missionPatch,
     status,
+    services,
   }
 `
 
@@ -27,6 +28,7 @@ export const allMissionsQuery = groq`
     heroImage,
     missionPatch,
     status,
+    services,
   }
 `
 
@@ -40,17 +42,84 @@ export const missionBySlugQuery = groq`
     tagline,
     frequencyTuned,
     heroImage,
+    heroVideoPlaybackId,
+    heroImage2,
     missionPatch,
     status,
+    services,
     order,
-    telemetry,
-    briefRich,
-    approachRich,
-    approachGallery,
-    technicalSpec,
+    duration,
+    year,
+    clientName,
+    sector,
+    role,
+    workedOn,
+    colorPalette,
+    projectDescription,
+    problemDescription,
+    problemCards,
+    mockupPair1,
+    mockupSingle1 {
+      ...,
+      asset->
+    },
+    solutionDescription,
+    solutionCards,
+    mockupPairSolution,
+    mockupSingleSolution {
+      ...,
+      asset->
+    },
+    designProcessDescription,
+    projectTimeline[] {
+      phaseName,
+      startWeek,
+      durationWeeks,
+      color,
+      operators[]-> {
+        _id,
+        name,
+        photo,
+      },
+    },
+    styleGuideTypography,
+    styleGuideComponents,
+    mockupPair2,
+    wireframes,
     outcomes,
-    gallery,
+    workflowDescription,
+    workflowSteps,
+    clientFeedback,
     whatsNext,
+    relatedMissions[]-> {
+      _id,
+      title,
+      "slug": slug.current,
+      missionCodename,
+      tagline,
+      heroImage
+    }
+  }
+`
+
+export const autoRelatedMissionsQuery = groq`
+  *[_type == "caseStudy" && slug.current != $currentSlug] | order(order asc)[0...2] {
+    _id,
+    title,
+    "slug": slug.current,
+    missionCodename,
+    tagline,
+    heroImage
+  }
+`
+
+export const allMissionSlugsQuery = groq`
+  *[_type == "caseStudy"] | order(order asc) {
+    title,
+    "slug": slug.current,
+    missionCodename,
+    heroImage,
+    order,
   }
 `
 
@@ -67,7 +136,29 @@ export const adjacentMissionsQuery = groq`
 
 export const allTeamQuery = groq`
   *[_type == "teamMember"] | order(order asc) {
-    _id, name, role, bio, photo, tags
+    _id, name, role, bio, photo, tags, linkedIn, isFounder
+  }
+`
+
+export const founderQuery = groq`
+  *[_type == "teamMember" && isFounder == true][0] {
+    _id,
+    name,
+    role,
+    founderTitle,
+    bio,
+    founderBio,
+    photo,
+    tags,
+    linkedIn,
+    yearsExperience,
+    brandAssociations[] {
+      brandName,
+      logo,
+      screenshot,
+      oneLiner,
+      role,
+    }
   }
 `
 
