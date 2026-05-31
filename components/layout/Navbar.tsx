@@ -3,8 +3,8 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useMenuOpen } from '@/components/layout/MenuOpenContext'
-import Link from 'next/link'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import BrandLogo from '@/components/shared/BrandLogo'
 import Pill from '@/components/shared/Pill'
 import MenuOverlay from './MenuOverlay'
 import SoundToggle from './SoundToggle'
@@ -24,21 +24,13 @@ const isWorkDetailPath = (pathname: string) =>
 type NavbarLogoProps = {
   targetId: string
   onNavClick: () => void
-  linkClassName?: string
 }
 
 const StaticNavbarLogo = ({ onNavClick }: { onNavClick: () => void }) => (
-  <Link
-    href="/"
-    onClick={onNavClick}
-    className="font-display text-2xl font-bold tracking-tight text-[var(--ink)] sm:text-3xl"
-    aria-label="TunedUp home"
-  >
-    tunedup
-  </Link>
+  <BrandLogo href="/" onClick={onNavClick} variant="full" theme="dark" priority />
 )
 
-const NavbarLogo = ({ targetId, onNavClick, linkClassName }: NavbarLogoProps) => {
+const NavbarLogo = ({ targetId, onNavClick }: NavbarLogoProps) => {
   const [scrollTarget, setScrollTarget] = useState<HTMLElement | null>(null)
   const targetRef = useRef<HTMLElement | null>(null)
   const shouldReduceMotion = useReducedMotion()
@@ -57,21 +49,8 @@ const NavbarLogo = ({ targetId, onNavClick, linkClassName }: NavbarLogoProps) =>
   const logoOpacity = useTransform(scrollYProgress, [0, 0.55, 0.9], [1, 1, 0])
   const logoY = useTransform(scrollYProgress, [0.55, 0.9], [0, -10])
 
-  const logoLinkClassName =
-    linkClassName ??
-    'font-display text-2xl font-bold tracking-tight text-[var(--ink)] sm:text-3xl'
-
   if (!scrollTarget) {
-    return (
-      <Link
-        href="/"
-        onClick={onNavClick}
-        className={logoLinkClassName}
-        aria-label="TunedUp home"
-      >
-        tunedup
-      </Link>
-    )
+    return <BrandLogo href="/" onClick={onNavClick} variant="full" theme="dark" priority />
   }
 
   return (
@@ -79,14 +58,7 @@ const NavbarLogo = ({ targetId, onNavClick, linkClassName }: NavbarLogoProps) =>
       style={shouldReduceMotion ? undefined : { opacity: logoOpacity, y: logoY }}
       className="will-change-transform"
     >
-      <Link
-        href="/"
-        onClick={onNavClick}
-        className={logoLinkClassName}
-        aria-label="TunedUp home"
-      >
-        tunedup
-      </Link>
+      <BrandLogo href="/" onClick={onNavClick} variant="full" theme="dark" priority />
     </motion.div>
   )
 }

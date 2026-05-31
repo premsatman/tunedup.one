@@ -73,26 +73,26 @@ export default function CaseDetailHero({ mission }: { mission: MissionDetail }) 
           <div className="relative isolate [contain:paint]">
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-x-[6%] top-[72%] z-0 h-24 lg:hidden"
+              className="pointer-events-none absolute inset-x-[14%] top-[76%] z-0 h-16 lg:hidden"
               style={{
                 background:
-                  'radial-gradient(ellipse at center, var(--accent) 0%, transparent 72%)',
-                opacity: 0.5,
+                  'radial-gradient(ellipse at center, var(--accent) 0%, transparent 68%)',
+                opacity: 0.48,
               }}
             />
 
             <div className="hidden lg:contents">
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-x-[4%] top-[72%] z-0 h-28 rounded-[100%] bg-[var(--accent)] opacity-50 blur-3xl sm:inset-x-[6%] sm:h-32 md:top-[74%] md:h-36"
+                className="pointer-events-none absolute inset-x-[12%] top-[76%] z-0 h-16 rounded-[100%] bg-[var(--accent)] opacity-45 blur-2xl sm:inset-x-[14%] sm:h-[4.5rem] md:top-[77%]"
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-x-[10%] top-[78%] z-0 h-20 rounded-[100%] bg-[var(--accent)] opacity-75 blur-2xl sm:top-[80%] sm:h-24"
+                className="pointer-events-none absolute inset-x-[18%] top-[80%] z-0 h-11 rounded-[100%] bg-[var(--accent)] opacity-70 blur-xl sm:top-[81%] sm:h-12"
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-x-[18%] top-[82%] z-0 h-12 rounded-[100%] bg-[#5eead4] opacity-85 blur-xl sm:top-[84%] sm:h-14"
+                className="pointer-events-none absolute inset-x-[24%] top-[84%] z-0 h-7 rounded-[100%] bg-[#5eead4] opacity-80 blur-lg sm:top-[85%] sm:h-8"
               />
             </div>
 

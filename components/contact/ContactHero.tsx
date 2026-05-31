@@ -5,7 +5,7 @@ export default function ContactHero() {
   return (
     <BrokenWordHero
       id="contact-hero"
-      word="Contact"
+      word="contact"
       wordmarkSrc="/props/contact.svg"
       wordmarkWidth={1743}
       wordmarkHeight={332}
@@ -15,10 +15,7 @@ export default function ContactHero() {
       propPosition="center"
       subline={
         <>
-          Start a conversation <br /> about{' '}
-          <HighlightWord>new work,</HighlightWord>
-          <br />
-          careers, or anything else.
+          Initiate First <HighlightWord>Contact</HighlightWord>
         </>
       }
     />

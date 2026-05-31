@@ -23,7 +23,31 @@ type BrokenWordHeroProps = {
   layout?: 'default' | 'home'
   showScrollCue?: boolean
   sublineClassName?: string
+  homeWordmarkWrapClassName?: string
   id?: string
+}
+
+/** Same height clamps as /work hero text — used for SVG wordmarks on home-layout pages. */
+export const HOME_HERO_SVG_WORDMARK_CLASS =
+  'block h-[clamp(80px,22vw,140px)] w-auto max-w-full origin-bottom-left sm:h-[clamp(140px,18vw,220px)] lg:h-[clamp(220px,16vw,320px)]'
+
+/** Homepage tunedup SVG — matches tunedup text scale on large screens. */
+export const HOME_HERO_TUNEDUP_SVG_WORDMARK_CLASS =
+  'block h-[clamp(80px,22vw,140px)] w-auto max-w-full origin-bottom-left sm:h-[clamp(140px,18vw,220px)] lg:h-[clamp(220px,16vw,500px)]'
+
+const LEGACY_SVG_WORDMARK_CLASS =
+  'block h-auto w-[min(96vw,460px)] max-w-none sm:w-[min(98vw,820px)] md:w-[min(98vw,1020px)] lg:w-[min(96vw,1120px)] xl:w-[min(98vw,1800px)] 2xl:w-[min(100vw,2400px)]'
+
+const resolveSvgWordmarkClassName = (
+  word: string,
+  layout: 'default' | 'home',
+  wordmarkClassName?: string,
+) => {
+  if (wordmarkClassName) return wordmarkClassName
+  if (layout !== 'home') return LEGACY_SVG_WORDMARK_CLASS
+  return word.toLowerCase() === 'tunedup'
+    ? HOME_HERO_TUNEDUP_SVG_WORDMARK_CLASS
+    : HOME_HERO_SVG_WORDMARK_CLASS
 }
 
 /* Mobile: prop offset right. Tablet+ (sm+): centered overlay, scales by breakpoint. */
@@ -69,7 +93,7 @@ export default function BrokenWordHero({
   wordmarkSrc,
   wordmarkWidth = 1810,
   wordmarkHeight = 450,
-  wordmarkClassName = 'block h-auto w-[min(96vw,460px)] max-w-none sm:w-[min(98vw,820px)] md:w-[min(98vw,1020px)] lg:w-[min(96vw,1120px)] xl:w-[min(98vw,1800px)] 2xl:w-[min(100vw,2400px)]',
+  wordmarkClassName,
   propSrc,
   propAlt,
   subline,
@@ -78,6 +102,7 @@ export default function BrokenWordHero({
   layout = 'default',
   showScrollCue = true,
   sublineClassName,
+  homeWordmarkWrapClassName = 'max-w-3xl',
   id,
 }: BrokenWordHeroProps) {
   const shouldReduceMotion = useReducedMotion()
@@ -85,6 +110,9 @@ export default function BrokenWordHero({
   const isHomeLayout = layout === 'home'
   const isHomeHeroProp = propSrc.includes('prop-hero')
   const hidePropForMenu = menuOpen && isHomeHeroProp
+  const svgWordmarkClassName = wordmarkSrc
+    ? resolveSvgWordmarkClassName(word, layout, wordmarkClassName)
+    : undefined
 
   const propPositionClasses = {
     center: 'left-1/2 -translate-x-1/2',
@@ -111,7 +139,7 @@ export default function BrokenWordHero({
         height={wordmarkHeight}
         priority
         unoptimized
-        className={wordmarkClassName}
+        className={svgWordmarkClassName}
       />
     </motion.div>
   ) : (
@@ -155,6 +183,9 @@ export default function BrokenWordHero({
     </motion.div>
   )
 
+  const homeSublineClassName =
+    'text-title-hero-intro relative z-0 m-0 mt-4 max-w-3xl text-[var(--ink)] md:mt-5'
+
   const sublineEl = (
     <motion.p
       initial={false}
@@ -163,9 +194,7 @@ export default function BrokenWordHero({
       className={
         sublineClassName ??
         (isHomeLayout
-          ? wordmarkSrc
-            ? 'text-title-hero-intro relative z-0 m-0 mt-0 max-w-3xl leading-none text-[var(--ink)]'
-            : 'text-title-hero-intro relative z-0 m-0 mt-4 max-w-3xl text-[var(--ink)] md:mt-5'
+          ? homeSublineClassName
           : 'text-title-hero-sub relative z-0 mt-4 max-w-3xl text-[var(--ink)] md:mt-5')
       }
     >
@@ -185,7 +214,7 @@ export default function BrokenWordHero({
               {!hidePropForMenu && propMotion}
 
               <div
-                className={`relative z-10 flex w-full origin-bottom-left flex-col items-start gap-0 text-left ml-8 sm:mt-auto sm:translate-y-5 sm:pb-4 sm:ml-22 md:ml-24 md:translate-y-6 md:pb-5 lg:ml-28 lg:translate-y-7 lg:pb-6 xl:ml-28 xl:translate-y-7 xl:pb-6 2xl:ml-28 2xl:translate-y-7 2xl:pb-6 ${wordmarkSrc ? 'pt-0' : 'max-w-3xl'}`}
+                className={`relative z-10 flex w-full origin-bottom-left flex-col items-start gap-0 text-left ml-8 sm:mt-auto sm:translate-y-5 sm:pb-4 sm:ml-22 md:ml-24 md:translate-y-6 md:pb-5 lg:ml-28 lg:translate-y-7 lg:pb-6 xl:ml-28 xl:translate-y-7 xl:pb-6 2xl:ml-28 2xl:translate-y-7 2xl:pb-6 ${homeWordmarkWrapClassName}`}
               >
                 {wordmarkEl}
                 {sublineEl}

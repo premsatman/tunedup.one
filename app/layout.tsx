@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Space_Grotesk, DM_Sans, JetBrains_Mono } from 'next/font/google'
+import { brandAssets } from '@/lib/brand'
 import './globals.css'
 
 const display = Space_Grotesk({
@@ -28,12 +29,18 @@ export const metadata: Metadata = {
   description:
     "You're on the mission. We're mission control. Digital strategy, web development, automation, and growth for churches, NGOs, entrepreneurs, and startups.",
   metadataBase: new URL('https://tunedup.one'),
+  icons: {
+    icon: [{ url: brandAssets.favicon, sizes: 'any' }],
+    shortcut: brandAssets.favicon,
+    apple: brandAssets.squareBlack,
+  },
   openGraph: {
     title: 'TunedUp Mission Control',
     description: 'Fine Tuning Your Brand',
     url: 'https://tunedup.one',
     siteName: 'TunedUp Digital',
     type: 'website',
+    images: [{ url: brandAssets.squareBlack, width: 500, height: 500, alt: 'TunedUp' }],
   },
 }
 

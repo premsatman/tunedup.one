@@ -41,7 +41,7 @@ const MobileGlowBand = ({
     aria-hidden
     className={`pointer-events-none absolute z-0 ${positionClassName} ${insetClassName} ${heightClassName} lg:hidden`}
     style={{
-      background: `radial-gradient(ellipse at center, ${color} 0%, transparent 72%)`,
+      background: `radial-gradient(ellipse at center, ${color} 0%, transparent 68%)`,
       opacity,
     }}
   />
@@ -52,68 +52,68 @@ export default function MockupMediaGlow({ color }: MockupMediaGlowProps) {
     <>
       <MobileGlowBand
         color={color}
-        positionClassName="top-[6%]"
-        insetClassName="inset-x-[6%]"
-        heightClassName="h-20"
-        opacity={0.45}
+        positionClassName="top-[8%]"
+        insetClassName="inset-x-[14%]"
+        heightClassName="h-14"
+        opacity={0.42}
       />
       <MobileGlowBand
         color={color}
-        positionClassName="top-[72%]"
-        insetClassName="inset-x-[6%]"
-        heightClassName="h-24"
-        opacity={0.5}
+        positionClassName="top-[76%]"
+        insetClassName="inset-x-[14%]"
+        heightClassName="h-16"
+        opacity={0.48}
       />
 
       <div className="hidden lg:contents">
         <GlowLayer
           color={color}
-          positionClassName="top-[6%] sm:top-[8%]"
-          sizeClassName="h-28 sm:h-32 md:h-36"
-          insetClassName="inset-x-[4%] sm:inset-x-[6%]"
-          opacityClassName="opacity-50"
-          blurClassName="blur-3xl"
-        />
-        <GlowLayer
-          color={color}
-          positionClassName="top-[12%] sm:top-[14%]"
-          sizeClassName="h-20 sm:h-24"
-          insetClassName="inset-x-[10%]"
-          opacityClassName="opacity-75"
+          positionClassName="top-[8%] sm:top-[9%]"
+          sizeClassName="h-16 sm:h-[4.5rem]"
+          insetClassName="inset-x-[12%] sm:inset-x-[14%]"
+          opacityClassName="opacity-45"
           blurClassName="blur-2xl"
         />
         <GlowLayer
           color={color}
-          positionClassName="top-[18%] sm:top-[20%]"
-          sizeClassName="h-12 sm:h-14"
+          positionClassName="top-[13%] sm:top-[14%]"
+          sizeClassName="h-11 sm:h-12"
           insetClassName="inset-x-[18%]"
-          opacityClassName="opacity-85"
+          opacityClassName="opacity-70"
           blurClassName="blur-xl"
+        />
+        <GlowLayer
+          color={color}
+          positionClassName="top-[18%] sm:top-[19%]"
+          sizeClassName="h-7 sm:h-8"
+          insetClassName="inset-x-[24%]"
+          opacityClassName="opacity-80"
+          blurClassName="blur-lg"
         />
 
         <GlowLayer
           color={color}
-          positionClassName="top-[72%] md:top-[74%]"
-          sizeClassName="h-28 sm:h-32 md:h-36"
-          insetClassName="inset-x-[4%] sm:inset-x-[6%]"
-          opacityClassName="opacity-50"
-          blurClassName="blur-3xl"
-        />
-        <GlowLayer
-          color={color}
-          positionClassName="top-[78%] sm:top-[80%]"
-          sizeClassName="h-20 sm:h-24"
-          insetClassName="inset-x-[10%]"
-          opacityClassName="opacity-75"
+          positionClassName="top-[76%] md:top-[77%]"
+          sizeClassName="h-16 sm:h-[4.5rem]"
+          insetClassName="inset-x-[12%] sm:inset-x-[14%]"
+          opacityClassName="opacity-45"
           blurClassName="blur-2xl"
         />
         <GlowLayer
           color={color}
-          positionClassName="top-[82%] sm:top-[84%]"
-          sizeClassName="h-12 sm:h-14"
+          positionClassName="top-[80%] sm:top-[81%]"
+          sizeClassName="h-11 sm:h-12"
           insetClassName="inset-x-[18%]"
-          opacityClassName="opacity-85"
+          opacityClassName="opacity-70"
           blurClassName="blur-xl"
+        />
+        <GlowLayer
+          color={color}
+          positionClassName="top-[84%] sm:top-[85%]"
+          sizeClassName="h-7 sm:h-8"
+          insetClassName="inset-x-[24%]"
+          opacityClassName="opacity-80"
+          blurClassName="blur-lg"
         />
       </div>
     </>

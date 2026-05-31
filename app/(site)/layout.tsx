@@ -1,5 +1,6 @@
 import { MenuOpenProvider } from '@/components/layout/MenuOpenContext'
 import { SoundEnabledProvider } from '@/components/layout/SoundEnabledContext'
+import BrandSplashLoader from '@/components/layout/BrandSplashLoader'
 import Navbar from '@/components/layout/Navbar'
 import ConditionalFooter from '@/components/layout/ConditionalFooter'
 import ScrollSmootherInit from '@/components/layout/ScrollSmootherInit'
@@ -9,15 +10,17 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   return (
     <SoundEnabledProvider>
       <MenuOpenProvider>
-        <ScrollSmootherInit />
-        <ScrollRestoration />
-        <Navbar />
-        <div id="smooth-wrapper">
-          <div id="smooth-content">
-            {children}
-            <ConditionalFooter />
+        <BrandSplashLoader>
+          <ScrollSmootherInit />
+          <ScrollRestoration />
+          <Navbar />
+          <div id="smooth-wrapper">
+            <div id="smooth-content">
+              {children}
+              <ConditionalFooter />
+            </div>
           </div>
-        </div>
+        </BrandSplashLoader>
       </MenuOpenProvider>
     </SoundEnabledProvider>
   )

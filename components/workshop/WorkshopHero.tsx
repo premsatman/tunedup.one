@@ -5,7 +5,7 @@ export default function WorkshopHero() {
   return (
     <BrokenWordHero
       id="crew-hero"
-      word="Crew"
+      word="crew"
       wordmarkSrc="/props/crew.svg"
       wordmarkWidth={1031}
       wordmarkHeight={262}

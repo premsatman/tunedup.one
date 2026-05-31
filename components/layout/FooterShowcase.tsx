@@ -3,9 +3,7 @@
 import Image from 'next/image'
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
-
-const WORDMARK_SRC = '/props/herotext.svg'
-const WORDMARK_ALT = 'tunedup'
+import { brandAlt, brandAssets, brandLogoDimensions } from '@/lib/brand'
 
 export default function FooterShowcase() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -20,18 +18,17 @@ export default function FooterShowcase() {
 
   const wordmarkImage = (
     <Image
-      src={WORDMARK_SRC}
-      alt={WORDMARK_ALT}
-      width={1810}
-      height={450}
-      unoptimized
+      src={brandAssets.fullBlack}
+      alt={brandAlt}
+      width={brandLogoDimensions.full.width}
+      height={brandLogoDimensions.full.height}
       className="block h-auto w-full max-w-none"
     />
   )
 
   return (
     <div ref={sectionRef} className="w-full leading-none">
-      <h2 className="m-0 w-full" aria-label={WORDMARK_ALT}>
+      <h2 className="m-0 w-full" aria-label={brandAlt}>
         {shouldReduceMotion ? (
           wordmarkImage
         ) : (
