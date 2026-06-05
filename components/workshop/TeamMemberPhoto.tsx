@@ -1,24 +1,58 @@
 import Image from 'next/image'
 import { urlFor } from '@/lib/sanity/client'
+import { hasSanityImage } from '@/lib/sanity/hasSanityImage'
 import { getTeamMemberPhotoSrc } from '@/lib/data/crew'
-import type { TeamMemberRecord } from '@/lib/types/team'
+import type { FounderRecord, TeamMemberRecord } from '@/lib/types/team'
 
 type TeamMemberPhotoProps = {
-  member: TeamMemberRecord
+  member: TeamMemberRecord | FounderRecord
   alt: string
   sizes: string
   className?: string
   priority?: boolean
+  /** founder = Crew Page portrait; crew = / The Crew grid; default = operator photo only */
+  variant?: 'founder' | 'crew' | 'default'
 }
 
-export default function TeamMemberPhoto({
+const TeamMemberPhoto = ({
   member,
   alt,
   sizes,
   className = 'object-contain object-top bg-white',
   priority = false,
-}: TeamMemberPhotoProps) {
-  const localPhoto = getTeamMemberPhotoSrc(member)
+  variant = 'default',
+}: TeamMemberPhotoProps) => {
+  const founderPhoto =
+    variant === 'founder' && 'founderPhoto' in member ? member.founderPhoto : undefined
+
+  if (variant === 'founder' && hasSanityImage(founderPhoto) && founderPhoto) {
+    return (
+      <Image
+        src={urlFor(founderPhoto).width(900).url()}
+        alt={alt}
+        fill
+        sizes={sizes}
+        className={className}
+        priority={priority}
+      />
+    )
+  }
+
+  if (variant === 'crew' && hasSanityImage(member.crewPhoto) && member.crewPhoto) {
+    return (
+      <Image
+        src={urlFor(member.crewPhoto).width(800).url()}
+        alt={alt}
+        fill
+        sizes={sizes}
+        className={className}
+        priority={priority}
+      />
+    )
+  }
+
+  const localPhoto =
+    variant === 'founder' || variant === 'crew' ? getTeamMemberPhotoSrc(member) : null
 
   if (localPhoto) {
     return (
@@ -33,7 +67,7 @@ export default function TeamMemberPhoto({
     )
   }
 
-  if (member.photo) {
+  if (hasSanityImage(member.photo) && member.photo) {
     return (
       <Image
         src={urlFor(member.photo).width(800).url()}
@@ -52,3 +86,5 @@ export default function TeamMemberPhoto({
     </div>
   )
 }
+
+export default TeamMemberPhoto

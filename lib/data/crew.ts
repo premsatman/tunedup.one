@@ -31,6 +31,13 @@ export const staticFounder: FounderRecord = {
 
 const staticCrewFallback: TeamMemberRecord[] = [
   {
+    _id: 'crew-premasis',
+    name: 'Premasis Satman',
+    role: 'Founder & Digital Strategist',
+    photoSrc: FOUNDER_PHOTO_SRC,
+    order: 1,
+  },
+  {
     _id: 'crew-pankaj',
     name: 'Pankaj Nayak',
     role: 'iOS & Software Developer',
@@ -46,9 +53,11 @@ const staticCrewFallback: TeamMemberRecord[] = [
   },
 ]
 
-const withLocalPhoto = (member: TeamMemberRecord): TeamMemberRecord => ({
+const withCrewPagePhoto = (member: TeamMemberRecord): TeamMemberRecord => ({
   ...member,
-  photoSrc: resolveLocalCrewPhoto(member.name) ?? member.photoSrc,
+  photoSrc: member.crewPhoto
+    ? undefined
+    : resolveLocalCrewPhoto(member.name) ?? member.photoSrc,
 })
 
 export const resolveFounderFromCrewPage = (
@@ -57,6 +66,7 @@ export const resolveFounderFromCrewPage = (
 ): FounderRecord => {
   const founderSection: CrewFounderSection = {
     operatorId: record?.founderOperator?._id,
+    founderPhoto: record?.founderPhoto,
     founderTitle: record?.founderTitle?.trim() || defaultFounderSection.founderTitle,
     founderBio: record?.founderBio,
     yearsExperience: record?.yearsExperience ?? defaultFounderSection.yearsExperience,
@@ -76,6 +86,7 @@ export const resolveFounderFromCrewPage = (
         role: operatorFromRef.role,
         bio: operatorFromRef.bio,
         photo: operatorFromRef.photo,
+        crewPhoto: operatorFromRef.crewPhoto,
         tags: operatorFromRef.tags,
         linkedIn: operatorFromRef.linkedIn,
       }
@@ -91,30 +102,23 @@ export const resolveFounderFromCrewPage = (
     tags: operator?.tags,
     linkedIn: operator?.linkedIn,
     photo: operator?.photo,
+    founderPhoto: founderSection.founderPhoto,
     founderTitle: founderSection.founderTitle,
     founderBio: founderSection.founderBio,
     yearsExperience: founderSection.yearsExperience,
     brandAssociations: founderSection.brandAssociations,
-    photoSrc: FOUNDER_PHOTO_SRC,
+    photoSrc: founderSection.founderPhoto ? undefined : FOUNDER_PHOTO_SRC,
   }
 }
 
-export const resolveCrewTeam = (
-  sanityTeam: TeamMemberRecord[],
-  founderOperatorId?: string,
-): TeamMemberRecord[] => {
+export const resolveCrewTeam = (sanityTeam: TeamMemberRecord[]): TeamMemberRecord[] => {
   const crewFromSanity = sanityTeam
-    .filter((member) => {
-      if (founderOperatorId && member._id === founderOperatorId) return false
-      if (!founderOperatorId && isPremasisOperator(member)) return false
-      return true
-    })
     .sort((a, b) => (a.order ?? 99) - (b.order ?? 99))
-    .map(withLocalPhoto)
+    .map(withCrewPagePhoto)
 
   if (crewFromSanity.length > 0) return crewFromSanity
 
-  return staticCrewFallback.map(withLocalPhoto)
+  return staticCrewFallback.map(withCrewPagePhoto)
 }
 
 export const getTeamMemberPhotoSrc = (member: TeamMemberRecord): string | null => {

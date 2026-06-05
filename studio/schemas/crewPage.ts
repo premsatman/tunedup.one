@@ -40,6 +40,15 @@ export default defineType({
       description: 'Links Premasis (or founder) for name, tags, and LinkedIn on the crew page.',
     }),
     defineField({
+      name: 'founderPhoto',
+      title: 'Founder photo',
+      type: 'image',
+      options: { hotspot: true },
+      group: 'founder',
+      description:
+        'Portrait for the founder block on /crew (3:4). Separate from operator crew photos used in / The Crew grid.',
+    }),
+    defineField({
       name: 'founderTitle',
       title: 'Founder display title',
       type: 'string',

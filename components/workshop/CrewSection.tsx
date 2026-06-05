@@ -17,22 +17,23 @@ export default function CrewSection({ team }: { team: TeamMemberRecord[] }) {
       </h2>
 
       {crew.length > 0 ? (
-        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3 md:items-stretch">
           {crew.map((member) => (
             <div
               key={member._id}
-              className="rounded-2xl border border-[var(--line)] bg-[var(--canvas)] p-6 transition-colors hover:border-[var(--ink-soft)]"
+              className="flex min-w-0 flex-col rounded-2xl border border-[var(--line)] bg-[var(--canvas)] p-5 transition-colors hover:border-[var(--ink-soft)] md:p-6"
             >
-              <div className="relative mb-6 aspect-square overflow-hidden rounded-xl bg-white">
+              <div className="relative mb-5 aspect-square overflow-hidden rounded-xl bg-white md:mb-6">
                 <TeamMemberPhoto
                   member={member}
                   alt={member.name}
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-contain object-top"
+                  variant="crew"
                 />
               </div>
 
-              <h3 className="font-display text-xl font-bold">{member.name}</h3>
+              <h3 className="font-display text-lg font-bold md:text-xl">{member.name}</h3>
               <p className="mt-1 font-mono text-xs uppercase tracking-widest text-[var(--ink-soft)]">
                 {member.role}
               </p>
@@ -61,7 +62,7 @@ export default function CrewSection({ team }: { team: TeamMemberRecord[] }) {
                   href={member.linkedIn}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-[var(--ink-soft)] transition-colors hover:text-[var(--ink)]"
+                  className="mt-auto inline-flex items-center gap-2 pt-4 font-mono text-xs uppercase tracking-wider text-[var(--ink-soft)] transition-colors hover:text-[var(--ink)]"
                 >
                   <Linkedin size={12} aria-hidden />
                   LinkedIn

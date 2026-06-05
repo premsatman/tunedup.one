@@ -159,7 +159,7 @@ export const adjacentMissionsQuery = groq`
 
 export const allTeamQuery = groq`
   *[_type == "teamMember"] | order(order asc) {
-    _id, name, role, bio, photo, tags, linkedIn, order
+    _id, name, role, bio, photo, crewPhoto, tags, linkedIn, order
   }
 `
 
@@ -183,9 +183,11 @@ export const crewPageQuery = groq`
       role,
       bio,
       photo,
+      crewPhoto,
       tags,
       linkedIn
     },
+    founderPhoto,
     founderTitle,
     founderBio,
     yearsExperience,

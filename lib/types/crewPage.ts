@@ -65,6 +65,7 @@ export type CrewCareersSection = {
 
 export type CrewFounderSection = {
   operatorId?: string
+  founderPhoto?: SanityImage
   founderTitle: string
   founderBio?: PortableTextBlock[]
   yearsExperience: number
@@ -85,10 +86,12 @@ export type CrewPageSanityRecord = {
     role?: string
     bio?: string
     photo?: SanityImage
+    crewPhoto?: SanityImage
     tags?: string[]
     linkedIn?: string
   }
   founderTitle?: string
+  founderPhoto?: SanityImage
   founderBio?: PortableTextBlock[]
   yearsExperience?: number
   brandAssociations?: BrandAssociation[]

@@ -24,6 +24,7 @@ export default function FounderSection({ founder }: { founder: FounderRecord | n
               alt={founder.name}
               sizes="(max-width: 1024px) 100vw, 33vw"
               priority
+              variant="founder"
             />
           </div>
 

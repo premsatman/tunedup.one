@@ -39,7 +39,7 @@ export default async function CrewPage() {
 
   const crewPage = resolveCrewPage(sanityCrewPage)
   const founder = resolveFounderFromCrewPage(sanityCrewPage, sanityTeam)
-  const team = resolveCrewTeam(sanityTeam, crewPage.founder.operatorId)
+  const team = resolveCrewTeam(sanityTeam)
 
   return (
     <>

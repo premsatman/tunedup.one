@@ -30,6 +30,14 @@ export default defineType({
       title: 'Photo',
       type: 'image',
       options: { hotspot: true },
+      description: 'Used on work pages, Gantt timelines, and telemetry cards.',
+    }),
+    defineField({
+      name: 'crewPhoto',
+      title: 'Crew photo',
+      type: 'image',
+      options: { hotspot: true },
+      description: 'Used only on /crew — founder section and / The Crew cards.',
     }),
     defineField({
       name: 'tags',

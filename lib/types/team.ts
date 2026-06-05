@@ -15,6 +15,7 @@ export type TeamMemberRecord = {
   role?: string
   bio?: string
   photo?: SanityImage
+  crewPhoto?: SanityImage
   photoSrc?: string
   tags?: string[]
   linkedIn?: string
@@ -24,6 +25,7 @@ export type TeamMemberRecord = {
 export type FounderRecord = TeamMemberRecord & {
   founderTitle?: string
   founderBio?: PortableTextBlock[]
+  founderPhoto?: SanityImage
   yearsExperience?: number
   brandAssociations?: BrandAssociation[]
 }

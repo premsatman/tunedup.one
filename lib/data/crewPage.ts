@@ -75,6 +75,7 @@ const normalizeCareersRoles = (roles?: CrewCareersRole[]) => {
 
 const normalizeFounder = (record: CrewPageSanityRecord): CrewFounderSection => ({
   operatorId: record.founderOperator?._id,
+  founderPhoto: record.founderPhoto,
   founderTitle: record.founderTitle?.trim() || defaultFounderSection.founderTitle,
   founderBio: record.founderBio,
   yearsExperience: record.yearsExperience ?? defaultFounderSection.yearsExperience,
