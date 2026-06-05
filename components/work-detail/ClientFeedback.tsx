@@ -19,7 +19,7 @@ export default function ClientFeedback({
     <>
       <WorkDetailIntro title="Client Feedback" className="pb-14 pt-8 sm:pb-16 sm:pt-10 lg:pb-20 lg:pt-12" />
 
-      <section className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-14 lg:px-12 lg:pb-20">
+      <section className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 pb-14 lg:px-12 lg:pb-20">
         <div
           className={`mx-auto flex max-w-5xl overflow-hidden rounded-[1.75rem] bg-white sm:rounded-[2rem] lg:rounded-[2.25rem] ${
             hasPhoto ? 'flex-row items-stretch' : 'flex-col'

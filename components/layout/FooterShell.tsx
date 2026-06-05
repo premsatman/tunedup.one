@@ -16,7 +16,7 @@ export default function FooterShell({ children }: FooterShellProps) {
 
   return (
     <footer
-      className={`relative overflow-visible ${backgroundClass} px-8 pb-8 sm:px-12 sm:pb-10 lg:px-20 xl:px-28 2xl:px-36`}
+      className={`page-gutter relative w-full overflow-x-clip pb-8 sm:pb-10 ${backgroundClass}`}
     >
       {children}
     </footer>

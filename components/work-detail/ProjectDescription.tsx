@@ -31,7 +31,7 @@ export const HeroImage2 = ({ image }: { image?: SanityImage }) => {
   if (!image) return null
 
   return (
-    <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-12 lg:px-12 lg:pb-16">
+    <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 pb-12 lg:px-12 lg:pb-16">
       <div className="relative aspect-[16/9] overflow-hidden rounded-[1.5rem] md:rounded-[2rem] lg:rounded-[2.25rem] lg:aspect-[21/9]">
         <Image
           src={urlFor(image).width(2400).url()}

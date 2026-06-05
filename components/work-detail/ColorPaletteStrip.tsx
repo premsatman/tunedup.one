@@ -28,7 +28,7 @@ export default function ColorPaletteStrip({ palette }: { palette?: ColorSwatch[]
     <>
       <WorkDetailIntro title="Color Palette" className="pb-10 pt-8 sm:pb-12 sm:pt-10 lg:pb-14 lg:pt-12" />
 
-      <section className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-14 lg:px-12 lg:pb-20">
+      <section className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 pb-14 lg:px-12 lg:pb-20">
         <div className="mx-auto aspect-video w-full max-w-[min(100%,120rem)] lg:aspect-[1920/540] lg:max-w-[120rem]">
           {/* Small screens: tall bars */}
           <div className="flex h-full w-full gap-2 sm:gap-3 lg:hidden">

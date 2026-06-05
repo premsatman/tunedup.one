@@ -7,7 +7,7 @@ export default function CaseHero({ mission }: { mission: MissionDetail }) {
 
   return (
     <section className="pb-8">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <h1 className="font-display font-bold text-5xl md:text-7xl lg:text-8xl leading-[0.93] tracking-[-0.03em] max-w-5xl">
           {mission.title}
         </h1>

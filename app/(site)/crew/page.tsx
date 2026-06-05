@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
+import { CREW_PAGE_DOCUMENT_ID } from '@/lib/sanity/documentIds'
 import { client } from '@/lib/sanity/client'
-import { allTeamQuery, founderQuery } from '@/lib/sanity/queries'
-import type { FounderRecord, TeamMemberRecord } from '@/lib/types/team'
-import { resolveCrewTeam, resolveFounder } from '@/lib/data/crew'
+import { allTeamQuery, crewPageQuery } from '@/lib/sanity/queries'
+import type { TeamMemberRecord } from '@/lib/types/team'
+import type { CrewPageSanityRecord } from '@/lib/types/crewPage'
+import { resolveCrewTeam, resolveFounderFromCrewPage } from '@/lib/data/crew'
+import { resolveCrewPage } from '@/lib/data/crewPage'
 import WorkshopHero from '@/components/workshop/WorkshopHero'
 import FounderSection from '@/components/workshop/FounderSection'
 import WhyChooseUs from '@/components/workshop/WhyChooseUs'
@@ -21,19 +24,22 @@ export const revalidate = 60
 
 export default async function CrewPage() {
   let sanityTeam: TeamMemberRecord[] = []
-  let sanityFounder: FounderRecord | null = null
+  let sanityCrewPage: CrewPageSanityRecord | null = null
 
   try {
-    ;[sanityTeam, sanityFounder] = await Promise.all([
+    ;[sanityTeam, sanityCrewPage] = await Promise.all([
       client.fetch<TeamMemberRecord[]>(allTeamQuery),
-      client.fetch<FounderRecord | null>(founderQuery),
+      client.fetch<CrewPageSanityRecord | null>(crewPageQuery, {
+        crewPageId: CREW_PAGE_DOCUMENT_ID,
+      }),
     ])
   } catch {
     // Page still renders if Sanity is unreachable
   }
 
-  const founder = resolveFounder(sanityFounder)
-  const team = resolveCrewTeam(sanityTeam)
+  const crewPage = resolveCrewPage(sanityCrewPage)
+  const founder = resolveFounderFromCrewPage(sanityCrewPage, sanityTeam)
+  const team = resolveCrewTeam(sanityTeam, crewPage.founder.operatorId)
 
   return (
     <>
@@ -41,9 +47,9 @@ export default async function CrewPage() {
       <FounderSection founder={founder} />
       <WhyChooseUs />
       <CrewSection team={team} />
-      <CapabilitiesPills />
-      <RecognitionList />
-      <CareersSection />
+      <CapabilitiesPills section={crewPage.capabilities} />
+      <RecognitionList section={crewPage.recognition} />
+      <CareersSection section={crewPage.careers} />
     </>
   )
 }

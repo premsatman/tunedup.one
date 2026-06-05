@@ -17,7 +17,7 @@ export default function WorkDetailIntro({
 }: WorkDetailIntroProps) {
   return (
     <div
-      className={`relative z-10 mx-auto w-full max-w-5xl px-6 py-14 text-center sm:py-16 lg:px-12 lg:py-20 ${className}`}
+      className={`relative z-10 mx-auto w-full max-w-5xl px-4 sm:px-6 py-14 text-center sm:py-16 lg:px-12 lg:py-20 ${className}`}
     >
       <h2 className="text-title-section text-balance text-white">{title}</h2>
       {children ? (

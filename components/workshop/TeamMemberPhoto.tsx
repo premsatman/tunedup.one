@@ -40,7 +40,7 @@ export default function TeamMemberPhoto({
         alt={alt}
         fill
         sizes={sizes}
-        className="object-cover"
+        className={className || 'object-cover'}
         priority={priority}
       />
     )

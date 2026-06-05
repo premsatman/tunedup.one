@@ -18,7 +18,7 @@ export type TeamMemberRecord = {
   photoSrc?: string
   tags?: string[]
   linkedIn?: string
-  isFounder?: boolean
+  order?: number
 }
 
 export type FounderRecord = TeamMemberRecord & {

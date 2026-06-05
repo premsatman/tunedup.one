@@ -6,7 +6,7 @@ import { getWorkedOnCategoryLabel } from '@/lib/data/workedOnCategories'
 import type { WorkedOnItem } from '@/lib/types/mission'
 
 export const featuredContentWrap =
-  'relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-12'
+  'relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-12'
 
 const WorkedOnKeyword = ({
   label,

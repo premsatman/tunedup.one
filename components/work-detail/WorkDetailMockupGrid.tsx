@@ -66,7 +66,7 @@ export default function WorkDetailMockupGrid({
   if (!hasSingle) {
     return (
       <section className="pb-12">
-        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
           <div className={mockupGridWrapClassName}>
             <div
               className={`grid gap-4 lg:gap-5 ${
@@ -85,7 +85,7 @@ export default function WorkDetailMockupGrid({
 
   return (
     <section className="pb-12">
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
         <div className={mockupGridWrapClassName}>
           <div className="flex flex-col gap-4 lg:hidden">
             {pairLeft && <PairMockup image={pairLeft} sizes="100vw" />}

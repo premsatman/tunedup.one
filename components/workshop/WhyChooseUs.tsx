@@ -30,7 +30,7 @@ const reasons = [
 export default function WhyChooseUs() {
   return (
     <section className="bg-[var(--dark)] py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
         <MonoLabel className="mb-4 block !text-[rgba(245,241,232,0.4)]">/ Why TunedUp</MonoLabel>
         <h2 className="mb-16 max-w-3xl font-display text-4xl font-bold leading-[1.05] tracking-[-0.02em] text-[#F5F1E8] md:text-5xl lg:text-6xl">
           Four honest reasons to{' '}

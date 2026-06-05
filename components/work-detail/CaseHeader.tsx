@@ -14,7 +14,7 @@ export default function CaseHeader({ mission }: { mission: MissionDetail }) {
 
   return (
     <section className="pt-32 lg:pt-40 pb-8">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />

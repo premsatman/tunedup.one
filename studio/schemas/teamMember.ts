@@ -23,6 +23,7 @@ export default defineType({
       title: 'Bio',
       type: 'text',
       rows: 4,
+      description: 'Short bio for / The Crew cards',
     }),
     defineField({
       name: 'photo',
@@ -35,7 +36,7 @@ export default defineType({
       title: 'Tags',
       type: 'array',
       of: [{ type: 'string' }],
-      description: 'Skills or focus areas shown as pills on the crew card',
+      description: 'Skills or focus areas shown as pills',
     }),
     defineField({
       name: 'linkedIn',
@@ -43,51 +44,10 @@ export default defineType({
       type: 'url',
     }),
     defineField({
-      name: 'isFounder',
-      title: 'Is this the founder?',
-      type: 'boolean',
-      initialValue: false,
-    }),
-    defineField({
-      name: 'founderTitle',
-      title: 'Founder display title',
-      type: 'string',
-      description: 'e.g. "Founder & Lead Strategist"',
-    }),
-    defineField({
-      name: 'founderBio',
-      title: 'Founder long bio',
-      type: 'array',
-      of: [{ type: 'block' }],
-      description: 'Rich text bio for the founder section',
-    }),
-    defineField({
-      name: 'yearsExperience',
-      title: 'Years of experience',
-      type: 'number',
-    }),
-    defineField({
-      name: 'brandAssociations',
-      title: 'Brand Associations',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'brandName', type: 'string', title: 'Brand Name' },
-            { name: 'logo', type: 'image', title: 'Brand Logo' },
-            { name: 'screenshot', type: 'image', title: 'Work Screenshot' },
-            { name: 'oneLiner', type: 'string', title: 'One sentence description' },
-            { name: 'role', type: 'string', title: 'Your role' },
-          ],
-        },
-      ],
-      description: 'Notable brands you have worked with',
-    }),
-    defineField({
       name: 'order',
       title: 'Display Order',
       type: 'number',
+      description: 'Order on / The Crew grid (founder is edited under Crew Page → / Founder)',
       initialValue: 0,
     }),
   ],

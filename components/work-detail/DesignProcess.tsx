@@ -34,7 +34,7 @@ export default function DesignProcess({
       )}
 
       {hasTimeline && (
-        <section className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-14 lg:px-12 lg:pb-20">
+        <section className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 pb-14 lg:px-12 lg:pb-20">
           <div className="hidden lg:block">
             <GanttTimeline phases={timeline!} />
           </div>

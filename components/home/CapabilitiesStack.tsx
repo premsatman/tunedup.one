@@ -12,7 +12,6 @@ gsap.registerPlugin(ScrollTrigger)
 
 const capabilities = [
   {
-    code: '/01',
     title1: 'Brand',
     title2: 'Systems',
     keywords: ['Logo', 'Typography', 'Voice & Tone', 'Guidelines', 'Identity'],
@@ -20,7 +19,6 @@ const capabilities = [
       'Every mission starts with a clear identity. We develop the visual and verbal systems that make your brand recognizable on every channel — the signal before the message.',
   },
   {
-    code: '/02',
     title1: 'Smart',
     title2: 'Development',
     keywords: ['Web Development', 'Next.js', 'Sanity CMS', 'iOS / Android Apps', 'UI/UX'],
@@ -28,7 +26,6 @@ const capabilities = [
       'Fast, accessible, conversion-tuned websites and applications. Built on Next.js and headless CMS, designed to outlast trends and rank well from day one.',
   },
   {
-    code: '/03',
     title1: 'Growth',
     title2: 'Campaigns',
     keywords: ['Google Ads', 'Ad Grants for NGOs', 'SEO', 'Email Marketing', 'Social'],
@@ -36,7 +33,6 @@ const capabilities = [
       'We pilot the campaigns that turn signal into reach. From Google Ads to nonprofit Ad Grants ($10K/mo free for eligible NGOs) to SEO and email — measurable, accountable, no fluff.',
   },
   {
-    code: '/04',
     title1: 'Workflow',
     title2: 'Automation',
     keywords: ['n8n Workflows', 'AI Agents', 'Integrations', 'Custom Pipelines', 'Slack / Notion / CRM'],
@@ -69,34 +65,27 @@ type CapabilityCardProps = {
 const CapabilityCard = ({ cap, index }: CapabilityCardProps) => (
   <article
     data-stack-card
-    className="relative flex min-h-[520px] w-full flex-col justify-between rounded-[32px] px-8 py-12 text-[var(--canvas)] max-lg:mx-auto md:min-h-[580px] md:rounded-[40px] md:px-10 md:py-14 lg:min-h-[640px] lg:rounded-[40px] lg:px-12 lg:py-16"
+    className="relative flex min-h-[520px] w-full flex-col rounded-[32px] px-5 py-12 text-[var(--canvas)] max-lg:mx-auto sm:px-8 md:min-h-[580px] md:rounded-[40px] md:px-10 md:py-14 lg:min-h-[640px] lg:rounded-[40px] lg:px-12 lg:py-16"
     style={{
       zIndex: index + 1,
       backgroundColor: CARD_COLORS[index],
     }}
   >
-    <div className="flex items-start justify-between gap-6">
-      <h3 className="text-title-capability">
-        {cap.title1}
-        <br />
-        <span className="text-[var(--ink-soft)]">{cap.title2}</span>
-      </h3>
-      <span className="shrink-0 font-mono text-sm tracking-wide text-[var(--ink-soft)] md:text-base">
-        {cap.code}
-      </span>
+    <h3 className="text-title-capability">
+      {cap.title1}
+      <br />
+      <span className="text-[var(--ink-soft)]">{cap.title2}</span>
+    </h3>
+
+    <div className="mt-8 flex flex-wrap gap-2.5 md:mt-10">
+      {cap.keywords.map((keyword) => (
+        <CapabilityKeyword key={keyword} label={keyword} />
+      ))}
     </div>
 
-    <div className="mt-auto pt-8 md:pt-10">
-      <div className="flex flex-wrap gap-2.5">
-        {cap.keywords.map((keyword) => (
-          <CapabilityKeyword key={keyword} label={keyword} />
-        ))}
-      </div>
-
-      <p className="mt-4 w-full font-display text-xl font-bold leading-[1.15] tracking-[-0.02em] text-[var(--canvas)] md:mt-5 md:text-2xl lg:text-3xl">
-        {cap.body}
-      </p>
-    </div>
+    <p className="mt-4 w-full font-display text-xl font-bold leading-[1.15] tracking-[-0.02em] text-[var(--canvas)] md:mt-5 md:text-2xl lg:text-3xl">
+      {cap.body}
+    </p>
   </article>
 )
 
@@ -215,7 +204,7 @@ export default function CapabilitiesStack() {
   }, [shouldReduceMotion])
 
   return (
-    <section className="overflow-visible bg-[var(--canvas)] pt-20 pb-8 lg:pt-28 lg:pb-12">
+    <section className="overflow-x-clip bg-[var(--canvas)] pt-20 pb-8 lg:pt-28 lg:pb-12">
       <PageGutter>
         <MonoLabel className="mb-3 block">/ What We Do</MonoLabel>
         <h2 className="text-title-section w-full">
@@ -225,10 +214,14 @@ export default function CapabilitiesStack() {
         <section
           ref={stackRef}
           aria-label="Capabilities stack"
-          className="relative mt-12 flex flex-col gap-5 overflow-visible pb-8 md:gap-6 lg:pb-[16vh]"
+          className="relative mt-12 flex flex-col gap-5 overflow-x-clip pb-8 md:gap-6 lg:pb-[16vh]"
         >
           {capabilities.map((cap, index) => (
-            <CapabilityCard key={cap.code} cap={cap} index={index} />
+            <CapabilityCard
+              key={`${cap.title1}-${cap.title2}`}
+              cap={cap}
+              index={index}
+            />
           ))}
         </section>
       </PageGutter>

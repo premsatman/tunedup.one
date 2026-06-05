@@ -208,13 +208,13 @@ export default function BrokenWordHero({
       className="relative flex min-h-0 flex-col overflow-hidden bg-[var(--canvas)] sm:min-h-[88svh] md:min-h-[90vh]"
     >
       <PageGutter className="relative flex flex-1 flex-col justify-start pb-4 pt-28 sm:justify-center sm:pb-8 sm:pt-24 md:mt-auto md:flex-none md:justify-end md:pb-0 md:pt-28 lg:pt-32">
-        <div className="relative pl-10 sm:pl-14 lg:pl-20">
+        <div className="relative pl-6 sm:pl-14 lg:pl-20">
           {isHomeLayout ? (
-            <div className="relative mt-4 min-h-0 overflow-visible pb-2 sm:mt-0 sm:flex sm:min-h-[min(78vh,780px)] sm:flex-col sm:justify-end sm:pb-14 lg:min-h-[min(82vh,840px)] lg:pb-16 xl:mt-0 xl:flex xl:min-h-[min(88vh,920px)] xl:flex-col xl:justify-end xl:overflow-visible xl:pb-16">
+            <div className="relative mt-4 min-h-0 overflow-x-clip pb-2 sm:mt-0 sm:flex sm:min-h-[min(78vh,780px)] sm:flex-col sm:justify-end sm:overflow-visible sm:pb-14 lg:min-h-[min(82vh,840px)] lg:pb-16 xl:mt-0 xl:flex xl:min-h-[min(88vh,920px)] xl:flex-col xl:justify-end xl:overflow-visible xl:pb-16">
               {!hidePropForMenu && propMotion}
 
               <div
-                className={`relative z-10 flex w-full origin-bottom-left flex-col items-start gap-0 text-left ml-8 sm:mt-auto sm:translate-y-5 sm:pb-4 sm:ml-22 md:ml-24 md:translate-y-6 md:pb-5 lg:ml-28 lg:translate-y-7 lg:pb-6 xl:ml-28 xl:translate-y-7 xl:pb-6 2xl:ml-28 2xl:translate-y-7 2xl:pb-6 ${homeWordmarkWrapClassName}`}
+                className={`relative z-10 flex w-full origin-bottom-left flex-col items-start gap-0 text-left ml-4 sm:mt-auto sm:translate-y-5 sm:pb-4 sm:ml-22 md:ml-24 md:translate-y-6 md:pb-5 lg:ml-28 lg:translate-y-7 lg:pb-6 xl:ml-28 xl:translate-y-7 xl:pb-6 2xl:ml-28 2xl:translate-y-7 2xl:pb-6 ${homeWordmarkWrapClassName}`}
               >
                 {wordmarkEl}
                 {sublineEl}

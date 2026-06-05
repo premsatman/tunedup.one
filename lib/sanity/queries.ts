@@ -159,29 +159,7 @@ export const adjacentMissionsQuery = groq`
 
 export const allTeamQuery = groq`
   *[_type == "teamMember"] | order(order asc) {
-    _id, name, role, bio, photo, tags, linkedIn, isFounder
-  }
-`
-
-export const founderQuery = groq`
-  *[_type == "teamMember" && isFounder == true][0] {
-    _id,
-    name,
-    role,
-    founderTitle,
-    bio,
-    founderBio,
-    photo,
-    tags,
-    linkedIn,
-    yearsExperience,
-    brandAssociations[] {
-      brandName,
-      logo,
-      screenshot,
-      oneLiner,
-      role,
-    }
+    _id, name, role, bio, photo, tags, linkedIn, order
   }
 `
 
@@ -194,5 +172,65 @@ export const allServicesQuery = groq`
 export const trustLogosQuery = groq`
   *[_type == "trustLogo"] | order(order asc) {
     _id, name, logo, link
+  }
+`
+
+export const crewPageQuery = groq`
+  *[_id == $crewPageId][0] {
+    founderOperator-> {
+      _id,
+      name,
+      role,
+      bio,
+      photo,
+      tags,
+      linkedIn
+    },
+    founderTitle,
+    founderBio,
+    yearsExperience,
+    brandAssociations[] {
+      brandName,
+      logo,
+      screenshot,
+      oneLiner,
+      role
+    },
+    capabilitiesLabel,
+    capabilitiesHeading,
+    capabilityPills[] {
+      label,
+      color,
+      order
+    },
+    capabilitiesCtaLabel,
+    capabilitiesCtaHref,
+    recognitionLabel,
+    recognitionHeadingBefore,
+    recognitionHeadingHighlight,
+    recognitionHeadingAfter,
+    recognitionItems[] {
+      left,
+      right,
+      order
+    },
+    careersLabel,
+    careersHeadingBefore,
+    careersHeadingHighlight,
+    careersHeadingAfter,
+    careersIntro,
+    careersRoles[] {
+      title,
+      type,
+      description,
+      statusLabel,
+      ctaLabel,
+      ctaHref,
+      order
+    },
+    careersFooterBeforeLink,
+    careersFooterLinkLabel,
+    careersFooterLinkHref,
+    careersFooterAfterLink
   }
 `

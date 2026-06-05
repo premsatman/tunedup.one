@@ -47,7 +47,7 @@ export default function TheSystem({
       </WorkDetailIntro>
 
       {hasStyleGuide && (
-        <section className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-14 lg:px-12 lg:pb-20">
+        <section className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 pb-14 lg:px-12 lg:pb-20">
             <div
               className={`mx-auto grid w-full gap-5 lg:max-w-4xl xl:max-w-[52rem] ${
                 hasTypography && hasComponents ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'
@@ -61,7 +61,7 @@ export default function TheSystem({
 
       {mockupImages.length > 0 && (
         <section className="pb-12">
-          <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
             <div
               className={`mx-auto grid w-full gap-4 lg:max-w-4xl xl:max-w-[52rem] ${
                 mockupImages.length > 1 ? 'grid-cols-2' : 'grid-cols-1'

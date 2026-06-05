@@ -35,7 +35,7 @@ export default function ProblemSection({
       )}
 
       {hasCards && (
-        <section className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-14 lg:px-12 lg:pb-20">
+        <section className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 pb-14 lg:px-12 lg:pb-20">
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             {cards!.map((card, i) => (
               <div

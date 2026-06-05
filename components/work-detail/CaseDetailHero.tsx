@@ -21,7 +21,7 @@ export const FEATURED_MEDIA_ASPECT_CLASS = 'aspect-video'
 export const HERO_VIDEO_OVERLAP_RATIO = 0.25
 
 const featuredHeroMediaWrap =
-  'relative z-10 mx-auto mt-8 w-full max-w-7xl px-6 sm:mt-10 lg:mt-0 lg:px-12 lg:-mt-[var(--featured-overlap)]'
+  'relative z-10 mx-auto mt-8 w-full max-w-7xl px-4 sm:mt-10 sm:px-6 lg:mt-0 lg:px-12 lg:-mt-[var(--featured-overlap)]'
 
 export default function CaseDetailHero({ mission }: { mission: MissionDetail }) {
   if (!mission) return null
@@ -32,7 +32,7 @@ export default function CaseDetailHero({ mission }: { mission: MissionDetail }) 
   return (
     <section
       id="work-detail-hero"
-      className="relative [--featured-width:min(calc(100vw-3rem),77rem)] [--featured-overlap:0] lg:[--featured-width:min(calc(100vw-6rem),calc(80rem-6rem))] lg:[--featured-overlap:calc(var(--featured-width)*9/16*0.25)]"
+      className="relative [--featured-width:min(100%,77rem)] [--featured-overlap:0] lg:[--featured-width:min(calc(100vw-6rem),calc(80rem-6rem))] lg:[--featured-overlap:calc(var(--featured-width)*9/16*0.25)]"
     >
       <div
         className={`absolute inset-x-0 top-0 z-[1] ${WORK_DETAIL_HERO_COVER_HEIGHT} overflow-hidden rounded-b-[2rem] bg-black md:rounded-b-[2.75rem] lg:rounded-b-[3rem]`}
@@ -42,7 +42,7 @@ export default function CaseDetailHero({ mission }: { mission: MissionDetail }) 
         <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/55 via-black/45 to-black/70" />
       </div>
 
-      <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pb-10 pt-6 text-center sm:pb-12 lg:px-12 lg:pb-10">
+      <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-4 pb-10 pt-6 text-center sm:px-6 sm:pb-12 lg:px-12 lg:pb-10">
         <WorkDetailHeroLogo />
 
         <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center justify-center gap-2 font-mono text-[11px] uppercase tracking-widest text-white/60">

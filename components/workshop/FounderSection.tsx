@@ -18,7 +18,7 @@ export default function FounderSection({ founder }: { founder: FounderRecord | n
 
       <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-4">
-          <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-white">
+          <div className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-2xl bg-white lg:mx-0 lg:max-h-[23rem] lg:max-w-[17.5rem] xl:max-w-[18.75rem]">
             <TeamMemberPhoto
               member={founder}
               alt={founder.name}

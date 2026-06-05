@@ -5,7 +5,7 @@ export default function OutcomesStrip({ outcomes }: { outcomes?: OutcomeItem[] }
 
   return (
     <section className="py-20 lg:py-24 bg-[var(--dark)] my-8">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <div className="mb-12">
           <span className="font-mono text-xs uppercase tracking-widest text-[var(--accent)]">
             / Outcomes
