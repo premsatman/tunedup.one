@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 
-const FOOTER_PROP_SRC = '/props/prop-footer1.png'
+const FOOTER_PROP_SRC = '/props/footer-image.png'
 
 const BREATH_TRANSITION = {
   duration: 5.5,

@@ -3,7 +3,7 @@ import type {
   CrewCareersSection,
   CrewFounderSection,
   CrewPageRecord,
-  CrewRecognitionSection,
+  CrewWhyTunedUpSection,
 } from '@/lib/types/crewPage'
 
 export const defaultFounderSection: CrewFounderSection = {
@@ -29,17 +29,40 @@ export const defaultCapabilitiesSection: CrewCapabilitiesSection = {
   ctaHref: '/contact',
 }
 
-export const defaultRecognitionSection: CrewRecognitionSection = {
-  label: '/ Recognition',
-  headingBefore: 'From churches to clinics — we tune what ',
-  headingHighlight: 'matters.',
+export const defaultWhyTunedUpSection: CrewWhyTunedUpSection = {
+  label: '/ Why TunedUp',
+  headingBefore: 'Four honest reasons to ',
+  headingHighlight: 'work with us.',
   headingAfter: '',
-  items: [
-    { left: 'World Vision', right: 'Digital Campaign · International NGO', order: 1 },
-    { left: 'Sharon Church — Odia Lutheran', right: 'Song Boom App · 10,000+ Downloads', order: 2 },
-    { left: 'Hospital Group — Hyderabad', right: 'Patient Acquisition · 14 Years', order: 3 },
-    { left: 'PS.Today Devotional', right: '365-Day · 3 Languages · Self-Published', order: 4 },
-    { left: 'Transformation Night', right: 'Event Campaign · Live', order: 5 },
+  reasons: [
+    {
+      code: '/01',
+      headline: 'Small enough to know your name.',
+      highlight: 'know your name',
+      body: "You'll always know who's doing your work. We don't rotate accounts or hand you off to juniors after the first call.",
+      order: 1,
+    },
+    {
+      code: '/02',
+      headline: 'We understand your mission.',
+      highlight: 'your mission',
+      body: 'We serve churches, NGOs, and founders — not everyone. That specificity means we ask better questions and make fewer wrong assumptions.',
+      order: 2,
+    },
+    {
+      code: '/03',
+      headline: 'We stay after launch.',
+      highlight: 'after launch',
+      body: "Most agencies disappear the day the site goes live. We're the crew still watching the telemetry six months later.",
+      order: 3,
+    },
+    {
+      code: '/04',
+      headline: 'We tune, not guess.',
+      highlight: 'not guess',
+      body: "Every decision is tied to a goal you gave us. We don't do creative vibes — we do measurable craft.",
+      order: 4,
+    },
   ],
 }
 
@@ -87,8 +110,8 @@ export const defaultCareersSection: CrewCareersSection = {
 
 export const defaultCrewPage: CrewPageRecord = {
   founder: defaultFounderSection,
+  whyTunedUp: defaultWhyTunedUpSection,
   capabilities: defaultCapabilitiesSection,
-  recognition: defaultRecognitionSection,
   careers: defaultCareersSection,
 }
 

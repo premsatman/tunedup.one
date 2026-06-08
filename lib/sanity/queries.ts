@@ -196,7 +196,20 @@ export const crewPageQuery = groq`
       logo,
       screenshot,
       oneLiner,
-      role
+      role,
+      liveUrl,
+      caseStudySlug,
+    },
+    whyTunedUpLabel,
+    whyTunedUpHeadingBefore,
+    whyTunedUpHeadingHighlight,
+    whyTunedUpHeadingAfter,
+    whyTunedUpReasons[] {
+      code,
+      headline,
+      highlight,
+      body,
+      order
     },
     capabilitiesLabel,
     capabilitiesHeading,
@@ -207,15 +220,6 @@ export const crewPageQuery = groq`
     },
     capabilitiesCtaLabel,
     capabilitiesCtaHref,
-    recognitionLabel,
-    recognitionHeadingBefore,
-    recognitionHeadingHighlight,
-    recognitionHeadingAfter,
-    recognitionItems[] {
-      left,
-      right,
-      order
-    },
     careersLabel,
     careersHeadingBefore,
     careersHeadingHighlight,

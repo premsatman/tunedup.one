@@ -11,7 +11,6 @@ import FounderSection from '@/components/workshop/FounderSection'
 import WhyChooseUs from '@/components/workshop/WhyChooseUs'
 import CrewSection from '@/components/workshop/CrewSection'
 import CapabilitiesPills from '@/components/workshop/CapabilitiesPills'
-import RecognitionList from '@/components/workshop/RecognitionList'
 import CareersSection from '@/components/workshop/CareersSection'
 
 export const metadata: Metadata = {
@@ -45,10 +44,9 @@ export default async function CrewPage() {
     <>
       <WorkshopHero />
       <FounderSection founder={founder} />
-      <WhyChooseUs />
+      <WhyChooseUs section={crewPage.whyTunedUp} />
       <CrewSection team={team} />
       <CapabilitiesPills section={crewPage.capabilities} />
-      <RecognitionList section={crewPage.recognition} />
       <CareersSection section={crewPage.careers} />
     </>
   )

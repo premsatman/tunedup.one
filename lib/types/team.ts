@@ -7,6 +7,8 @@ export type BrandAssociation = {
   screenshot?: SanityImage
   oneLiner?: string
   role?: string
+  liveUrl?: string
+  caseStudySlug?: string
 }
 
 export type TeamMemberRecord = {

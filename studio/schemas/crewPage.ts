@@ -13,21 +13,49 @@ const pillColorOptions = [
 
 const brandAssociationFields = [
   defineField({ name: 'brandName', type: 'string', title: 'Brand Name' }),
-  defineField({ name: 'logo', type: 'image', title: 'Brand Logo' }),
-  defineField({ name: 'screenshot', type: 'image', title: 'Work Screenshot' }),
+  defineField({
+    name: 'logo',
+    type: 'image',
+    title: 'Brand Logo',
+    description: 'Horizontal logo — displays at 64×24px. Upload ~200–400px wide, transparent PNG/SVG.',
+  }),
+  defineField({
+    name: 'screenshot',
+    type: 'image',
+    title: 'Work Screenshot',
+    description: '16:9 screenshot — displays full card width. Upload at least 800×450px (1600×900px for retina).',
+    options: { hotspot: true },
+  }),
   defineField({ name: 'oneLiner', type: 'string', title: 'One sentence description' }),
   defineField({ name: 'role', type: 'string', title: 'Your role' }),
+  defineField({
+    name: 'liveUrl',
+    title: 'Live site URL',
+    description:
+      'Optional. If this is a site we built and it is publicly live, paste the full URL (https://…). The whole card becomes a link to it, opening in a new tab with a ↗ icon. Leave blank for app-only or campaign-only work.',
+    type: 'url',
+    validation: (Rule) =>
+      Rule.uri({ scheme: ['http', 'https'] }).error('Must be a full http(s) URL'),
+  }),
+  defineField({
+    name: 'caseStudySlug',
+    title: 'Case study slug',
+    description:
+      'Optional. If there is no live site but there IS a /work case study, enter its slug (e.g. "world-vision"). The card links internally to /work/[slug] with a → icon. Ignored if Live site URL is filled.',
+    type: 'string',
+  }),
 ]
 
 export default defineType({
   name: 'crewPage',
   title: 'Crew Page',
   type: 'document',
-  description: 'Singleton — Founder, Capabilities, Recognition, and Careers for /crew.',
+  description: 'Singleton — Founder, Brand Associations, Why TunedUp, Capabilities, and Careers for /crew.',
   groups: [
     { name: 'founder', title: '/ Founder', default: true },
+    { name: 'brandAssociations', title: '/ Brand Associations' },
+    { name: 'whyTunedUp', title: '/ Why TunedUp' },
     { name: 'capabilities', title: '/ Capabilities' },
-    { name: 'recognition', title: '/ Recognition' },
     { name: 'careers', title: '/ Careers' },
   ],
   fields: [
@@ -71,19 +99,102 @@ export default defineType({
       group: 'founder',
       initialValue: 14,
     }),
+
     defineField({
       name: 'brandAssociations',
-      title: 'Brand Associations',
+      title: 'Brand associations',
       type: 'array',
-      group: 'founder',
+      group: 'brandAssociations',
       of: [
         {
           type: 'object',
           name: 'brandAssociation',
           fields: brandAssociationFields,
+          preview: {
+            select: { title: 'brandName', subtitle: 'role', media: 'logo' },
+          },
         },
       ],
-      description: 'Notable brands shown below the founder bio',
+      description: 'Notable brands shown in the founder section on /crew.',
+    }),
+
+    defineField({
+      name: 'whyTunedUpLabel',
+      title: 'Section label',
+      type: 'string',
+      group: 'whyTunedUp',
+      initialValue: '/ Why TunedUp',
+    }),
+    defineField({
+      name: 'whyTunedUpHeadingBefore',
+      title: 'Heading (before highlight)',
+      type: 'string',
+      group: 'whyTunedUp',
+      initialValue: 'Four honest reasons to ',
+    }),
+    defineField({
+      name: 'whyTunedUpHeadingHighlight',
+      title: 'Heading highlight',
+      type: 'string',
+      group: 'whyTunedUp',
+      initialValue: 'work with us.',
+    }),
+    defineField({
+      name: 'whyTunedUpHeadingAfter',
+      title: 'Heading (after highlight)',
+      type: 'string',
+      group: 'whyTunedUp',
+    }),
+    defineField({
+      name: 'whyTunedUpReasons',
+      title: 'Reason cards',
+      type: 'array',
+      group: 'whyTunedUp',
+      of: [
+        {
+          type: 'object',
+          name: 'whyTunedUpReason',
+          fields: [
+            defineField({
+              name: 'code',
+              title: 'Card code',
+              type: 'string',
+              description: 'e.g. /01',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'headline',
+              title: 'Headline',
+              type: 'string',
+              description: 'Full headline including the highlighted phrase',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'highlight',
+              title: 'Highlighted phrase',
+              type: 'string',
+              description: 'Exact substring from the headline to render muted',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'body',
+              title: 'Body copy',
+              type: 'text',
+              rows: 3,
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'order',
+              title: 'Order',
+              type: 'number',
+              initialValue: 0,
+            }),
+          ],
+          preview: {
+            select: { title: 'code', subtitle: 'headline' },
+          },
+        },
+      ],
     }),
 
     defineField({
@@ -150,69 +261,6 @@ export default defineType({
       type: 'string',
       group: 'capabilities',
       initialValue: '/contact',
-    }),
-
-    defineField({
-      name: 'recognitionLabel',
-      title: 'Section label',
-      type: 'string',
-      group: 'recognition',
-      initialValue: '/ Recognition',
-    }),
-    defineField({
-      name: 'recognitionHeadingBefore',
-      title: 'Heading (before highlight)',
-      type: 'string',
-      group: 'recognition',
-      initialValue: 'From churches to clinics — we tune what ',
-    }),
-    defineField({
-      name: 'recognitionHeadingHighlight',
-      title: 'Heading highlight word',
-      type: 'string',
-      group: 'recognition',
-      initialValue: 'matters.',
-    }),
-    defineField({
-      name: 'recognitionHeadingAfter',
-      title: 'Heading (after highlight)',
-      type: 'string',
-      group: 'recognition',
-    }),
-    defineField({
-      name: 'recognitionItems',
-      title: 'Recognition rows',
-      type: 'array',
-      group: 'recognition',
-      of: [
-        {
-          type: 'object',
-          name: 'recognitionItem',
-          fields: [
-            defineField({
-              name: 'left',
-              title: 'Primary line',
-              type: 'string',
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: 'right',
-              title: 'Secondary line',
-              type: 'string',
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: 'order',
-              title: 'Order',
-              type: 'number',
-              initialValue: 0,
-            }),
-          ],
-          preview: {
-            select: { title: 'left', subtitle: 'right' },
-          },
-        },
-      ],
     }),
 
     defineField({

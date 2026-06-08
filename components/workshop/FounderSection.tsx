@@ -1,12 +1,11 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { PortableText } from '@portabletext/react'
-import { urlFor } from '@/lib/sanity/client'
 import ContainerSection from '@/components/shared/ContainerSection'
 import MonoLabel from '@/components/shared/MonoLabel'
 import HighlightWord from '@/components/shared/HighlightWord'
 import { Linkedin } from 'lucide-react'
 import TeamMemberPhoto from '@/components/workshop/TeamMemberPhoto'
+import BrandAssociationCard from '@/components/workshop/BrandAssociationCard'
 import type { FounderRecord } from '@/lib/types/team'
 
 export default function FounderSection({ founder }: { founder: FounderRecord | null }) {
@@ -116,52 +115,10 @@ export default function FounderSection({ founder }: { founder: FounderRecord | n
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {founder.brandAssociations.map((brand, index) => (
-              <div
-                key={index}
-                className="overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--canvas)]"
-              >
-                {brand.screenshot && (
-                  <div className="relative aspect-[16/9] overflow-hidden">
-                    <Image
-                      src={urlFor(brand.screenshot).width(800).url()}
-                      alt={brand.brandName || 'Brand work'}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover"
-                    />
-                  </div>
-                )}
-
-                <div className="p-5">
-                  <div className="mb-3 flex items-center gap-3">
-                    {brand.logo && (
-                      <div className="relative h-6 w-16 flex-shrink-0">
-                        <Image
-                          src={urlFor(brand.logo).width(200).url()}
-                          alt={brand.brandName || ''}
-                          fill
-                          className="object-contain object-left"
-                        />
-                      </div>
-                    )}
-                    {brand.brandName && (
-                      <span className="font-display text-base font-bold">{brand.brandName}</span>
-                    )}
-                  </div>
-
-                  {brand.role && (
-                    <div className="mb-2 font-mono text-[10px] uppercase tracking-widest text-[var(--accent)]">
-                      {brand.role}
-                    </div>
-                  )}
-
-                  {brand.oneLiner && (
-                    <p className="font-body text-sm leading-relaxed text-[var(--ink-mid)]">
-                      {brand.oneLiner}
-                    </p>
-                  )}
-                </div>
-              </div>
+              <BrandAssociationCard
+                key={`${brand.brandName ?? 'brand'}-${index}`}
+                brand={brand}
+              />
             ))}
           </div>
         </div>

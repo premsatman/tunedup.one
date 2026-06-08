@@ -18,12 +18,6 @@ export type CrewCapabilityPill = {
   order?: number
 }
 
-export type CrewRecognitionItem = {
-  left: string
-  right: string
-  order?: number
-}
-
 export type CrewCareersRole = {
   title: string
   type: string
@@ -34,20 +28,28 @@ export type CrewCareersRole = {
   order?: number
 }
 
+export type CrewWhyTunedUpReason = {
+  code: string
+  headline: string
+  highlight: string
+  body: string
+  order?: number
+}
+
+export type CrewWhyTunedUpSection = {
+  label: string
+  headingBefore: string
+  headingHighlight: string
+  headingAfter: string
+  reasons: CrewWhyTunedUpReason[]
+}
+
 export type CrewCapabilitiesSection = {
   label: string
   heading: string
   pills: CrewCapabilityPill[]
   ctaLabel: string
   ctaHref: string
-}
-
-export type CrewRecognitionSection = {
-  label: string
-  headingBefore: string
-  headingHighlight: string
-  headingAfter: string
-  items: CrewRecognitionItem[]
 }
 
 export type CrewCareersSection = {
@@ -74,8 +76,8 @@ export type CrewFounderSection = {
 
 export type CrewPageRecord = {
   founder: CrewFounderSection
+  whyTunedUp: CrewWhyTunedUpSection
   capabilities: CrewCapabilitiesSection
-  recognition: CrewRecognitionSection
   careers: CrewCareersSection
 }
 
@@ -95,16 +97,16 @@ export type CrewPageSanityRecord = {
   founderBio?: PortableTextBlock[]
   yearsExperience?: number
   brandAssociations?: BrandAssociation[]
+  whyTunedUpLabel?: string
+  whyTunedUpHeadingBefore?: string
+  whyTunedUpHeadingHighlight?: string
+  whyTunedUpHeadingAfter?: string
+  whyTunedUpReasons?: CrewWhyTunedUpReason[]
   capabilitiesLabel?: string
   capabilitiesHeading?: string
   capabilityPills?: CrewCapabilityPill[]
   capabilitiesCtaLabel?: string
   capabilitiesCtaHref?: string
-  recognitionLabel?: string
-  recognitionHeadingBefore?: string
-  recognitionHeadingHighlight?: string
-  recognitionHeadingAfter?: string
-  recognitionItems?: CrewRecognitionItem[]
   careersLabel?: string
   careersHeadingBefore?: string
   careersHeadingHighlight?: string

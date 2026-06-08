@@ -3,7 +3,7 @@ import {
   defaultCareersSection,
   defaultCrewPage,
   defaultFounderSection,
-  defaultRecognitionSection,
+  defaultWhyTunedUpSection,
   sortByOrder,
 } from '@/lib/data/crewPageDefaults'
 import type {
@@ -13,7 +13,7 @@ import type {
   CrewPageRecord,
   CrewPageSanityRecord,
   CrewPillColor,
-  CrewRecognitionItem,
+  CrewWhyTunedUpReason,
 } from '@/lib/types/crewPage'
 
 const pillColors: CrewPillColor[] = [
@@ -43,15 +43,23 @@ const normalizePills = (pills?: CrewCapabilityPill[]) => {
   )
 }
 
-const normalizeRecognitionItems = (items?: CrewRecognitionItem[]) => {
-  const source = items?.length ? items : defaultRecognitionSection.items
+const normalizeWhyTunedUpReasons = (reasons?: CrewWhyTunedUpReason[]) => {
+  const source = reasons?.length ? reasons : defaultWhyTunedUpSection.reasons
   return sortByOrder(
     source
-      .filter((item) => item.left?.trim() && item.right?.trim())
-      .map((item) => ({
-        left: item.left.trim(),
-        right: item.right.trim(),
-        order: item.order,
+      .filter(
+        (reason) =>
+          reason.code?.trim() &&
+          reason.headline?.trim() &&
+          reason.highlight?.trim() &&
+          reason.body?.trim(),
+      )
+      .map((reason) => ({
+        code: reason.code.trim(),
+        headline: reason.headline.trim(),
+        highlight: reason.highlight.trim(),
+        body: reason.body.trim(),
+        order: reason.order,
       })),
   )
 }
@@ -87,23 +95,23 @@ export const resolveCrewPage = (record: CrewPageSanityRecord | null): CrewPageRe
 
   return {
     founder: normalizeFounder(record),
+    whyTunedUp: {
+      label: record.whyTunedUpLabel?.trim() || defaultWhyTunedUpSection.label,
+      headingBefore:
+        record.whyTunedUpHeadingBefore?.trim() || defaultWhyTunedUpSection.headingBefore,
+      headingHighlight:
+        record.whyTunedUpHeadingHighlight?.trim() ||
+        defaultWhyTunedUpSection.headingHighlight,
+      headingAfter:
+        record.whyTunedUpHeadingAfter?.trim() || defaultWhyTunedUpSection.headingAfter,
+      reasons: normalizeWhyTunedUpReasons(record.whyTunedUpReasons),
+    },
     capabilities: {
       label: record.capabilitiesLabel?.trim() || defaultCapabilitiesSection.label,
       heading: record.capabilitiesHeading?.trim() || defaultCapabilitiesSection.heading,
       pills: normalizePills(record.capabilityPills),
       ctaLabel: record.capabilitiesCtaLabel?.trim() || defaultCapabilitiesSection.ctaLabel,
       ctaHref: record.capabilitiesCtaHref?.trim() || defaultCapabilitiesSection.ctaHref,
-    },
-    recognition: {
-      label: record.recognitionLabel?.trim() || defaultRecognitionSection.label,
-      headingBefore:
-        record.recognitionHeadingBefore?.trim() || defaultRecognitionSection.headingBefore,
-      headingHighlight:
-        record.recognitionHeadingHighlight?.trim() ||
-        defaultRecognitionSection.headingHighlight,
-      headingAfter:
-        record.recognitionHeadingAfter?.trim() || defaultRecognitionSection.headingAfter,
-      items: normalizeRecognitionItems(record.recognitionItems),
     },
     careers: {
       label: record.careersLabel?.trim() || defaultCareersSection.label,
