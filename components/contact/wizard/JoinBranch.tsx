@@ -13,6 +13,11 @@ import {
   centeredStepBodyClass,
   wizardPillsClass,
 } from './wizardStepLayout'
+import {
+  canSubmitJoin,
+  getJoinSubmitHint,
+  MIN_MESSAGE_LENGTH,
+} from './wizardValidation'
 
 export type JoinData = {
   role: string
@@ -50,8 +55,6 @@ type JoinBranchProps = {
   loading: boolean
 }
 
-const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
-
 export default function JoinBranch({
   step,
   data,
@@ -78,10 +81,8 @@ export default function JoinBranch({
       }
 
   const canContinueStep0 = data.role !== ''
-  const canSubmit =
-    data.name.trim() !== '' &&
-    isValidEmail(data.email) &&
-    data.pitch.trim().length >= 20
+  const canSubmit = canSubmitJoin(data)
+  const submitHint = getJoinSubmitHint(data)
 
   const handleContinue = () => {
     if (step === 1) {
@@ -133,67 +134,72 @@ export default function JoinBranch({
         )}
 
         {step === 1 && (
-          <motion.div key={1} {...stepMotion} className="flex flex-1 flex-col">
-            <div className={centeredStepBodyClass}>
-              <WizardBranchLabel>Join Us</WizardBranchLabel>
-              <h3
-                ref={headlineRef}
-                tabIndex={-1}
-                className={`${wizardStepTitleClass} text-center`}
-              >
-                Tell us about yourself.
-              </h3>
-              <div className={centeredFormWrapClass}>
-                <div className="grid grid-cols-2 gap-5">
-                  <WizardInput
-                    label="Full Name"
-                    value={data.name}
-                    onChange={(name) => onChange({ name })}
-                    required
-                    autoComplete="name"
-                  />
-                  <WizardInput
-                    label="Email"
-                    type="email"
-                    value={data.email}
-                    onChange={(email) => onChange({ email })}
-                    required
-                    autoComplete="email"
-                  />
-                  <WizardInput
-                    label="City / Country"
-                    value={data.location}
-                    onChange={(location) => onChange({ location })}
-                    optional
-                    autoComplete="address-level2"
-                  />
-                  <WizardInput
-                    label="Portfolio or LinkedIn"
-                    type="url"
-                    placeholder="https://"
-                    value={data.portfolio}
-                    onChange={(portfolio) => onChange({ portfolio })}
-                    optional
-                  />
-                  <div className="col-span-2">
-                    <WizardTextarea
-                      label="What kind of work lights you up?"
-                      placeholder="Tell us what you're best at, what you've built, and why you'd want to work with a team like ours."
-                      value={data.pitch}
-                      onChange={(pitch) => onChange({ pitch })}
+          <motion.div key={1} {...stepMotion} className="flex min-h-0 flex-1 flex-col">
+            <div className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden overscroll-contain scrollbar-hide">
+              <div className={centeredStepBodyClass}>
+                <WizardBranchLabel>Join Us</WizardBranchLabel>
+                <h3
+                  ref={headlineRef}
+                  tabIndex={-1}
+                  className={`${wizardStepTitleClass} text-center`}
+                >
+                  Tell us about yourself.
+                </h3>
+                <div className={centeredFormWrapClass}>
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <WizardInput
+                      label="Full Name"
+                      value={data.name}
+                      onChange={(name) => onChange({ name })}
                       required
-                      rows={5}
+                      autoComplete="name"
                     />
+                    <WizardInput
+                      label="Email"
+                      type="email"
+                      value={data.email}
+                      onChange={(email) => onChange({ email })}
+                      required
+                      autoComplete="email"
+                    />
+                    <WizardInput
+                      label="City / Country"
+                      value={data.location}
+                      onChange={(location) => onChange({ location })}
+                      optional
+                      autoComplete="address-level2"
+                    />
+                    <WizardInput
+                      label="Portfolio or LinkedIn"
+                      type="url"
+                      placeholder="https://"
+                      value={data.portfolio}
+                      onChange={(portfolio) => onChange({ portfolio })}
+                      optional
+                    />
+                    <div className="sm:col-span-2">
+                      <WizardTextarea
+                        label="What kind of work lights you up?"
+                        placeholder="Tell us what you're best at, what you've built, and why you'd want to work with a team like ours."
+                        value={data.pitch}
+                        onChange={(pitch) => onChange({ pitch })}
+                        required
+                        rows={5}
+                        minLength={MIN_MESSAGE_LENGTH}
+                        showCount
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
             <WizardNavigation
-              className="mt-auto"
+              className="mt-auto border-t border-[var(--line)] pt-4"
               onBack={onBack}
               onContinue={handleContinue}
               continueLabel="Send Application"
               continueDisabled={!canSubmit}
+              continueHint={submitHint}
               loading={loading}
             />
           </motion.div>

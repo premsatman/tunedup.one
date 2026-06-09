@@ -63,30 +63,32 @@ type CapabilityCardProps = {
 }
 
 const CapabilityCard = ({ cap, index }: CapabilityCardProps) => (
-  <article
-    data-stack-card
-    className="relative flex min-h-[520px] w-full flex-col rounded-[32px] px-5 py-12 text-[var(--canvas)] max-lg:mx-auto sm:px-8 md:min-h-[580px] md:rounded-[40px] md:px-10 md:py-14 lg:min-h-[640px] lg:rounded-[40px] lg:px-12 lg:py-16"
-    style={{
-      zIndex: index + 1,
-      backgroundColor: CARD_COLORS[index],
-    }}
-  >
-    <h3 className="text-title-capability">
-      {cap.title1}
-      <br />
-      <span className="text-[var(--ink-soft)]">{cap.title2}</span>
-    </h3>
+  <div data-stack-pin-slot className="relative w-full">
+    <article
+      data-stack-card
+      className="relative mx-auto flex min-h-[520px] w-full flex-col rounded-[32px] px-5 py-12 text-[var(--canvas)] sm:px-8 md:min-h-[580px] md:rounded-[40px] md:px-10 md:py-14 lg:min-h-[640px] lg:rounded-[40px] lg:px-12 lg:py-16"
+      style={{
+        zIndex: index + 1,
+        backgroundColor: CARD_COLORS[index],
+      }}
+    >
+      <h3 className="text-title-capability">
+        {cap.title1}
+        <br />
+        <span className="text-[var(--ink-soft)]">{cap.title2}</span>
+      </h3>
 
-    <div className="mt-8 flex flex-wrap gap-2.5 md:mt-10">
-      {cap.keywords.map((keyword) => (
-        <CapabilityKeyword key={keyword} label={keyword} />
-      ))}
-    </div>
+      <div className="mt-8 flex flex-wrap gap-2.5 md:mt-10">
+        {cap.keywords.map((keyword) => (
+          <CapabilityKeyword key={keyword} label={keyword} />
+        ))}
+      </div>
 
-    <p className="mt-4 w-full font-display text-xl font-bold leading-[1.15] tracking-[-0.02em] text-[var(--canvas)] md:mt-5 md:text-2xl lg:text-3xl">
-      {cap.body}
-    </p>
-  </article>
+      <p className="mt-4 w-full font-display text-xl font-bold leading-[1.15] tracking-[-0.02em] text-[var(--canvas)] md:mt-5 md:text-2xl lg:text-3xl">
+        {cap.body}
+      </p>
+    </article>
+  </div>
 )
 
 export default function CapabilitiesStack() {
@@ -101,52 +103,57 @@ export default function CapabilitiesStack() {
 
     const ctx = gsap.context(() => {
       mm.add('(min-width: 1024px)', () => {
+        const pinSlots = gsap.utils.toArray<HTMLElement>('[data-stack-pin-slot]', stackEl)
         const cards = gsap.utils.toArray<HTMLElement>('[data-stack-card]', stackEl)
-        if (cards.length === 0) return
+        if (pinSlots.length === 0 || cards.length === 0) return
 
-        const lastCard = cards[cards.length - 1]
+        const lastPinSlot = pinSlots[pinSlots.length - 1]
 
-        cards.forEach((card, index) => {
+        pinSlots.forEach((pinSlot, index) => {
+          const card = cards[index]
+          if (!card) return
+
           gsap.set(card, {
             width: '100%',
-            opacity: 1,
-            y: 0,
             marginLeft: 'auto',
             marginRight: 'auto',
+            display: 'block',
+            opacity: 1,
+            y: 0,
             left: 'auto',
             right: 'auto',
             clearProps: 'transform,xPercent',
           })
 
           ScrollTrigger.create({
-            trigger: card,
+            trigger: pinSlot,
             start: `top top+=${NAV_OFFSET + index * STACK_GAP}`,
-            endTrigger: lastCard,
+            endTrigger: lastPinSlot,
             end: 'bottom bottom',
             pin: true,
+            pinType: 'fixed',
             pinSpacing: false,
             anticipatePin: 1,
             invalidateOnRefresh: true,
           })
 
-          if (index < cards.length - 1) {
-            const nextCard = cards[index + 1]
-            const endWidth = 100 - (cards.length - index - 1) * 3.5
+          if (index < pinSlots.length - 1) {
+            const nextPinSlot = pinSlots[index + 1]
+            const endWidth = 100 - (pinSlots.length - index - 1) * 3.5
             const nextTop = NAV_OFFSET + (index + 1) * STACK_GAP
 
             ScrollTrigger.create({
-              trigger: nextCard,
+              trigger: nextPinSlot,
               start: `top top+=${nextTop + SHRINK_TRAVEL}`,
               end: `top top+=${nextTop}`,
               scrub: true,
               invalidateOnRefresh: true,
               onUpdate: (self) => {
                 const width = gsap.utils.interpolate(100, endWidth, self.progress)
-                const inset = (100 - width) / 2
                 gsap.set(card, {
                   width: `${width}%`,
-                  marginLeft: `${inset}%`,
-                  marginRight: `${inset}%`,
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
                   left: 'auto',
                   right: 'auto',
                 })

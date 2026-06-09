@@ -9,6 +9,7 @@ type WizardNavigationProps = {
   onContinue?: () => void
   continueLabel?: string
   continueDisabled?: boolean
+  continueHint?: string | null
   loading?: boolean
   showBack?: boolean
   className?: string
@@ -19,17 +20,23 @@ export default function WizardNavigation({
   onContinue,
   continueLabel = 'Continue',
   continueDisabled = false,
+  continueHint = null,
   loading = false,
   showBack = true,
   className = '',
 }: WizardNavigationProps) {
   return (
-    <div
-      className={clsx(
-        'flex w-full shrink-0 items-center justify-between pt-6',
-        className || 'mt-6'
-      )}
-    >
+    <div className={clsx('w-full shrink-0', className || 'mt-6')}>
+      {continueDisabled && continueHint && !loading ? (
+        <p
+          role="status"
+          aria-live="polite"
+          className="mb-3 text-center font-body text-sm text-[var(--ink-soft)]"
+        >
+          {continueHint}
+        </p>
+      ) : null}
+      <div className="flex w-full items-center justify-between pt-2">
       <div className="overflow-visible">
         {showBack && onBack && (
           <Pill
@@ -67,6 +74,7 @@ export default function WizardNavigation({
           </Pill>
         )}
       </div>
+    </div>
     </div>
   )
 }

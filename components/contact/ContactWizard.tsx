@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import clsx from 'clsx'
 import MonoLabel from '@/components/shared/MonoLabel'
 import HighlightWord from '@/components/shared/HighlightWord'
 import PageGutter from '@/components/shared/PageGutter'
@@ -148,9 +147,6 @@ export default function ContactWizard() {
     email: projectData.email || undefined,
   }
 
-  const needsInnerScroll =
-    (branch === 'project' && projectStep === 3) || (branch === 'join' && joinStep === 1)
-
   useEffect(() => {
     if (branch === null && submitStatus !== 'success') return
     scrollToContactWizard(wizardPanelRef.current)
@@ -185,12 +181,7 @@ export default function ContactWizard() {
           ref={wizardPanelRef}
           className="mx-auto flex w-full max-w-5xl min-h-[720px] flex-col rounded-3xl bg-[var(--contact-form-bg)] p-6 lg:min-h-[760px] lg:p-12"
         >
-          <div
-            className={clsx(
-              'flex min-h-0 flex-1 flex-col overflow-x-hidden overscroll-contain',
-              needsInnerScroll ? 'overflow-y-auto scrollbar-hide' : 'overflow-hidden'
-            )}
-          >
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden overflow-x-hidden overscroll-contain">
             {submitStatus === 'success' && branch && (
               <WizardConfirmation branch={branch} onReset={handleReset} />
             )}
