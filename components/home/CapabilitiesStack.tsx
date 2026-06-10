@@ -103,16 +103,13 @@ export default function CapabilitiesStack() {
 
     const ctx = gsap.context(() => {
       mm.add('(min-width: 1024px)', () => {
-        const pinSlots = gsap.utils.toArray<HTMLElement>('[data-stack-pin-slot]', stackEl)
         const cards = gsap.utils.toArray<HTMLElement>('[data-stack-card]', stackEl)
-        if (pinSlots.length === 0 || cards.length === 0) return
+        if (cards.length === 0) return
 
-        const lastPinSlot = pinSlots[pinSlots.length - 1]
+        const lastCard = cards[cards.length - 1]
+        const useFixedPin = window.matchMedia('(pointer: coarse)').matches
 
-        pinSlots.forEach((pinSlot, index) => {
-          const card = cards[index]
-          if (!card) return
-
+        cards.forEach((card, index) => {
           gsap.set(card, {
             width: '100%',
             marginLeft: 'auto',
@@ -126,24 +123,24 @@ export default function CapabilitiesStack() {
           })
 
           ScrollTrigger.create({
-            trigger: pinSlot,
+            trigger: card,
             start: `top top+=${NAV_OFFSET + index * STACK_GAP}`,
-            endTrigger: lastPinSlot,
+            endTrigger: lastCard,
             end: 'bottom bottom',
             pin: true,
-            pinType: 'fixed',
+            ...(useFixedPin ? { pinType: 'fixed' as const } : {}),
             pinSpacing: false,
             anticipatePin: 1,
             invalidateOnRefresh: true,
           })
 
-          if (index < pinSlots.length - 1) {
-            const nextPinSlot = pinSlots[index + 1]
-            const endWidth = 100 - (pinSlots.length - index - 1) * 3.5
+          if (index < cards.length - 1) {
+            const nextCard = cards[index + 1]
+            const endWidth = 100 - (cards.length - index - 1) * 3.5
             const nextTop = NAV_OFFSET + (index + 1) * STACK_GAP
 
             ScrollTrigger.create({
-              trigger: nextPinSlot,
+              trigger: nextCard,
               start: `top top+=${nextTop + SHRINK_TRAVEL}`,
               end: `top top+=${nextTop}`,
               scrub: true,
