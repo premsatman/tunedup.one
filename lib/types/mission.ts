@@ -96,6 +96,7 @@ export type MissionDetail = MissionListItem & {
   sector?: string
   role?: string
   heroVideoPlaybackId?: string
+  heroImageVideoPlaybackId?: string
   heroImage2?: SanityImage
   workedOn?: WorkedOnItem[]
   colorPalette?: ColorSwatch[]

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 500 500" width="500" height="500"><metadata><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"><rdf:Description><dc:creator>RealFaviconGenerator</dc:creator><dc:source>https://realfavicongenerator.net</dc:source></rdf:Description></rdf:RDF></metadata><defs>
+    <style>
+      .cls-1 {
+        fill: #231f20;
+      }
+    </style>
+  </defs><path class="cls-1" d="M500,151.57v196.87c0,83.7-67.87,151.57-151.57,151.57h-179.77v-69.22c0-22.4,8.84-43.79,24.67-59.62l91.87-91.87v96.24h91.36v-175.14c0-43.11-34.94-78.06-78.06-78.06H120.33v91.36h101.3l-119.65,119.65c-15.83,15.83-24.67,37.22-24.67,59.62v87.66C31.16,454.61,0,405.19,0,348.43v-196.87C0,67.87,67.78,0,151.57,0h196.87c83.7,0,151.57,67.87,151.57,151.57Z"></path></svg>

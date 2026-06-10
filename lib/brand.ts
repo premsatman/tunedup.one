@@ -1,5 +1,9 @@
 export const brandAssets = {
-  favicon: '/brand/favicon.ico',
+  favicon: '/favicon/favicon.ico',
+  faviconSvg: '/favicon/favicon.svg',
+  favicon96: '/favicon/favicon-96x96.png',
+  appleTouchIcon: '/favicon/apple-touch-icon.png',
+  webManifest: '/favicon/site.webmanifest',
   fullBlack: '/brand/full-logo-black-logo.svg',
   fullWhite: '/brand/full-logo-white-logo.svg',
   squareBlack: '/brand/square-icon-black-logo.svg',

@@ -118,6 +118,13 @@ export default defineType({
       options: { hotspot: true },
     }),
     defineField({
+      name: 'heroImageVideoPlaybackId',
+      title: 'Hero Image Video (Mux Playback ID)',
+      type: 'string',
+      description:
+        'Optional Mux playback ID for the featured hero media. If both Hero Image and this video are set, the image shows until the video has loaded.',
+    }),
+    defineField({
       name: 'heroImage2',
       title: 'Hero Image 2',
       type: 'image',

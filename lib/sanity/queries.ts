@@ -50,6 +50,7 @@ export const missionBySlugQuery = groq`
       },
     },
     heroImage,
+    heroImageVideoPlaybackId,
     heroVideoPlaybackId,
     heroImage2,
     missionPatch,

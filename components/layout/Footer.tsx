@@ -6,10 +6,10 @@ import FooterShowcase from './FooterShowcase'
 import FooterShell from './FooterShell'
 
 const socialLinks = [
-  { icon: Linkedin, href: 'https://linkedin.com/company/tunedup', label: 'LinkedIn' },
-  { icon: Twitter, href: 'https://twitter.com/tunedup', label: 'Twitter' },
-  { icon: Instagram, href: 'https://instagram.com/tunedup', label: 'Instagram' },
-  { icon: Youtube, href: 'https://youtube.com/@tunedup', label: 'YouTube' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/premasissatman/', label: 'LinkedIn' },
+  { icon: Twitter, href: 'https://x.com/PremasisSatman', label: 'X' },
+  { icon: Instagram, href: 'https://www.instagram.com/premasissatman', label: 'Instagram' },
+  { icon: Youtube, href: 'https://www.youtube.com/@PremasisSatman', label: 'YouTube' },
 ]
 
 const navLinks = [
@@ -33,13 +33,24 @@ export default function Footer() {
           <FooterProp />
 
           <div className="relative z-10 px-4 sm:px-6 md:px-8">
-            <p className="text-center font-display text-2xl md:text-3xl">
+            <p className="text-center font-display text-2xl uppercase md:text-3xl">
               <span className="text-[var(--ink-soft)]">©</span>TunedUpDigital
-              <br />
-              <span className="mt-3 inline-block font-mono text-sm uppercase tracking-wide text-[var(--ink-soft)]">
-                Mission Control · STN-A440 · Fine Tuning Since 2024
-              </span>
             </p>
+
+            <address className="mt-8 space-y-2 text-center font-mono text-xs uppercase leading-relaxed tracking-wide text-[var(--ink-soft)] not-italic sm:text-sm">
+              <span className="block">
+                Registered Office: Villa no 100, Nilgiri Estate, Rampally, Hyderabad, 501301, India
+              </span>
+              <span className="block">
+                Phone:{' '}
+                <a
+                  href="tel:+919032690627"
+                  className="underline-offset-2 transition-opacity hover:underline hover:opacity-90"
+                >
+                  +919032690627
+                </a>
+              </span>
+            </address>
 
             <div className="mt-12 flex justify-center gap-3">
               {socialLinks.map(({ icon: Icon, href, label }) => (

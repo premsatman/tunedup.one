@@ -30,10 +30,15 @@ export const metadata: Metadata = {
     "You're on the mission. We're mission control. Digital strategy, web development, automation, and growth for churches, NGOs, entrepreneurs, and startups.",
   metadataBase: new URL('https://tunedup.one'),
   icons: {
-    icon: [{ url: brandAssets.favicon, sizes: 'any' }],
+    icon: [
+      { url: brandAssets.favicon, sizes: 'any' },
+      { url: brandAssets.faviconSvg, type: 'image/svg+xml' },
+      { url: brandAssets.favicon96, sizes: '96x96', type: 'image/png' },
+    ],
     shortcut: brandAssets.favicon,
-    apple: brandAssets.squareBlack,
+    apple: brandAssets.appleTouchIcon,
   },
+  manifest: brandAssets.webManifest,
   openGraph: {
     title: 'TunedUp Mission Control',
     description: 'Fine Tuning Your Brand',

@@ -1,13 +1,12 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
-import { urlFor } from '@/lib/sanity/client'
 import type { MissionDetail } from '@/lib/types/mission'
 import WorkedOnTabs from '@/components/work-detail/WorkedOnTabs'
 import { ProjectDescriptionIntro, HeroImage2 } from '@/components/work-detail/ProjectDescription'
 import CaseHeroBackgroundVideo, {
   DEFAULT_WORK_DETAIL_MUX_PLAYBACK_ID,
 } from '@/components/work-detail/CaseHeroBackgroundVideo'
+import CaseHeroFeaturedMedia from '@/components/work-detail/CaseHeroFeaturedMedia'
 import WorkDetailHeroLogo from '@/components/work-detail/WorkDetailHeroLogo'
 import ProjectTelemetryPanel from '@/components/work-detail/ProjectTelemetryPanel'
 
@@ -68,7 +67,7 @@ export default function CaseDetailHero({ mission }: { mission: MissionDetail }) 
         )}
       </div>
 
-      {mission.heroImage && (
+      {(mission.heroImage || mission.heroImageVideoPlaybackId?.trim()) && (
         <div className={featuredHeroMediaWrap}>
           <div className="relative isolate [contain:paint]">
             <div
@@ -99,13 +98,10 @@ export default function CaseDetailHero({ mission }: { mission: MissionDetail }) 
             <div
               className={`relative z-10 w-full overflow-hidden rounded-[1.5rem] md:rounded-[2rem] lg:rounded-[2.25rem] ${FEATURED_MEDIA_ASPECT_CLASS}`}
             >
-              <Image
-                src={urlFor(mission.heroImage).width(1920).url()}
+              <CaseHeroFeaturedMedia
+                image={mission.heroImage}
+                videoPlaybackId={mission.heroImageVideoPlaybackId}
                 alt={mission.title}
-                fill
-                loading="lazy"
-                sizes="(max-width: 1280px) calc(100vw - 3rem), min(1280px, calc(100vw - 6rem))"
-                className="relative z-10 h-full w-full object-cover object-center"
               />
             </div>
           </div>
