@@ -18,8 +18,7 @@ const LOGO_SCROLL_TARGETS: Partial<Record<string, string>> = {
   '/crew': 'crew-hero',
 }
 
-const isWorkDetailPath = (pathname: string) =>
-  pathname.startsWith('/work/') && pathname !== '/work'
+const isWorkDetailPath = (pathname: string) => /^\/work\/[^/]+$/.test(pathname)
 
 type NavbarLogoProps = {
   targetId: string

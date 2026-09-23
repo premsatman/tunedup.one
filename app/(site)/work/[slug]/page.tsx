@@ -15,6 +15,7 @@ import DesignProcess from '@/components/work-detail/DesignProcess'
 import TheSystem from '@/components/work-detail/TheSystem'
 import WorkflowScenario from '@/components/work-detail/WorkflowScenario'
 import ClientFeedback from '@/components/work-detail/ClientFeedback'
+import ProjectLegalLinks from '@/components/work-detail/ProjectLegalLinks'
 import NextMissionNav from '@/components/work-detail/NextMissionNav'
 
 export async function generateStaticParams() {
@@ -106,6 +107,7 @@ export default async function MissionDetailPage({
         steps={mission.workflowSteps}
       />
       <ClientFeedback feedback={mission.clientFeedback} />
+      <ProjectLegalLinks slug={params.slug} />
       <div className="bg-white text-[var(--ink)]">
         <NextMissionNav prev={prev} next={next} />
       </div>
