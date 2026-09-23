@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Linkedin, Twitter, Instagram, Youtube } from 'lucide-react'
 import Pill from '@/components/shared/Pill'
 import FooterScrollButton from './FooterScrollButton'
@@ -17,6 +18,11 @@ const navLinks = [
   { label: 'Crew', href: '/crew' },
   { label: 'Work', href: '/work' },
   { label: 'Contact', href: '/contact' },
+]
+
+const legalLinks = [
+  { label: 'Privacy', href: '/privacy' },
+  { label: 'Terms', href: '/terms' },
 ]
 
 export default function Footer() {
@@ -75,6 +81,21 @@ export default function Footer() {
               ))}
               <FooterScrollButton />
             </div>
+
+            <nav
+              aria-label="Legal"
+              className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 font-mono text-xs uppercase tracking-wide text-[var(--ink-soft)]"
+            >
+              {legalLinks.map(({ label, href }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="underline-offset-4 transition-opacity hover:underline hover:opacity-90"
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
           </div>
         </div>
       </div>
